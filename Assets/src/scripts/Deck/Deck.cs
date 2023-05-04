@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using static FGLibrary;
 
 public class Deck : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class Deck : MonoBehaviour
     [SerializeField] private int numOfRedCards = 20;
     [SerializeField] private int numOfYellowCards = 12;
     [SerializeField] private int numOfBlueCards = 16;
+    public List<GameObject> gameDeck;
+    public static Stack<GameObject> InGameDeck;
 
     [Header("Cartas")] 
     [SerializeField] private GameObject redCard;
@@ -25,7 +29,7 @@ public class Deck : MonoBehaviour
     private Vector3 _spawnPos;
     
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         _spawnPos = transform.position;
         AddCards(numOfRedCards, redCardObj);
@@ -33,6 +37,7 @@ public class Deck : MonoBehaviour
         AddCards(numOfYellowCards, yellowCardObj);
         ShuffleDeck(cards);
         SpawnCards(cards);
+        NotifyPlayersHands();
     }
 
     private void AddCards(int numOfCards, Card cardObj)
@@ -74,8 +79,14 @@ public class Deck : MonoBehaviour
                     break;
             }
             
-            GameObject newCard = Instantiate(cardPrefab, _spawnPos, quaternion.identity, transform).gameObject;
+            GameObject newCard = Instantiate(cardPrefab, _spawnPos, Quaternion.Euler(new Vector3(90,0,0)), transform).gameObject;
             _spawnPos += Vector3.up * 0.1f;
+            gameDeck.Add(newCard);
         }
+    }
+
+    private void NotifyPlayersHands()
+    {
+        InGameDeck = ConvertToStack(gameDeck);
     }
 }

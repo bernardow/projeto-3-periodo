@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77de57d98c134d9469ee15e12d306b31, type: 3}
   m_Name: Green
   m_EditorClassIdentifier: 
-  name: Green
+  cardType: 7
   cardMesh: {fileID: 0}

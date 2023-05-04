@@ -17,4 +17,13 @@ public static class FGLibrary
         Orange,
         Joker
     }
+
+    public static Stack<GameObject> ConvertToStack(List<GameObject> list)
+    {
+        Stack<GameObject> newStack = new Stack<GameObject>();
+        foreach (var item in list)
+            newStack.Push(item);
+
+        return newStack;
+    }
 }
