@@ -1,8 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card", menuName = "Card")]
-public class Card : ScriptableObject
+namespace src.scripts.Deck
 {
-    public FGLibrary.CardsType cardType;
-    public Mesh cardMesh;
+    [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
+    public class Card : ScriptableObject
+    {
+        public FgLibrary.CardsType cardType;
+        public Mesh cardMesh;
+    }
 }
