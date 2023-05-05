@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using static src.scripts.FgLibrary;
@@ -77,9 +78,22 @@ namespace src.scripts.Deck
                         break;
                 }
             
-                GameObject newCard = Instantiate(cardPrefab, _spawnPos, Quaternion.Euler(new Vector3(90,0,0)), transform).gameObject;
+                GameObject newCard = Instantiate(cardPrefab, _spawnPos, Quaternion.Euler(new Vector3(0, 0,90)), transform).gameObject;
                 _spawnPos += Vector3.up * 0.1f;
                 gameDeck.Add(newCard);
+            }
+        }
+
+        private void SpawnSpecialColors()
+        {
+            
+        }
+
+        private void SpawnColor(Vector3 pos, GameObject prefab, int numberOfCards)
+        {
+            for (int i = 0; i < numberOfCards; i++)
+            {
+                GameObject newColor = Instantiate(prefab, _spawnPos, Quaternion.identity);
             }
         }
 

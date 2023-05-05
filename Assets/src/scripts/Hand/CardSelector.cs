@@ -1,25 +1,30 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace src.scripts.Hand
 {
     public class CardSelector : Hand
     {
-        private List<GameObject> selectedCards = new List<GameObject>();
+        [NotNull] public static List<GameObject> selectedCardsPlaye1 = new List<GameObject>();
+        
 
-        public void SelectCard(Material selectedMaterial, Material defaultMaterial)
+        public void SelectCard(Material selectedMaterial, Material defaultMaterial, bool canSelect)
         {
-            Ray ray = Camera.main!.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity) && Input.GetMouseButtonDown(0))
+            if (canSelect)
             {
-                if (hit.collider.CompareTag("MyCards") && !selectedCards.Contains(hit.collider.gameObject) && selectedCards.Count < 2)
+                Ray ray = Camera.main!.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity) && Input.GetMouseButtonDown(0))
                 {
-                    ChangeMaterial(selectedMaterial, hit);
-                    selectedCards.Add(hit.collider.gameObject);
-                }else if (hit.collider.CompareTag("MyCards") && selectedCards.Contains(hit.collider.gameObject))
-                {
-                    ChangeMaterial(defaultMaterial, hit);
-                    selectedCards.Remove(hit.collider.gameObject);
+                    if (hit.collider.CompareTag("MyCards") && !selectedCardsPlaye1.Contains(hit.collider.gameObject) && selectedCardsPlaye1.Count < 2)
+                    {
+                        ChangeMaterial(selectedMaterial, hit);
+                        selectedCardsPlaye1.Add(hit.collider.gameObject);
+                    }else if (hit.collider.CompareTag("MyCards") && selectedCardsPlaye1.Contains(hit.collider.gameObject))
+                    {
+                        ChangeMaterial(defaultMaterial, hit);
+                        selectedCardsPlaye1.Remove(hit.collider.gameObject);
+                    }
                 }
             }
         }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using src.scripts.Managers;
 using UnityEngine;
+using static src.scripts.FgLibrary;
 
 namespace src.scripts.Hand
 {
@@ -11,21 +12,23 @@ namespace src.scripts.Hand
             Ray ray = Camera.main!.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity) && Input.GetMouseButtonDown(0) && player.canPull)
             {
-                if(hitInfo.collider.gameObject.CompareTag("Deck"))
+                if (hitInfo.collider.gameObject.CompareTag("Deck"))
+                {
                     handDeck.Add(gameDeck.Pop());
-                
-                PlaceCard(handDeck, spawnPos);
-                NotifyPlayerManager(handDeck, player);
+                    PlaceCard(handDeck, spawnPos);
+                    NotifyPlayerManager(handDeck, player);
+                }
             }
         }
 
-        private void PlaceCard(List<GameObject> handDeck, Vector3 spawnPos)
+        public void PlaceCard(List<GameObject> handDeck, Vector3 spawnPos)
         {
             foreach (var card in handDeck)
             {
                 card.transform.position = spawnPos;
                 card.transform.LookAt(Camera.main!.transform.position);
                 card.tag = "MyCards";
+                card.GetComponent<Transform>().SetParent(handTransform);
                 spawnPos += Vector3.left + Vector3.up * 0.3f;
             }
         }
