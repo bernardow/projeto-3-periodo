@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1085,10 +1085,29 @@ MonoBehaviour:
   numOfYellowCards: 12
   numOfBlueCards: 16
   gameDeck: []
-  redCard: {fileID: 919132149155446097, guid: fb10d5ce20b7c5b409cefcad8b709a94, type: 3}
-  yellowCard: {fileID: 919132149155446097, guid: 173e9a449693d6d43adf7dea1df5971b,
+  redCard: {fileID: 3628532476830465239, guid: f9dae43ed62d0a446bb871b4f0025264, type: 3}
+  yellowCard: {fileID: 528950954344807957, guid: 19f667db1231a5e478c75e414db2f51c,
     type: 3}
-  blueCard: {fileID: 919132149155446097, guid: d3340f9371514f3439dda1fce7e97556, type: 3}
+  blueCard: {fileID: 5049750583132910158, guid: 6a31384b782e7d047a05c5fab9c98ef9,
+    type: 3}
+  greenCard: {fileID: 1954626220918957117, guid: a583beb9ea4898f448d43eab05baa561,
+    type: 3}
+  purpleCard: {fileID: 5792311972206607892, guid: a20cd9adbb766e54a80e71ac67520c6f,
+    type: 3}
+  orangeCard: {fileID: 6445214289237382988, guid: 3255e51fa7ec779479292bc8052f2685,
+    type: 3}
+  pinkCard: {fileID: 5048736769141129844, guid: e2b081e132cfe7c4285a0a4da5fb3907,
+    type: 3}
+  cianCard: {fileID: 4699832473539914143, guid: 831acd7e778d94a4ea465721c661bb12,
+    type: 3}
+  brownCard: {fileID: 3738738366096057291, guid: cddbe08f42b82bd4fbd1c9b22c0873fe,
+    type: 3}
+  greenCardPlace: {fileID: 1601362265}
+  purpleCardPlace: {fileID: 1013446747}
+  orangeCardPlace: {fileID: 469246421}
+  pinkCardPlace: {fileID: 1813351109}
+  cianCardPlace: {fileID: 1123295327}
+  brownCardPlace: {fileID: 1080883860}
   redCardObj: {fileID: 11400000, guid: 619f0c371ad9bb84ea3703685974f61b, type: 2}
   yellowCardObj: {fileID: 11400000, guid: eb8fce96e6a0e97419ab35edf10b8609, type: 2}
   blueCardObj: {fileID: 11400000, guid: 729fddd775fa5a34daee9867406b8aff, type: 2}
