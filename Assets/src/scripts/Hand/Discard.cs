@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Discard : Hand
 {
-    public void DiscardCard(List<GameObject> selectedCards, Trash trash, Material defaulMat, Merge merge)
+    public void DiscardCard(List<GameObject> selectedCards, Trash trash, Material defaulMat, Merge merge, Hand hand)
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity) && Input.GetMouseButtonDown(0))
@@ -25,7 +25,7 @@ public class Discard : Hand
                 if (mergedColor != FgLibrary.CardsType.Joker)
                 {
                     trash.MoveMergedCardsToTrahs(selectedCardsArray, player1Hand, selectedCards, defaulMat);
-                    merge.GetMergedColor(mergedColor, player1Hand, this);
+                    merge.GetMergedColor(mergedColor, player1Hand, hand);
                 }
                     
             }

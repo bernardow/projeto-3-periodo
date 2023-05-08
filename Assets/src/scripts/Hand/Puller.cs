@@ -27,6 +27,7 @@ namespace src.scripts.Hand
             {
                 card.transform.position = spawnPos;
                 card.transform.LookAt(Camera.main!.transform.position);
+                //card.transform.rotation = Quaternion.Euler(0, 90, 0);
                 card.tag = "MyCards";
                 card.GetComponent<Transform>().SetParent(handTransform);
                 spawnPos += Vector3.left + Vector3.up * 0.3f;

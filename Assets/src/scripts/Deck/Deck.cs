@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using static src.scripts.FgLibrary;
+using static src.scripts.Hand.Merge;
 
 namespace src.scripts.Deck
 {
@@ -19,6 +21,20 @@ namespace src.scripts.Deck
         [SerializeField] private GameObject redCard;
         [SerializeField] private GameObject yellowCard;
         [SerializeField] private GameObject blueCard;
+        [SerializeField] private GameObject greenCard;
+        [SerializeField] private GameObject purpleCard;
+        [SerializeField] private GameObject orangeCard;
+        [SerializeField] private GameObject pinkCard;
+        [SerializeField] private GameObject cianCard;
+        [SerializeField] private GameObject brownCard;
+        
+        [Header("Lugares das Cartas")]
+        [SerializeField] private Transform greenCardPlace;
+        [SerializeField] private Transform purpleCardPlace;
+        [SerializeField] private Transform orangeCardPlace;
+        [SerializeField] private Transform pinkCardPlace;
+        [SerializeField] private Transform cianCardPlace;
+        [SerializeField] private Transform brownCardPlace;
 
         [Header("Card Object")] 
         [SerializeField] private Card redCardObj;
@@ -36,6 +52,7 @@ namespace src.scripts.Deck
             AddCards(numOfYellowCards, yellowCardObj);
             ShuffleDeck(cards);
             SpawnCards(cards);
+            SpawnSpecialColors();
             NotifyPlayersHands();
         }
 
@@ -78,7 +95,7 @@ namespace src.scripts.Deck
                         break;
                 }
             
-                GameObject newCard = Instantiate(cardPrefab, _spawnPos, Quaternion.Euler(new Vector3(0, 0,90)), transform).gameObject;
+                GameObject newCard = Instantiate(cardPrefab, _spawnPos, Quaternion.Euler(new Vector3(90, 0,0)), transform).gameObject;
                 _spawnPos += Vector3.up * 0.1f;
                 gameDeck.Add(newCard);
             }
@@ -86,14 +103,21 @@ namespace src.scripts.Deck
 
         private void SpawnSpecialColors()
         {
-            
+            SpawnColor(greenCardPlace.position, greenCard, 8, GreenCards);
+            SpawnColor(purpleCardPlace.position, purpleCard, 8, PurpleCards);
+            SpawnColor(orangeCardPlace.position, orangeCard, 8, OrangeCards);
+            SpawnColor(pinkCardPlace.position, pinkCard, 4, PinkCards);
+            SpawnColor(cianCardPlace.position, cianCard, 4, CianCards);
+            SpawnColor(brownCardPlace.position, brownCard, 4, BrownCards);
         }
 
-        private void SpawnColor(Vector3 pos, GameObject prefab, int numberOfCards)
+        private void SpawnColor(Vector3 pos, GameObject prefab, int numberOfCards, Stack<GameObject> colorStack)
         {
             for (int i = 0; i < numberOfCards; i++)
             {
-                GameObject newColor = Instantiate(prefab, _spawnPos, Quaternion.identity);
+                GameObject newColor = Instantiate(prefab, pos, Quaternion.Euler(90,0, 0));
+                pos += Vector3.up * 0.1f;
+                colorStack.Push(newColor);
             }
         }
 

@@ -13,12 +13,12 @@ namespace src.scripts.Hand
         [Header("Merge Datas")]
         [SerializeField] private List<MergeData> mergeDatas;
 
-        public Stack<GameObject> greenCards = new Stack<GameObject>();
-        public Stack<GameObject> purpleCards = new Stack<GameObject>();
-        public Stack<GameObject> orangeCards = new Stack<GameObject>();
-        public Stack<GameObject> cianCards = new Stack<GameObject>();
-        public Stack<GameObject> pinkCards = new Stack<GameObject>();
-        public Stack<GameObject> brownCards = new Stack<GameObject>();
+        public static Stack<GameObject> GreenCards = new Stack<GameObject>();
+        public static Stack<GameObject> PurpleCards = new Stack<GameObject>();
+        public static Stack<GameObject> OrangeCards = new Stack<GameObject>();
+        public static Stack<GameObject> CianCards = new Stack<GameObject>();
+        public static Stack<GameObject> PinkCards = new Stack<GameObject>();
+        public static Stack<GameObject> BrownCards = new Stack<GameObject>();
 
 
         public void CheckMergePossibilities(GameObject color1, GameObject color2, out CardsType mergedColor)
@@ -40,7 +40,7 @@ namespace src.scripts.Hand
             {
                 foreach (var data in mergeDatas)
                 {
-                    if ((data.mergeColor1 == color1Type || data.mergeColor1 == color2Type) && (data.mergeColor2 == color2Type || data.mergeColor2 == color1Type)){}
+                    if ((data.mergeColor1 == color1Type || data.mergeColor1 == color2Type) && (data.mergeColor2 == color2Type || data.mergeColor2 == color1Type))
                         mergedColor = data.color;
                 }
             }
@@ -51,22 +51,22 @@ namespace src.scripts.Hand
             switch (cardType)
             {
                 case CardsType.Brown:
-                    ColorAssignments(player, hand, brownCards);
+                    ColorAssignments(player, hand, BrownCards);
                     break;
                 case CardsType.Orange:
-                    ColorAssignments(player, hand, orangeCards);
+                    ColorAssignments(player, hand, OrangeCards);
                     break;
                 case CardsType.Pink:
-                    ColorAssignments(player, hand, pinkCards);
+                    ColorAssignments(player, hand, PinkCards);
                     break;
                 case CardsType.Green:
-                    ColorAssignments(player, hand, greenCards);
+                    ColorAssignments(player, hand, GreenCards);
                     break;
                 case CardsType.Cian:
-                    ColorAssignments(player, hand, cianCards);
+                    ColorAssignments(player, hand, CianCards);
                     break;
                 case CardsType.Purple:
-                    ColorAssignments(player, hand, purpleCards);
+                    ColorAssignments(player, hand, PurpleCards);
                     break;
             }
         }
@@ -74,7 +74,6 @@ namespace src.scripts.Hand
         private void ColorAssignments(Hand player, List<GameObject> hand, Stack<GameObject> colorStack)
         {
             hand.Add(colorStack.Pop());
-            GameObject card = hand[hand.Count - 1];
             NotifyHand(player);
         }
 

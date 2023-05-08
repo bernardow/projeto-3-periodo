@@ -36,7 +36,7 @@ namespace src.scripts.Hand
         {
             _puller.Pull(player1Hand, InGameDeck, cardsPos.position, playerManager);
             _cardSelector.SelectCard(selectedMaterial, defaultMaterial, playerManager.CanSelect());
-            _discard.DiscardCard(selectedCardsPlaye1, trash, defaultMaterial, merge);
+            _discard.DiscardCard(selectedCardsPlaye1, trash, defaultMaterial, merge, this);
         }
 
         public void RearrangeCards()
