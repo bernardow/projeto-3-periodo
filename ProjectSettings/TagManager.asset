@@ -9,6 +9,7 @@ TagManager:
   - Deck
   - MyCards
   - Trash
+  - Mesa 1
   layers:
   - Default
   - TransparentFX

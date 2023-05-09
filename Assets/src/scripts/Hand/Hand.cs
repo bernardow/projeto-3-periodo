@@ -10,6 +10,9 @@ namespace src.scripts.Hand
 {
     public class Hand : MonoBehaviour
     {
+        [SerializeField] private List<Transform> mesaPlaces = new List<Transform>();
+        public static List<string> mesa1 = new List<string>();
+
         [SerializeField] private Transform cardsPos;
         [SerializeField] private PlayerManager playerManager;
         [SerializeField] private Trash trash;
@@ -24,12 +27,14 @@ namespace src.scripts.Hand
         private Puller _puller;
         private CardSelector _cardSelector;
         private Discard _discard;
+        private Dropper _dropper;
 
         private void Start()
         {
             _puller = new Puller();
             _cardSelector = new CardSelector();
             _discard = new Discard();
+            _dropper = new Dropper();
         }
 
         private void Update()
@@ -37,6 +42,7 @@ namespace src.scripts.Hand
             _puller.Pull(player1Hand, InGameDeck, cardsPos.position, playerManager);
             _cardSelector.SelectCard(selectedMaterial, defaultMaterial, playerManager.CanSelect());
             _discard.DiscardCard(selectedCardsPlaye1, trash, defaultMaterial, merge, this);
+            _dropper.DropCard(player1Hand, selectedCardsPlaye1, mesa1, mesaPlaces, defaultMaterial);
         }
 
         public void RearrangeCards()
