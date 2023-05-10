@@ -1,44 +1,44 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-public class TurnManager : MonoBehaviour
+namespace src.scripts.Managers
 {
-    public List<string> turn = new List<string>();
-    private string p1Turn = "Player 1";
-    private string p2Turn = "Player 2";
-
-    [SerializeField] private GameObject p1 = null;
-    [SerializeField] private GameObject p2 = null;
-
-    private void Start()
+    public class TurnManager : MonoBehaviour
     {
-        turn.Add(p2Turn);
-        turn.Add(p1Turn);
-    }
+        public List<string> turn = new List<string>();
+        private string p1Turn = "Player 1";
+        private string p2Turn = "Player 2";
 
-    public void SkipTurn()
-    {
-        turn.Reverse();
-        TurnManagement();
-    }
+        [SerializeField] private GameObject p1;
+        [SerializeField] private GameObject p2;
 
-    private void TurnManagement()
-    {
-        if (FirstInQueue(turn) == p1Turn)
+        private void Start()
         {
-            p1.SetActive(true);
-            p2.SetActive(false);
+            turn.Add(p2Turn);
+            turn.Add(p1Turn);
         }
-        else
+
+        public void SkipTurn()
         {
-            p1.SetActive(false);
-            p2.SetActive(true);
+            turn.Reverse();
+            TurnManagement();
         }
+
+        private void TurnManagement()
+        {
+            if (FirstInQueue(turn) == p1Turn)
+            {
+                p1.SetActive(true);
+                p2.SetActive(false);
+            }
+            else
+            {
+                p1.SetActive(false);
+                p2.SetActive(true);
+            }
+        }
+    
+        private string FirstInQueue(List<string> list) => list[list.Count - 1];
+    
     }
-    
-    private string FirstInQueue(List<string> list) => list[list.Count - 1];
-    
 }

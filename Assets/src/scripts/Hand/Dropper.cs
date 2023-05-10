@@ -9,7 +9,7 @@ namespace src.scripts.Hand
     {
         public void DropCard(List<GameObject> playerHand, List<GameObject> selectedCards, PlayerManager playerManager, List<string> mesaCards, List<Transform> mesaPlaces, Material defaultMat, TurnManager turnManager)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main!.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
                 if (hit.collider.CompareTag("Mesa 1") && Input.GetMouseButtonDown(0) && selectedCards.Count is > 0 and < 2 && !mesaCards.Contains(selectedCards[0].name) && playerManager.CanDrop())
