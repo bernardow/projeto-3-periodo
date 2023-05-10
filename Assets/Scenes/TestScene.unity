@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1442,7 +1442,6 @@ GameObject:
   m_Component:
   - component: {fileID: 845593329}
   - component: {fileID: 845593328}
-  - component: {fileID: 845593330}
   m_Layer: 0
   m_Name: Deck
   m_TagString: Deck
@@ -1508,19 +1507,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &845593330
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 845593327}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5, y: 10, z: 5}
-  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!1 &918209652
 GameObject:
   m_ObjectHideFlags: 0
@@ -3876,11 +3862,11 @@ MonoBehaviour:
   - {fileID: 984174475}
   - {fileID: 2025296878}
   - {fileID: 65023436}
-  mesa: []
   cardsPos: {fileID: 667444596}
   playerManager: {fileID: 2035449365}
   trash: {fileID: 1470478166}
   merge: {fileID: 2035449366}
+  _turnManager: {fileID: 464760048}
   selectedMaterial: {fileID: 2100000, guid: f7469b43e26511042a0030ca8cd0e138, type: 2}
   defaultMaterial: {fileID: 2100000, guid: 1f7cc7666f46aca43ae0d1c57f532219, type: 2}
   handTransform: {fileID: 566904076}
@@ -3899,6 +3885,8 @@ MonoBehaviour:
   cardsPulled: 0
   canPull: 0
   playerCardsNum: 0
+  mergedCards: 0
+  droppedCards: 0
 --- !u!114 &2035449366
 MonoBehaviour:
   m_ObjectHideFlags: 0

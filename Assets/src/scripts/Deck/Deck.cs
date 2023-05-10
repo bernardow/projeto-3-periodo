@@ -97,6 +97,7 @@ namespace src.scripts.Deck
             
                 GameObject newCard = Instantiate(cardPrefab, _spawnPos, Quaternion.Euler(new Vector3(90, 0,0)), transform).gameObject;
                 _spawnPos += Vector3.up * 0.1f;
+                newCard.tag = "Deck";
                 gameDeck.Add(newCard);
             }
         }

@@ -17,6 +17,7 @@ namespace src.scripts.Hand
         [SerializeField] private PlayerManager playerManager;
         [SerializeField] private Trash trash;
         [SerializeField] private Merge merge;
+        [SerializeField] private TurnManager _turnManager;
 
         [SerializeField] private Material selectedMaterial;
         [SerializeField] private Material defaultMaterial;
@@ -41,8 +42,8 @@ namespace src.scripts.Hand
         {
             _puller.Pull(player1Hand, InGameDeck, cardsPos.position, playerManager);
             _cardSelector.SelectCard(selectedMaterial, defaultMaterial, playerManager.CanSelect());
-            _discard.DiscardCard(selectedCardsPlaye1, trash, defaultMaterial, merge, this);
-            _dropper.DropCard(player1Hand, selectedCardsPlaye1, mesa1, mesaPlaces, defaultMaterial);
+            _discard.DiscardCard(selectedCardsPlaye1, trash, defaultMaterial, merge, this, playerManager, _turnManager);
+            _dropper.DropCard(player1Hand, selectedCardsPlaye1, playerManager, mesa1, mesaPlaces, defaultMaterial, _turnManager);
         }
 
         public void RearrangeCards()
