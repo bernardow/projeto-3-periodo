@@ -8,13 +8,13 @@ public class SpawnPlayers : MonoBehaviour
 {
     public GameObject playerPrefab;
 
-    [SerializeField] private Vector3 player1Pos;
-    [SerializeField] private Vector3 player2Pos;
-    [SerializeField] private Vector3 player3Pos;
-    [SerializeField] private Vector3 player4Pos;
+    public static Stack<Vector3> playersPos = new Stack<Vector3>();
 
     private void Start()
     {
-        PhotonNetwork.Instantiate(playerPrefab.name, player1Pos, Quaternion.identity);
+        playersPos.Push(new Vector3(1,1,1));
+        playersPos.Push(new Vector3(2,2,2));
+    
+        PhotonNetwork.Instantiate(playerPrefab.name, playersPos.Pop(), Quaternion.identity);
     }
 }

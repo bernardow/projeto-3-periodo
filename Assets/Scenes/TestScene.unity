@@ -3495,10 +3495,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 3827254631997662761, guid: aed02993ece1da64c94c29bb22487218,
     type: 3}
-  player1Pos: {x: 0, y: 0, z: 0}
-  player2Pos: {x: 0, y: 0, z: 0}
-  player3Pos: {x: 0, y: 0, z: 0}
-  player4Pos: {x: 0, y: 0, z: 0}
 --- !u!1 &1847057086
 GameObject:
   m_ObjectHideFlags: 0
@@ -3550,7 +3546,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &2005180083
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3911,6 +3907,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3827254631997662761, guid: aed02993ece1da64c94c29bb22487218,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
         type: 3}
