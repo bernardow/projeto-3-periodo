@@ -32,12 +32,15 @@ namespace src.scripts.Hand
         [Header("Mao")]
         [NotNull] protected static List<GameObject> player1Hand = new List<GameObject>();
         [SerializeField] protected Transform handTransform;
+        [SerializeField] private Camera playerCamera;
+        
 
         //Classes Derivadas
         private Puller _puller;
         private CardSelector _cardSelector;
         private Discard _discard;
         private Dropper _dropper;
+        
 
         private void Start()
         {
@@ -45,6 +48,9 @@ namespace src.scripts.Hand
             _cardSelector = new CardSelector();
             _discard = new Discard();
             _dropper = new Dropper();
+
+            trash = FindObjectOfType<Trash>();
+            turnManager = FindObjectOfType<TurnManager>();
         }
 
         private void OnDisable()
@@ -59,12 +65,12 @@ namespace src.scripts.Hand
 
         private void Update()
         {
-            _puller.Pull(player1Hand, InGameDeck, cardsPos.position, playerManager);
-            _cardSelector.SelectCard(selectedMaterial, defaultMaterial, playerManager.CanSelect());
-            _discard.DiscardCard(selectedCardsPlaye1, trash, defaultMaterial, merge, this, playerManager, turnManager);
-            _dropper.DropCard(player1Hand, selectedCardsPlaye1, playerManager, mesa1, mesaPlaces, defaultMaterial, turnManager);
+            _puller.Pull(player1Hand, InGameDeck, cardsPos.position, playerManager, playerCamera);
+            _cardSelector.SelectCard(selectedMaterial, defaultMaterial, playerManager.CanSelect(), playerCamera);
+            _discard.DiscardCard(selectedCardsPlaye1, trash, defaultMaterial, merge, this, playerManager, turnManager, playerCamera);
+            _dropper.DropCard(player1Hand, selectedCardsPlaye1, playerManager, mesa1, mesaPlaces, defaultMaterial, turnManager, playerCamera);
         }
 
-        public void RearrangeCards() => _puller.PlaceCard(player1Hand, cardsPos.position);
+        public void RearrangeCards() => _puller.PlaceCard(player1Hand, cardsPos.position, playerCamera);
     }
 }

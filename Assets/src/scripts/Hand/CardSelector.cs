@@ -9,11 +9,11 @@ namespace src.scripts.Hand
         [NotNull] public static List<GameObject> selectedCardsPlaye1 = new List<GameObject>();
         
 
-        public void SelectCard(Material selectedMaterial, Material defaultMaterial, bool canSelect)
+        public void SelectCard(Material selectedMaterial, Material defaultMaterial, bool canSelect, Camera playerCamera)
         {
             if (canSelect)
             {
-                Ray ray = Camera.main!.ScreenPointToRay(Input.mousePosition);
+                Ray ray = playerCamera!.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity) && Input.GetMouseButtonDown(0))
                 {
                     if (hit.collider.CompareTag("MyCards") && !selectedCardsPlaye1.Contains(hit.collider.gameObject) && selectedCardsPlaye1.Count < 2)

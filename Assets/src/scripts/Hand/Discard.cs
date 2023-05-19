@@ -7,9 +7,9 @@ namespace src.scripts.Hand
 {
     public class Discard : Hand
     {
-        public void DiscardCard(List<GameObject> selectedCards, Trash trash, Material defaulMat, Merge merge, Hand hand, PlayerManager playerManager, TurnManager turnManager)
+        public void DiscardCard(List<GameObject> selectedCards, Trash trash, Material defaulMat, Merge merge, Hand hand, PlayerManager playerManager, TurnManager turnManager, Camera playerCamera)
         {
-            Ray ray = Camera.main!.ScreenPointToRay(Input.mousePosition);
+            Ray ray = playerCamera!.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity) && Input.GetMouseButtonDown(0))
             {
                 if (hit.collider.CompareTag("Trash") && selectedCards.Count is > 0 and < 2)

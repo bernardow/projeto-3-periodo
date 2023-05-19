@@ -3,18 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
-public class SpawnPlayers : MonoBehaviour
+public class SpawnPlayers : MonoBehaviourPunCallbacks
 {
     public GameObject playerPrefab;
 
-    public static Stack<Vector3> playersPos = new Stack<Vector3>();
-
+    public List<float> playersPos = new List<float>();
+    
     private void Start()
     {
-        playersPos.Push(new Vector3(1,1,1));
-        playersPos.Push(new Vector3(2,2,2));
-    
-        PhotonNetwork.Instantiate(playerPrefab.name, playersPos.Pop(), Quaternion.identity);
+        int playerInRoom = PhotonNetwork.CurrentRoom.PlayerCount;
+        Player player = PhotonNetwork.LocalPlayer;
+        PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.Euler(0, playersPos[player.ActorNumber - 1], 0)); 
     }
 }

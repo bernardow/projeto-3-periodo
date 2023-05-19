@@ -78,7 +78,6 @@ GameObject:
   - component: {fileID: 3827254631997662770}
   - component: {fileID: 3827254631997662771}
   - component: {fileID: 3827254631997662768}
-  - component: {fileID: 5336736254152731311}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player 1
@@ -196,6 +195,7 @@ MonoBehaviour:
   selectedMaterial: {fileID: 2100000, guid: f7469b43e26511042a0030ca8cd0e138, type: 2}
   defaultMaterial: {fileID: 2100000, guid: 1f7cc7666f46aca43ae0d1c57f532219, type: 2}
   handTransform: {fileID: 3827254631334436138}
+  playerCamera: {fileID: 0}
 --- !u!114 &3827254631997662771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,25 +239,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3e816d4945ab55d4fb0e70a2b3e69657, type: 2}
   - {fileID: 11400000, guid: f3f1820b20787754baa9c914b9e588fd, type: 2}
   - {fileID: 11400000, guid: 41c517194f2761c4782d2e6fa53ba710, type: 2}
---- !u!114 &5336736254152731311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3827254631997662761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
