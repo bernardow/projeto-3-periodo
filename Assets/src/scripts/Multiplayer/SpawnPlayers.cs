@@ -14,6 +14,6 @@ public class SpawnPlayers : MonoBehaviourPunCallbacks
     private void Start()
     {
         Player player = PhotonNetwork.LocalPlayer;
-        PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.Euler(0, playersPos[player.ActorNumber], 0));
+        PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.Euler(0, playersPos[player.ActorNumber - 1], 0));
     }
 }
