@@ -49,7 +49,7 @@ namespace src.scripts.Hand
             _discard = new Discard();
             _dropper = new Dropper();
 
-            trash = FindObjectOfType<Trash>();
+            trash = GameObject.Find("Trash").GetComponent<Trash>();
             turnManager = FindObjectOfType<TurnManager>();
         }
 

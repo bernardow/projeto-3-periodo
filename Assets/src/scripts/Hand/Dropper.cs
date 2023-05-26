@@ -12,7 +12,7 @@ namespace src.scripts.Hand
             Ray ray = playerCamera!.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
-                if (hit.collider.CompareTag("Mesa 1") && Input.GetMouseButtonDown(0) && selectedCards.Count is > 0 and < 2 && !mesaCards.Contains(selectedCards[0].name) && playerManager.CanDrop())
+                if (hit.collider.CompareTag("Mesa 1") && Input.GetMouseButtonDown(0) && selectedCards.Count is > 0 and < 2 && !mesaCards.Contains(selectedCards[0].name) && playerManager.CanDrop(mesaPlaces))
                 {
                     GameObject card = selectedCards[0];
                     PlaceCard(card, mesaPlaces, defaultMat);

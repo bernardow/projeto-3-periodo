@@ -1,15 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using src.scripts.Hand;
 
 namespace src.scripts.Managers
 {
-    public class TurnManager : MonoBehaviour
+    public class TurnManager : MonoBehaviourPunCallbacks
     {
         public List<string> turn = new List<string>();
         private string p1Turn = "Player 1";
         private string p2Turn = "Player 2";
 
-        [SerializeField] private GameObject p1;
+        [SerializeField] public GameObject p1;
         [SerializeField] private GameObject p2;
 
         private void Start()
@@ -39,6 +41,7 @@ namespace src.scripts.Managers
         }
     
         private string FirstInQueue(List<string> list) => list[list.Count - 1];
+
     
     }
 }

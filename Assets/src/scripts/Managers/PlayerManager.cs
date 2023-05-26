@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace src.scripts.Managers
 {
@@ -31,6 +32,10 @@ namespace src.scripts.Managers
 
         public bool CanMerge() => mergedCards < 1;
 
-        public bool CanDrop() => droppedCards < 1;
+        public bool CanDrop(List<Transform> places)
+        {   if (droppedCards < 1 && places.Count > 0)
+                return true;
+            else return false;
+        }
     }
 }
