@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using static src.scripts.FgLibrary;
@@ -6,7 +7,7 @@ using static src.scripts.Hand.Merge;
 
 namespace src.scripts.Deck
 {
-    public class Deck : MonoBehaviour
+    public class Deck : MonoBehaviourPunCallbacks
     {
         [SerializeField] private List<Card> cards = new List<Card>();
         [SerializeField] private int numOfRedCards = 20;
@@ -44,22 +45,33 @@ namespace src.scripts.Deck
         // Start is called before the first frame update
         private void Awake()
         {
-            _spawnPos = transform.position;
-            AddCards(numOfRedCards, redCardObj);
-            AddCards(numOfBlueCards, blueCardObj);
-            AddCards(numOfYellowCards, yellowCardObj);
-            ShuffleDeck(cards);
-            SpawnCards(cards);
-            SpawnSpecialColors();
-            NotifyPlayersHands();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                _spawnPos = transform.position;
+                photonView.RPC("AddCards", RpcTarget.AllBuffered, numOfRedCards,redCardObj);
+                photonView.RPC("AddCards", RpcTarget.AllBuffered, numOfBlueCards, blueCardObj);
+                photonView.RPC("AddCards", RpcTarget.AllBuffered, numOfYellowCards, yellowCardObj);
+                //AddCards(numOfRedCards, redCardObj);
+                //AddCards(numOfBlueCards, blueCardObj);
+                //AddCards(numOfYellowCards, yellowCardObj);
+                photonView.RPC("ShuffleDeck", RpcTarget.AllBuffered, cards);
+                photonView.RPC("SpawnCards", RpcTarget.AllBuffered, cards);
+                //ShuffleDeck(cards);
+                //SpawnCards(cards);
+                photonView.RPC("SpawnSpecialColors", RpcTarget.AllBuffered);
+                //SpawnSpecialColors();
+                NotifyPlayersHands();   
+            }
         }
 
+        [PunRPC]
         private void AddCards(int numOfCards, Card cardObj)
         {
             for (int i = 0; i < numOfCards; i++)
                 cards.Add(cardObj);
         }
 
+        [PunRPC]
         private void ShuffleDeck(List<Card> deck)
         {
             // Embaralha o deck usando o algoritmo Fisher-Yates
@@ -75,6 +87,7 @@ namespace src.scripts.Deck
             }
         }
 
+        [PunRPC]
         private void SpawnCards(List<Card> deck)
         {
             GameObject cardPrefab = redCard;
@@ -99,7 +112,8 @@ namespace src.scripts.Deck
                 gameDeck.Add(newCard);
             }
         }
-
+        
+        [PunRPC]
         private void SpawnSpecialColors()
         {
             SpawnColor(greenCardPlace.position, greenCard, 8, GreenCards);

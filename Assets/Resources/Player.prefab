@@ -1680,16 +1680,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6567161796638247470}
     m_Modifications:
-    - target: {fileID: 3827254631301021010, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 29
-      objectReference: {fileID: 0}
-    - target: {fileID: 3827254631301021010, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 42
-      objectReference: {fileID: 0}
     - target: {fileID: 3827254631997662761, guid: aed02993ece1da64c94c29bb22487218,
         type: 3}
       propertyPath: m_Name
@@ -1697,24 +1687,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
         type: 3}
-      propertyPath: trash
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: turnManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 6567161797986286077}
-    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: mesaPlaces.Array.size
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
         type: 3}
       propertyPath: mesaPlaces.Array.data[0]
@@ -1763,56 +1738,6 @@ PrefabInstance:
     - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
         type: 3}
       propertyPath: mesaPlaces.Array.data[9]
-      value: 
-      objectReference: {fileID: 65023436}
-    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: mesaPlaces.Array.data[10]
-      value: 
-      objectReference: {fileID: 833766533}
-    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: mesaPlaces.Array.data[11]
-      value: 
-      objectReference: {fileID: 1699168029}
-    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: mesaPlaces.Array.data[12]
-      value: 
-      objectReference: {fileID: 83015662}
-    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: mesaPlaces.Array.data[13]
-      value: 
-      objectReference: {fileID: 1374416232}
-    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: mesaPlaces.Array.data[14]
-      value: 
-      objectReference: {fileID: 261703131}
-    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: mesaPlaces.Array.data[15]
-      value: 
-      objectReference: {fileID: 759430501}
-    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: mesaPlaces.Array.data[16]
-      value: 
-      objectReference: {fileID: 1213184712}
-    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: mesaPlaces.Array.data[17]
-      value: 
-      objectReference: {fileID: 984174475}
-    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: mesaPlaces.Array.data[18]
-      value: 
-      objectReference: {fileID: 2025296878}
-    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: mesaPlaces.Array.data[19]
       value: 
       objectReference: {fileID: 65023436}
     - target: {fileID: 3827254631997662773, guid: aed02993ece1da64c94c29bb22487218,
@@ -1868,11 +1793,6 @@ PrefabInstance:
     - target: {fileID: 3827254631997662773, guid: aed02993ece1da64c94c29bb22487218,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5336736254152731311, guid: aed02993ece1da64c94c29bb22487218,
-        type: 3}
-      propertyPath: sceneViewId
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

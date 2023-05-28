@@ -1,21 +1,28 @@
 using System.Collections.Generic;
-using src.scripts.Deck;
-using src.scripts.Managers;
 using UnityEngine;
 
 namespace src.scripts.Hand
 {
-    public class Discard : Hand
+    public class Discard : MonoBehaviour
     {
-        public void DiscardCard(List<GameObject> selectedCards, Trash trash, Material defaulMat, Merge merge, Hand hand, PlayerManager playerManager, TurnManager turnManager, Camera playerCamera)
+        private Hand _player;
+
+        private void Start() => _player = GetComponent<Hand>();
+
+        /// <summary>
+        /// Atira um raio. Se o raio colidir com o lixo, ele pega a carta selecionada e joga fora. Tirando da lista das cartas do jogador
+        /// </summary>
+        /// <param name="handDeck">Lista de cartas da mao do jogador</param>
+        /// <param name="selectedCards">Lista de cartas selecionadas</param>
+        public void DiscardCard(List<GameObject> handDeck, List<GameObject> selectedCards)
         {
-            Ray ray = playerCamera!.ScreenPointToRay(Input.mousePosition);
+            Ray ray = _player.playerCamera!.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity) && Input.GetMouseButtonDown(0))
             {
                 if (hit.collider.CompareTag("Trash") && selectedCards.Count is > 0 and < 2)
                 {
-                    trash.MoveToTrash(selectedCards[0], player1Hand, selectedCards, playerManager, defaulMat);
-                    turnManager.SkipTurn();
+                    _player.trash.MoveToTrash(selectedCards[0], handDeck, selectedCards, _player.playerManager, _player.defaultMaterial);
+                    _player.turnManager.SkipTurn();
                 }
                 else if (hit.collider.CompareTag("Trash") && selectedCards.Count > 1)
                 {
@@ -24,14 +31,13 @@ namespace src.scripts.Hand
                         selectedCardsArray.Add(card);
 
                     FgLibrary.CardsType mergedColor;
-                    merge.CheckMergePossibilities(selectedCards[0], selectedCards[1], out mergedColor);
-                    if (mergedColor != FgLibrary.CardsType.Joker && playerManager.CanMerge())
+                    _player.merge.CheckMergePossibilities(selectedCards[0], selectedCards[1], out mergedColor);
+                    if (mergedColor != FgLibrary.CardsType.Joker && _player.playerManager.CanMerge())
                     {
-                        trash.MoveMergedCardsToTrahs(selectedCardsArray, player1Hand, selectedCards, playerManager, defaulMat);
-                        merge.GetMergedColor(mergedColor, player1Hand, hand);
-                        playerManager.mergedCards++;
+                        _player.trash.MoveMergedCardsToTrahs(selectedCardsArray, handDeck, selectedCards, _player.playerManager, _player.defaultMaterial);
+                        _player.merge.GetMergedColor(mergedColor, handDeck, _player);
+                        _player.playerManager.mergedCards++;
                     }
-                    
                 }
             }
         }

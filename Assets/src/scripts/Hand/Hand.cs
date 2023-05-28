@@ -12,27 +12,27 @@ namespace src.scripts.Hand
     public class Hand : MonoBehaviour
     {
         [Header("Referencias da Mesa")]
-        [SerializeField] private List<Transform> mesaPlaces = new List<Transform>();
+        public List<Transform> mesaPlaces = new List<Transform>();
         public static List<string> mesa1 = new List<string>();
         [Space(20)]
         
         [Header("Referencias Externas")]
         [SerializeField] private Transform cardsPos;
-        [SerializeField] private PlayerManager playerManager;
-        [SerializeField] private Trash trash;
-        [SerializeField] private Merge merge;
-        [SerializeField] private TurnManager turnManager;
+        public PlayerManager playerManager;
+        public Trash trash;
+        public Merge merge;
+        public TurnManager turnManager;
         [Space(20)]
         
         [Header("Materiais")]
-        [SerializeField] private Material selectedMaterial;
-        [SerializeField] private Material defaultMaterial;
+        public Material selectedMaterial;
+        public Material defaultMaterial;
         [Space(20)]
         
         [Header("Mao")]
         [NotNull] protected static List<GameObject> player1Hand = new List<GameObject>();
-        [SerializeField] protected Transform handTransform;
-        [SerializeField] private Camera playerCamera;
+        public Transform handTransform;
+        public Camera playerCamera;
         
 
         //Classes Derivadas
@@ -44,10 +44,10 @@ namespace src.scripts.Hand
 
         private void Start()
         {
-            _puller = new Puller();
-            _cardSelector = new CardSelector();
-            _discard = new Discard();
-            _dropper = new Dropper();
+            _puller = GetComponent<Puller>();
+            _cardSelector = GetComponent<CardSelector>();
+            _discard = GetComponent<Discard>();
+            _dropper = GetComponent<Dropper>();
 
             trash = GameObject.Find("Trash").GetComponent<Trash>();
             turnManager = FindObjectOfType<TurnManager>();
@@ -65,12 +65,12 @@ namespace src.scripts.Hand
 
         private void Update()
         {
-            _puller.Pull(player1Hand, InGameDeck, cardsPos.position, playerManager, playerCamera);
-            _cardSelector.SelectCard(selectedMaterial, defaultMaterial, playerManager.CanSelect(), playerCamera);
-            _discard.DiscardCard(selectedCardsPlaye1, trash, defaultMaterial, merge, this, playerManager, turnManager, playerCamera);
-            _dropper.DropCard(player1Hand, selectedCardsPlaye1, playerManager, mesa1, mesaPlaces, defaultMaterial, turnManager, playerCamera);
+            _puller.Pull(player1Hand, InGameDeck, cardsPos.position);
+            _cardSelector.SelectCard(playerManager.CanSelect());
+            _discard.DiscardCard(player1Hand, selectedCardsPlaye1);
+            _dropper.DropCard(player1Hand, selectedCardsPlaye1, mesa1);
         }
 
-        public void RearrangeCards() => _puller.PlaceCard(player1Hand, cardsPos.position, playerCamera);
+        public void RearrangeCards() => _puller.PlaceCard(player1Hand, cardsPos.position);
     }
 }
