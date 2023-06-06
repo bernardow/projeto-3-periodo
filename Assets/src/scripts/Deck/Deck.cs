@@ -47,31 +47,30 @@ namespace src.scripts.Deck
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                _spawnPos = transform.position;
-                photonView.RPC("AddCards", RpcTarget.AllBuffered, numOfRedCards,redCardObj);
-                photonView.RPC("AddCards", RpcTarget.AllBuffered, numOfBlueCards, blueCardObj);
-                photonView.RPC("AddCards", RpcTarget.AllBuffered, numOfYellowCards, yellowCardObj);
-                //AddCards(numOfRedCards, redCardObj);
-                //AddCards(numOfBlueCards, blueCardObj);
-                //AddCards(numOfYellowCards, yellowCardObj);
-                photonView.RPC("ShuffleDeck", RpcTarget.AllBuffered, cards);
-                photonView.RPC("SpawnCards", RpcTarget.AllBuffered, cards);
-                //ShuffleDeck(cards);
-                //SpawnCards(cards);
-                photonView.RPC("SpawnSpecialColors", RpcTarget.AllBuffered);
-                //SpawnSpecialColors();
-                NotifyPlayersHands();   
+                photonView.RPC("Initialize", RpcTarget.AllBuffered);
             }
         }
 
         [PunRPC]
+        private void Initialize()
+        {
+            _spawnPos = transform.position;
+            AddCards(numOfRedCards, redCardObj);
+            AddCards(numOfBlueCards, blueCardObj);
+            AddCards(numOfYellowCards, yellowCardObj);
+            ShuffleDeck(cards);
+            SpawnCards(cards);
+            SpawnSpecialColors();
+            NotifyPlayersHands(); 
+        }
+        
         private void AddCards(int numOfCards, Card cardObj)
         {
             for (int i = 0; i < numOfCards; i++)
                 cards.Add(cardObj);
         }
 
-        [PunRPC]
+
         private void ShuffleDeck(List<Card> deck)
         {
             // Embaralha o deck usando o algoritmo Fisher-Yates
@@ -87,7 +86,6 @@ namespace src.scripts.Deck
             }
         }
 
-        [PunRPC]
         private void SpawnCards(List<Card> deck)
         {
             GameObject cardPrefab = redCard;
@@ -106,14 +104,15 @@ namespace src.scripts.Deck
                         break;
                 }
             
-                GameObject newCard = Instantiate(cardPrefab, _spawnPos, Quaternion.Euler(new Vector3(90, 0,0)), transform).gameObject;
+                GameObject newCard = PhotonNetwork.Instantiate(cardPrefab.name, _spawnPos, Quaternion.Euler(new Vector3(90, 0,0))).gameObject;
+                newCard.transform.SetParent(transform);
                 _spawnPos += Vector3.up * 0.1f;
                 newCard.tag = "Deck";
                 gameDeck.Add(newCard);
             }
         }
         
-        [PunRPC]
+   
         private void SpawnSpecialColors()
         {
             SpawnColor(greenCardPlace.position, greenCard, 8, GreenCards);
@@ -128,7 +127,7 @@ namespace src.scripts.Deck
         {
             for (int i = 0; i < numberOfCards; i++)
             {
-                GameObject newColor = Instantiate(prefab, pos, Quaternion.Euler(90,0, 0));
+                GameObject newColor = PhotonNetwork.Instantiate(prefab.name, pos, Quaternion.Euler(90,0, 0));
                 pos += Vector3.up * 0.1f;
                 colorStack.Push(newColor);
             }
