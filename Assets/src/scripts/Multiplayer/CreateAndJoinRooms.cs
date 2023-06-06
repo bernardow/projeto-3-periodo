@@ -1,8 +1,9 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 
 public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
@@ -35,9 +36,13 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     [PunRPC]
     private void UpdatePlayerList()
     {
+        foreach (var field in nicknameTexts)
+        {
+            field.text = String.Empty;
+        }
+        
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
-            Debug.Log(PhotonNetwork.PlayerList[i].NickName);
             nicknameTexts[i].text = PhotonNetwork.PlayerList[i].NickName;
         }
     }
@@ -45,8 +50,14 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
-        UpdatePlayerList();
     }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        UpdatePlayerList();
+        startGameBtn.interactable = PhotonNetwork.IsMasterClient;
+    }
+    
 
     public void StartGame()
     {

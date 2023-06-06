@@ -68,7 +68,6 @@ namespace src.scripts.Hand
             _puller.Pull(player1Hand, InGameDeck, cardsPos.position);
             _cardSelector.SelectCard(playerManager.CanSelect());
             _discard.DiscardCard(player1Hand, selectedCardsPlaye1);
-            _dropper.DropCard(player1Hand, selectedCardsPlaye1, mesa1);
         }
 
         public void RearrangeCards() => _puller.PlaceCard(player1Hand, cardsPos.position);

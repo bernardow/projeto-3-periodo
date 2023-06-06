@@ -1,47 +1,46 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using src.scripts.Hand;
 
 namespace src.scripts.Managers
 {
     public class TurnManager : MonoBehaviourPunCallbacks
     {
-        public List<string> turn = new List<string>();
-        private string p1Turn = "Player 1";
-        private string p2Turn = "Player 2";
-
-        [SerializeField] public GameObject p1;
-        [SerializeField] private GameObject p2;
-
-        private void Start()
+        public List<CardPlayer> playersInRoom = new List<CardPlayer>();
+        private Queue<CardPlayer> playersQueue = new Queue<CardPlayer>();
+        
+        public void InitializeSetup()
         {
-            turn.Add(p2Turn);
-            turn.Add(p1Turn);
+             photonView.RPC("UpdatePlayersInRoom",  RpcTarget.AllBuffered);
+             
         }
 
+        public void ChangeTurnButtonAction()
+        {
+            photonView.RPC("SkipTurn",  RpcTarget.AllBuffered);
+        }
+        
+        [PunRPC]
         public void SkipTurn()
         {
-            turn.Reverse();
-            TurnManagement();
+            playersQueue.Peek().DeactivatePlayer();
+            playersQueue.Insert(playersQueue.Peek());
+            playersQueue.Remove();
+            playersQueue.Peek().ActivatePlayer();
         }
 
-        private void TurnManagement()
+        [PunRPC]
+        public void UpdatePlayersInRoom()
         {
-            if (FirstInQueue(turn) == p1Turn)
+            playersQueue.Clear();
+            foreach (var player in playersInRoom)
             {
-                p1.SetActive(true);
-                p2.SetActive(false);
+                playersQueue.Insert(player);
             }
-            else
-            {
-                p1.SetActive(false);
-                p2.SetActive(true);
-            }
+            playersQueue.Peek().ActivatePlayer();
         }
-    
-        private string FirstInQueue(List<string> list) => list[list.Count - 1];
-
-    
     }
 }
