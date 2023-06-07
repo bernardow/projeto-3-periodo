@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using src.scripts.Hand;
+using Unity.VisualScripting;
 
 namespace src.scripts.Managers
 {
@@ -11,18 +12,30 @@ namespace src.scripts.Managers
     {
         public List<CardPlayer> playersInRoom = new List<CardPlayer>();
         private Queue<CardPlayer> playersQueue = new Queue<CardPlayer>();
+
+        public int counter;
+        private bool _initialized;
         
+        private void Update()
+        {
+            if (!_initialized && counter == PhotonNetwork.PlayerList.Length)
+            {
+                InitializeSetup();
+                _initialized = true;
+            }
+            
+        }
+
         public void InitializeSetup()
         {
-             photonView.RPC("UpdatePlayersInRoom",  RpcTarget.AllBuffered);
-             
+            UpdatePlayersInRoom();
         }
 
         public void ChangeTurnButtonAction()
         {
-            photonView.RPC("SkipTurn",  RpcTarget.AllBuffered);
+            photonView.RPC("SkipTurn", RpcTarget.AllBuffered);
         }
-        
+
         [PunRPC]
         public void SkipTurn()
         {
@@ -32,14 +45,29 @@ namespace src.scripts.Managers
             playersQueue.Peek().ActivatePlayer();
         }
 
-        [PunRPC]
         public void UpdatePlayersInRoom()
         {
-            playersQueue.Clear();
-            foreach (var player in playersInRoom)
+            if (PhotonNetwork.IsMasterClient && counter == PhotonNetwork.PlayerList.Length)
             {
-                playersQueue.Insert(player);
+                playersQueue.Clear();
+                foreach (var player in playersInRoom)
+                {
+                    playersQueue.Insert(player);
+                }
+
+                photonView.RPC("ActivatePeekPlayer", RpcTarget.AllBuffered);
             }
+        }
+
+        public void AddPlayerToQueue(CardPlayer cardPlayer)
+        {
+            playersInRoom.Add(cardPlayer);
+            counter++;
+        }
+
+        [PunRPC]
+        public void ActivatePeekPlayer()
+        {
             playersQueue.Peek().ActivatePlayer();
         }
     }

@@ -50,6 +50,8 @@ MonoBehaviour:
   - UpdatePlayerList
   - UpdatePlayersInRoom
   - SkipTurn
+  - AddPlayerToList
+  - ActivatePeekPlayer
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

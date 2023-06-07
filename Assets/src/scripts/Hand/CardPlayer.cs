@@ -8,9 +8,8 @@ using src.scripts.Managers;
 public class CardPlayer : MonoBehaviourPunCallbacks
 {
     private Transform _unitParent;
+    private TurnManager _turnManager;
     
-    private TurnManager turnManager;
-
     [SerializeField] private Merge merge;
     [SerializeField] private Puller puller;
     [SerializeField] private Hand hand;
@@ -26,10 +25,10 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         if (!photonView.IsMine)
             gameObject.SetActive(false);
 
-        turnManager = FindObjectOfType<TurnManager>();
-        turnManager.playersInRoom.Add(this);
+        _turnManager = FindObjectOfType<TurnManager>();
+        _turnManager.AddPlayerToQueue(this);
+        
         DeactivatePlayer();
-        turnManager.InitializeSetup();
     }
 
     public void ActivatePlayer()
