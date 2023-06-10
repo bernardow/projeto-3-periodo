@@ -29,7 +29,8 @@ public class CardPlayer : MonoBehaviourPunCallbacks, IPunObservable
             gameObject.SetActive(false);
         
         _turnManager = FindObjectOfType<TurnManager>();
-        _turnManager.AddPlayerToQueue(this);
+        _turnManager.AddPlayerToQueue(photonView.ViewID);
+        _turnManager.cardPlayer = this;
 
         DeactivatePlayer();
     }

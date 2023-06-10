@@ -27,7 +27,7 @@ public class PauseManager : MonoBehaviour
         foreach (var cardPlayer in FindObjectsOfType<CardPlayer>())
         {
             if(cardPlayer.photonView.IsMine)
-                _turnManager.playersInRoom.Remove(cardPlayer);
+                _turnManager.playersInRoom.Remove(cardPlayer.GetComponent<PhotonView>().ViewID);
         }
         _turnManager.InitializeSetup();
         PhotonNetwork.LoadLevel("Lobby");
