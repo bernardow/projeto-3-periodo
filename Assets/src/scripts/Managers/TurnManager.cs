@@ -39,14 +39,15 @@ namespace src.scripts.Managers
         [PunRPC]
         public void SkipTurn()
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                photonView.RPC("ActivateTopPlayer", RpcTarget.All, playersInRoom[0]);  
-            }
             playersInRoom.Add(playersInRoom[0]);
             if(playersInRoom[0] == cardPlayer.GetComponent<PhotonView>().ViewID)
                 cardPlayer.DeactivatePlayer();
             playersInRoom.Remove(playersInRoom[0]);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                photonView.RPC("ActivateTopPlayer", RpcTarget.All, playersInRoom[0]);  
+            }
+            Debug.Log("Trocou");
         }
 
         [PunRPC]
