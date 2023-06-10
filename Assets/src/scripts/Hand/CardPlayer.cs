@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using src.scripts.Hand;
 using src.scripts.Managers;
 
-public class CardPlayer : MonoBehaviourPunCallbacks
+public class CardPlayer : MonoBehaviourPunCallbacks, IPunObservable
 {
     private Transform _unitParent;
     private TurnManager _turnManager;
@@ -24,10 +27,10 @@ public class CardPlayer : MonoBehaviourPunCallbacks
 
         if (!photonView.IsMine)
             gameObject.SetActive(false);
-
+        
         _turnManager = FindObjectOfType<TurnManager>();
         _turnManager.AddPlayerToQueue(this);
-        
+
         DeactivatePlayer();
     }
 
@@ -49,5 +52,31 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         cardSelector.enabled = false;
         discard.enabled = false;
         playerManager.enabled = false;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(_unitParent);
+            stream.SendNext(_turnManager);
+            stream.SendNext(merge);
+            stream.SendNext(puller);
+            stream.SendNext(hand);
+            stream.SendNext(cardSelector);
+            stream.SendNext(discard);
+            stream.SendNext(playerManager);
+        }
+        else
+        {
+            _unitParent = (Transform)stream.ReceiveNext();
+            _turnManager = (TurnManager)stream.ReceiveNext();
+            merge = (Merge)stream.ReceiveNext();
+            puller = (Puller)stream.ReceiveNext();
+            hand = (Hand)stream.ReceiveNext();
+            cardSelector = (CardSelector)stream.ReceiveNext();
+            discard = (Discard)stream.ReceiveNext();
+            playerManager = (PlayerManager)stream.ReceiveNext();
+        }
     }
 }
