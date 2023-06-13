@@ -61,7 +61,8 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        photonView.RPC("LoadLevel", RpcTarget.AllBuffered, "TestScene");
+        if(PhotonNetwork.IsMasterClient)
+            photonView.RPC("LoadLevel", RpcTarget.AllBuffered, "TestScene");
     }
 
     [PunRPC]

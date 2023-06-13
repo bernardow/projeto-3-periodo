@@ -8,7 +8,7 @@ using Photon.Realtime;
 using src.scripts.Hand;
 using src.scripts.Managers;
 
-public class CardPlayer : MonoBehaviourPunCallbacks, IPunObservable
+public class CardPlayer : MonoBehaviourPunCallbacks
 {
     private Transform _unitParent;
     private TurnManager _turnManager;
@@ -27,9 +27,14 @@ public class CardPlayer : MonoBehaviourPunCallbacks, IPunObservable
 
         if (!photonView.IsMine)
             gameObject.SetActive(false);
+
+        foreach (var turnManager in FindObjectsOfType<TurnManager>())
+        {
+            if (turnManager.GetComponent<PhotonView>().IsMine)
+                _turnManager = turnManager;
+            turnManager.AddPlayerToQueue(photonView.ViewID);
+        }
         
-        _turnManager = FindObjectOfType<TurnManager>();
-        _turnManager.AddPlayerToQueue(photonView.ViewID);
         _turnManager.cardPlayer = this;
 
         DeactivatePlayer();
@@ -53,31 +58,5 @@ public class CardPlayer : MonoBehaviourPunCallbacks, IPunObservable
         cardSelector.enabled = false;
         discard.enabled = false;
         playerManager.enabled = false;
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(_unitParent);
-            stream.SendNext(_turnManager);
-            stream.SendNext(merge);
-            stream.SendNext(puller);
-            stream.SendNext(hand);
-            stream.SendNext(cardSelector);
-            stream.SendNext(discard);
-            stream.SendNext(playerManager);
-        }
-        else
-        {
-            _unitParent = (Transform)stream.ReceiveNext();
-            _turnManager = (TurnManager)stream.ReceiveNext();
-            merge = (Merge)stream.ReceiveNext();
-            puller = (Puller)stream.ReceiveNext();
-            hand = (Hand)stream.ReceiveNext();
-            cardSelector = (CardSelector)stream.ReceiveNext();
-            discard = (Discard)stream.ReceiveNext();
-            playerManager = (PlayerManager)stream.ReceiveNext();
-        }
     }
 }

@@ -17,7 +17,7 @@ namespace src.scripts.Managers
         
         private void Update()
         {
-            if (!_initialized && counter == PhotonNetwork.PlayerList.Length)
+            if (!_initialized && counter == PhotonNetwork.PlayerList.Length && PhotonNetwork.IsMasterClient)
             {
                 InitializeSetup();
                 _initialized = true;
@@ -27,8 +27,7 @@ namespace src.scripts.Managers
 
         public void InitializeSetup()
         {
-            if(PhotonNetwork.IsMasterClient)
-                photonView.RPC("ActivateTopPlayer", RpcTarget.All, playersInRoom[0]);
+            photonView.RPC("ActivateTopPlayer", RpcTarget.All, playersInRoom[0]);
         }
 
         public void ChangeTurnButtonAction()
@@ -53,7 +52,8 @@ namespace src.scripts.Managers
         [PunRPC]
         public void ActivateTopPlayer(int id)
         {
-            if (playersInRoom[0] == cardPlayer.GetComponent<PhotonView>().ViewID)
+            Debug.Log(cardPlayer.GetComponent<PhotonView>().ViewID);
+            if (id == cardPlayer.GetComponent<PhotonView>().ViewID)
             {
                 cardPlayer.ActivatePlayer();
             }
