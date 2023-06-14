@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 namespace src.scripts.Hand
@@ -22,7 +23,7 @@ namespace src.scripts.Hand
                 if (hit.collider.CompareTag("Trash") && selectedCards.Count is > 0 and < 2)
                 {
                     _player.trash.MoveToTrash(selectedCards[0], handDeck, selectedCards, _player.playerManager, _player.defaultMaterial);
-                    _player.turnManager.SkipTurn();
+                    _player.turnManager.GetComponent<PhotonView>().RPC("SkipTurn", RpcTarget.All);
                 }
                 else if (hit.collider.CompareTag("Trash") && selectedCards.Count > 1)
                 {
