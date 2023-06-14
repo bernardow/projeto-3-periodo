@@ -72,13 +72,6 @@ namespace src.scripts.Hand
             }
         }
 
-        private void Update()
-        {
-            _puller.Pull(player1Hand, InGameDeck, cardsPos.position);
-            _cardSelector.SelectCard(playerManager.CanSelect());
-            _discard.DiscardCard(player1Hand, _cardSelector.selectedCardsPlaye1);
-        }
-
         public void RearrangeCards() => _puller.PlaceCard(player1Hand, cardsPos.position);
     }
 }

@@ -7,33 +7,12 @@ using static src.scripts.Deck.Deck;
 
 namespace src.scripts.Hand
 {
-    public class Puller : MonoBehaviour
+    public class Puller : MonoBehaviour, IObservable
     {
         private Hand _player;
 
         private void Start() => _player = GetComponent<Hand>();
-
-        /// <summary>
-        /// Atira um raio, se atingir o deck, ele puxa a carta de cima, coloca a carta na mao do jogador e notifica o Player Manager
-        /// </summary>
-        /// <param name="handDeck">Lista de cartas da mao do jogador</param>
-        /// <param name="gameDeck">Deck do jogo</param>
-        /// <param name="spawnPos">Qual vetor vai ser usado para colocar a carta</param>
-        public void Pull(List<GameObject> handDeck, Stack<GameObject> gameDeck, Vector3 spawnPos)
-        {
-            Ray ray = _player.playerCamera!.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity) && Input.GetMouseButtonDown(0) && _player.playerManager.canPull)
-            {
-                if (hitInfo.collider.gameObject.CompareTag("Deck"))
-                {
-                    handDeck.Add(gameDeck.Peek());
-                    _player.photonViewPlayer.RPC("PopCard", RpcTarget.All);
-                    PlaceCard(handDeck, spawnPos);
-                    NotifyPlayerManager(handDeck);
-                }
-            }
-        }
-
+        
         /// <summary>
         /// Coloca a carta na mao do jogador
         /// </summary>
@@ -52,6 +31,17 @@ namespace src.scripts.Hand
         {
             _player.playerManager.cardsPulled++;
             _player.playerManager.playerCardsNum = handDeck.Count;
+        }
+
+        public void OnNotify(RaycastHit hitTag)
+        {
+            if (_player.playerManager.canPull && hitTag.collider.CompareTag("Deck"))
+            {
+                _player.player1Hand.Add(InGameDeck.Peek());
+                _player.photonViewPlayer.RPC("PopCard", RpcTarget.All);
+                PlaceCard(_player.player1Hand, _player.cardsPos.position);
+                NotifyPlayerManager(_player.player1Hand);
+            }
         }
     }
 }

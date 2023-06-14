@@ -3,36 +3,13 @@ using UnityEngine;
 
 namespace src.scripts.Hand
 {
-    public class CardSelector : MonoBehaviour
+    public class CardSelector : MonoBehaviour, IObservable
     {
         public List<GameObject> selectedCardsPlaye1 = new List<GameObject>();    //Lista de cartas selececionadas
         private Hand _player;   //Referencia do Player base
 
         private void Start() => _player = GetComponent<Hand>();     //Atribuicao
 
-        /// <summary>
-        /// Atira um raio da camera do jogador. Se atingir uma carta dele nao selecionada, atualiza a lista de cartas selecionadas e muda o material. Caso o cantrário ele retira os dois
-        /// </summary>
-        /// <param name="canSelect">Verifica se o Jogador pode selecionar alguma ou mais cartas</param>
-        public void SelectCard(bool canSelect)
-        {
-            if (canSelect)
-            {
-                Ray ray = _player.playerCamera!.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity) && Input.GetMouseButtonDown(0))
-                {
-                    if (hit.collider.CompareTag("MyCards") && !selectedCardsPlaye1.Contains(hit.collider.gameObject) && selectedCardsPlaye1.Count < 2)
-                    {
-                        ChangeMaterial(_player.selectedMaterial, hit);
-                        selectedCardsPlaye1.Add(hit.collider.gameObject);
-                    }else if (hit.collider.CompareTag("MyCards") && selectedCardsPlaye1.Contains(hit.collider.gameObject))
-                    {
-                        ChangeMaterial(_player.selectedMaterial, hit);
-                        selectedCardsPlaye1.Remove(hit.collider.gameObject);
-                    }
-                }
-            }
-        }
 
         /// <summary>
         /// Muda o material externo da carta
@@ -50,6 +27,18 @@ namespace src.scripts.Hand
             }
             outLineRenderer!.material = material;
         }
-        
+
+        public void OnNotify(RaycastHit hitTag)
+        {
+            if (hitTag.collider.CompareTag("MyCards") && !selectedCardsPlaye1.Contains(hitTag.collider.gameObject) && selectedCardsPlaye1.Count < 2)
+            {
+                ChangeMaterial(_player.selectedMaterial, hitTag);
+                selectedCardsPlaye1.Add(hitTag.collider.gameObject);
+            }else if (hitTag.collider.CompareTag("MyCards") && selectedCardsPlaye1.Contains(hitTag.collider.gameObject))
+            {
+                ChangeMaterial(_player.defaultMaterial, hitTag);
+                selectedCardsPlaye1.Remove(hitTag.collider.gameObject);
+            }
+        }
     }
 }

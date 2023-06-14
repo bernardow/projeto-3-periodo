@@ -19,6 +19,7 @@ public class CardPlayer : MonoBehaviourPunCallbacks
     [SerializeField] private CardSelector cardSelector;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private Discard discard;
+    [SerializeField] private RaycastManager raycastManager;
 
     public void Start()
     {
@@ -39,6 +40,7 @@ public class CardPlayer : MonoBehaviourPunCallbacks
 
     public void ActivatePlayer()
     {
+        raycastManager.enabled = true;
         merge.enabled = true;
         puller.enabled = true;
         hand.enabled = true;
@@ -55,6 +57,7 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         cardSelector.enabled = false;
         discard.enabled = false;
         playerManager.enabled = false;
+        raycastManager.enabled = false;
     }
 
     

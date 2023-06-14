@@ -15,7 +15,7 @@ namespace src.scripts.Hand
             if (_player._cardSelector.selectedCardsPlaye1.Count is > 0 and < 2)
             {
                 _player._cardSelector.selectedCardsPlaye1[0].GetComponent<Rigidbody>().AddForce(target.transform.position - transform.position);
-                _player.photonViewPlayer.RPC("DealDamage", RpcTarget.All, target.GetComponent<CardPlayer>().life);
+                _player.photonViewPlayer.RPC("DealDamage", RpcTarget.All, target.GetComponent<PhotonView>().ViewID);
                 _player.player1Hand.Remove(_player._cardSelector.selectedCardsPlaye1[0]);
                 _player._cardSelector.selectedCardsPlaye1.Remove(_player._cardSelector.selectedCardsPlaye1[0]);
             }
@@ -23,9 +23,11 @@ namespace src.scripts.Hand
 
 
         [PunRPC]
-        public void DealDamage(int life)
+        public void DealDamage(int id)
         {
-            life--;
+            GameObject targetPlayer = PhotonView.Find(id).gameObject;
+            CardPlayer targetCardPlayer = targetPlayer.GetComponent<CardPlayer>();
+            targetCardPlayer.life--;
         }
     }
 }
