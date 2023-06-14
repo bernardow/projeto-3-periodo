@@ -59,6 +59,7 @@ namespace src.scripts.Deck
             AddCards(numOfYellowCards, yellowCardObj);
             ShuffleDeck(cards);
             SpawnCards(cards);
+            photonView.RPC("SetTag", RpcTarget.All);
             SpawnSpecialColors();
             NotifyPlayersHands(); 
         }
@@ -106,7 +107,6 @@ namespace src.scripts.Deck
                 GameObject newCard = PhotonNetwork.Instantiate(cardPrefab.name, _spawnPos, Quaternion.Euler(new Vector3(90, 0,0))).gameObject;
                 newCard.transform.SetParent(transform);
                 _spawnPos += Vector3.up * 0.1f;
-                newCard.tag = "Deck";
                 gameDeck.Add(newCard);
             }
         }
@@ -129,6 +129,15 @@ namespace src.scripts.Deck
                 GameObject newColor = PhotonNetwork.Instantiate(prefab.name, pos, Quaternion.Euler(90,0, 0));
                 pos += Vector3.up * 0.1f;
                 colorStack.Push(newColor);
+            }
+        }
+
+        [PunRPC]
+        private void SetTag()
+        {
+            foreach (var card in gameDeck)
+            {
+                card.tag = "Deck";
             }
         }
 
