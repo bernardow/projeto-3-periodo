@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Photon.Pun;
 using src.scripts.Deck;
 using src.scripts.Managers;
 using UnityEngine;
@@ -30,16 +31,19 @@ namespace src.scripts.Hand
         [Space(20)]
         
         [Header("Mao")]
-        [NotNull] protected static List<GameObject> player1Hand = new List<GameObject>();
+        [NotNull] public List<GameObject> player1Hand = new List<GameObject>();
         public Transform handTransform;
         public Camera playerCamera;
         
 
         //Classes Derivadas
         private Puller _puller;
-        private CardSelector _cardSelector;
+        public CardSelector _cardSelector;
         private Discard _discard;
         private Dropper _dropper;
+
+        [Header("Photon")] 
+        public PhotonView photonViewPlayer;
         
 
         private void Start()
@@ -55,19 +59,19 @@ namespace src.scripts.Hand
 
         private void OnDisable()
         {
-            foreach (var card in selectedCardsPlaye1)
+            foreach (var card in _cardSelector.selectedCardsPlaye1)
             {
                 Renderer render = GetChildComponent<Renderer>(card);
                 render.material = defaultMaterial;
             }
-            selectedCardsPlaye1.Clear();
+            _cardSelector.selectedCardsPlaye1.Clear();
         }
 
         private void Update()
         {
             _puller.Pull(player1Hand, InGameDeck, cardsPos.position);
             _cardSelector.SelectCard(playerManager.CanSelect());
-            _discard.DiscardCard(player1Hand, selectedCardsPlaye1);
+            _discard.DiscardCard(player1Hand, _cardSelector.selectedCardsPlaye1);
         }
 
         public void RearrangeCards() => _puller.PlaceCard(player1Hand, cardsPos.position);

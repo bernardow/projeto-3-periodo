@@ -10,6 +10,8 @@ using src.scripts.Managers;
 
 public class CardPlayer : MonoBehaviourPunCallbacks
 {
+    public int life = 10;
+    
     private Transform _unitParent;
     private TurnManager _turnManager;
     

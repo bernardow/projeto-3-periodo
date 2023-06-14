@@ -5,7 +5,7 @@ namespace src.scripts.Hand
 {
     public class CardSelector : MonoBehaviour
     {
-        public static List<GameObject> selectedCardsPlaye1 = new List<GameObject>();    //Lista de cartas selececionadas
+        public List<GameObject> selectedCardsPlaye1 = new List<GameObject>();    //Lista de cartas selececionadas
         private Hand _player;   //Referencia do Player base
 
         private void Start() => _player = GetComponent<Hand>();     //Atribuicao
