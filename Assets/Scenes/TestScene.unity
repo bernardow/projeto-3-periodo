@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6523593, g: 0.5545587, b: 0.271451, a: 1}
+  m_IndirectSpecularColor: {r: 0.65236604, g: 0.55456865, b: 0.27145517, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -577,6 +577,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733781151c0c7f04298c737a5bd1067c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 0}
   trashCards: []
 --- !u!65 &260731703
 BoxCollider:
@@ -824,6 +825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733781151c0c7f04298c737a5bd1067c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 0}
   trashCards: []
 --- !u!65 &431171321
 BoxCollider:
@@ -1742,6 +1744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733781151c0c7f04298c737a5bd1067c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 0}
   trashCards: []
 --- !u!65 &780989958
 BoxCollider:
@@ -1851,8 +1854,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a98e8d566c53d834e9ce76df5140b31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playersInRoom: []
+  playersInRoom: 
   counter: 0
+  cardPlayer: {fileID: 0}
 --- !u!114 &782373504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2020,6 +2024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733781151c0c7f04298c737a5bd1067c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 0}
   trashCards: []
 --- !u!65 &918209655
 BoxCollider:
@@ -2469,6 +2474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733781151c0c7f04298c737a5bd1067c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 0}
   trashCards: []
 --- !u!65 &1172135798
 BoxCollider:
@@ -2580,6 +2586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733781151c0c7f04298c737a5bd1067c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 0}
   trashCards: []
 --- !u!65 &1182517949
 BoxCollider:
@@ -3354,6 +3361,7 @@ GameObject:
   - component: {fileID: 1470478163}
   - component: {fileID: 1470478162}
   - component: {fileID: 1470478166}
+  - component: {fileID: 1470478167}
   m_Layer: 0
   m_Name: Trash
   m_TagString: Trash
@@ -3451,7 +3459,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733781151c0c7f04298c737a5bd1067c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 0}
   trashCards: []
+--- !u!114 &1470478167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470478161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1601362264
 GameObject:
   m_ObjectHideFlags: 0

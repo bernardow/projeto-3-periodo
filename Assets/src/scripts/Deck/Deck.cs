@@ -60,7 +60,7 @@ namespace src.scripts.Deck
             ShuffleDeck(cards);
             SpawnCards(cards);
             SpawnSpecialColors();
-            NotifyPlayersHands(); 
+            photonView.RPC("NotifyPlayersHands", RpcTarget.All);
         }
         
         private void AddCards(int numOfCards, Card cardObj)
@@ -140,6 +140,7 @@ namespace src.scripts.Deck
         }
         
 
+        [PunRPC]
         private void NotifyPlayersHands()
         {
             InGameDeck = ConvertToStack(gameDeck);

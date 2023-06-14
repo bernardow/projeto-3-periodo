@@ -1,12 +1,15 @@
 using System.Collections.Generic;
+using Photon.Pun;
 using src.scripts.Managers;
+using Unity.VisualScripting;
 using UnityEngine;
 using static src.scripts.FgLibrary;
 
 namespace src.scripts.Deck
 {
-    public class Trash : MonoBehaviour
+    public class Trash : MonoBehaviourPunCallbacks
     {
+        [SerializeField] private Material defaultMaterial;
         private Vector3 _trashPos;
         public List<GameObject> trashCards = new List<GameObject>();
 
@@ -14,17 +17,11 @@ namespace src.scripts.Deck
     
         public void MoveToTrash(GameObject card, List<GameObject> handDeck, List<GameObject> selected, PlayerManager playerManager, Material defaulMaterial)
         {
-            Renderer render = GetChildComponent<Renderer>(card);
-            render.material = defaulMaterial;
-            card.transform.position = _trashPos;
-            card.transform.rotation = Quaternion.Euler( transform.rotation.x - 90, transform.rotation.y - 90, 90);
-            card.tag = "Trash";
+            photonView.RPC("UpdateTrashCards", RpcTarget.All, card.GetComponent<PhotonView>().ViewID);
             handDeck.Remove(card);
             selected.Remove(card);
             playerManager.playerCardsNum--;
-            trashCards.Add(card);
             card.GetComponent<Transform>().SetParent(transform);
-            _trashPos += Vector3.up * 0.1f;
         }
 
         public void MoveMergedCardsToTrahs(List<GameObject> cards, List<GameObject> handDeck, List<GameObject> selected, PlayerManager playerManager, Material defaulMaterial)
@@ -38,17 +35,24 @@ namespace src.scripts.Deck
             
             foreach (var card in cards)
             {
-                card.transform.position = _trashPos;
-                card.transform.rotation = Quaternion.Euler( transform.rotation.x - 90, transform.rotation.y - 90, 90);
-                card.tag = "Trash";
+                photonView.RPC("UpdateTrashCards", RpcTarget.All, card.GetComponent<PhotonView>().ViewID);
                 handDeck.Remove(card);
                 selected.Remove(card);
-                
-                trashCards.Add(card);
-                card.GetComponent<Transform>().SetParent(transform);
-                _trashPos += Vector3.up * 0.1f;
             }
             playerManager.playerCardsNum--;
+        }
+
+        [PunRPC]
+        private void UpdateTrashCards(int id)
+        {
+            GameObject card = PhotonView.Find(id).gameObject;
+            Renderer render = GetChildComponent<Renderer>(card);
+            render.material = defaultMaterial;
+            card.transform.position = _trashPos;
+            card.transform.rotation = Quaternion.Euler( transform.rotation.x - 90, transform.rotation.y - 90, 90);
+            card.tag = "Trash";
+            trashCards.Add(card);
+            _trashPos += Vector3.up * 0.1f;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace src.scripts.Hand
         [Space(20)]
         
         [Header("Referencias Externas")]
-        [SerializeField] private Transform cardsPos;
+        public Transform cardsPos;
         public PlayerManager playerManager;
         public Trash trash;
         public Merge merge;

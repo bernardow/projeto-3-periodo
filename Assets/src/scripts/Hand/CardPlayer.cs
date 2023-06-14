@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using ExitGames.Client.Photon;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 using src.scripts.Hand;
 using src.scripts.Managers;
+using static src.scripts.Deck.Deck;
 
 public class CardPlayer : MonoBehaviourPunCallbacks
 {
@@ -14,6 +10,8 @@ public class CardPlayer : MonoBehaviourPunCallbacks
     
     private Transform _unitParent;
     private TurnManager _turnManager;
+
+    private Vector3 _initalHandPos;
     
     [SerializeField] private Merge merge;
     [SerializeField] private Puller puller;
@@ -27,8 +25,10 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         _unitParent = GameObject.Find("Units").transform;
         transform.SetParent(_unitParent);
 
+        _initalHandPos = hand.cardsPos.position;
+        
         if (!photonView.IsMine)
-            gameObject.SetActive(false);
+            gameObject.GetComponentInChildren<Camera>().gameObject.SetActive(false);
 
         _turnManager = FindObjectOfType<TurnManager>();
         _turnManager.AddPlayerToQueue(photonView.ViewID);
@@ -55,5 +55,27 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         cardSelector.enabled = false;
         discard.enabled = false;
         playerManager.enabled = false;
+    }
+
+    
+    [PunRPC]
+    private void PopCard()
+    {
+        InGameDeck.Pop();
+    }
+    
+    [PunRPC]
+    private void PlaceCardsGlobal()
+    {
+        hand.cardsPos.position = _initalHandPos;
+        foreach (var card in hand.player1Hand)
+        {
+            card.transform.position = hand.cardsPos.position;
+            card.transform.LookAt(hand.playerCamera!.transform.position);
+            //card.transform.rotation = Quaternion.Euler(0, 90, 0);
+            card.tag = "MyCards";
+            card.GetComponent<Transform>().SetParent(hand.handTransform);
+            hand.cardsPos.position += Vector3.left + Vector3.up * 0.3f;
+        }
     }
 }

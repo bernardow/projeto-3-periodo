@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Photon.Pun;
 using src.scripts.Managers;
 using UnityEngine;
+using static src.scripts.Deck.Deck;
 
 namespace src.scripts.Hand
 {
@@ -24,7 +26,8 @@ namespace src.scripts.Hand
             {
                 if (hitInfo.collider.gameObject.CompareTag("Deck"))
                 {
-                    handDeck.Add(gameDeck.Pop());
+                    handDeck.Add(gameDeck.Peek());
+                    _player.photonViewPlayer.RPC("PopCard", RpcTarget.All);
                     PlaceCard(handDeck, spawnPos);
                     NotifyPlayerManager(handDeck);
                 }
@@ -38,15 +41,7 @@ namespace src.scripts.Hand
         /// <param name="spawnPos">Local de spawn das cartas</param>
         public void PlaceCard(List<GameObject> handDeck, Vector3 spawnPos)
         {
-            foreach (var card in handDeck)
-            {
-                card.transform.position = spawnPos;
-                card.transform.LookAt(_player.playerCamera!.transform.position);
-                //card.transform.rotation = Quaternion.Euler(0, 90, 0);
-                card.tag = "MyCards";
-                card.GetComponent<Transform>().SetParent(_player.handTransform);
-                spawnPos += Vector3.left + Vector3.up * 0.3f;
-            }
+            _player.photonViewPlayer.RPC("PlaceCardsGlobal", RpcTarget.All);
         }
 
         /// <summary>
