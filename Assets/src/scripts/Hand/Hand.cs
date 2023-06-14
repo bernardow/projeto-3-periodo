@@ -54,11 +54,7 @@ namespace src.scripts.Hand
             _dropper = GetComponent<Dropper>();
 
             trash = GameObject.Find("Trash").GetComponent<Trash>();
-            foreach (TurnManager manager in FindObjectsOfType<TurnManager>())
-            {
-                if (manager.GetComponent<PhotonView>().IsMine)
-                    turnManager = manager;
-            }
+            turnManager = FindObjectOfType<TurnManager>();
         }
 
         private void OnDisable()

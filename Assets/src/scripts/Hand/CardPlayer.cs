@@ -30,12 +30,8 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         if (!photonView.IsMine)
             gameObject.SetActive(false);
 
-        foreach (var turnManager in FindObjectsOfType<TurnManager>())
-        {
-            if (turnManager.GetComponent<PhotonView>().IsMine)
-                _turnManager = turnManager;
-            turnManager.AddPlayerToQueue(photonView.ViewID);
-        }
+        _turnManager = FindObjectOfType<TurnManager>();
+        _turnManager.AddPlayerToQueue(photonView.ViewID);
         
         _turnManager.cardPlayer = this;
 
