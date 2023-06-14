@@ -11,6 +11,7 @@ public class RaycastManager : MonoBehaviour
     [SerializeField] private CardSelector cardSelector;
     [SerializeField] private Discard discard;
     [SerializeField] private Puller puller;
+    [SerializeField] private TargetSelector targetSelector;
 
         private void Start()
     {
@@ -18,6 +19,7 @@ public class RaycastManager : MonoBehaviour
         _observableObject.AddObserver(puller);
         _observableObject.AddObserver(cardSelector);
         _observableObject.AddObserver(discard);
+        _observableObject.AddObserver(targetSelector);
     }
 
     private void Update() => ShootRay();

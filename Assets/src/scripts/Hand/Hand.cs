@@ -40,6 +40,7 @@ namespace src.scripts.Hand
         private Puller _puller;
         [SerializeField] private CardPlayer _cardPlayer;
         [HideInInspector] public CardSelector _cardSelector;
+        public Attack attack;
         private Discard _discard;
         
 
@@ -52,7 +53,8 @@ namespace src.scripts.Hand
             _puller = GetComponent<Puller>();
             _cardSelector = GetComponent<CardSelector>();
             _discard = GetComponent<Discard>();
-
+            attack = GetComponent<Attack>();
+            
             trash = GameObject.Find("Trash").GetComponent<Trash>();
             turnManager = FindObjectOfType<TurnManager>();
             

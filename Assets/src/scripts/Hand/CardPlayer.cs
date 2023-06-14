@@ -81,4 +81,12 @@ public class CardPlayer : MonoBehaviourPunCallbacks
             hand.cardsPos.position += Vector3.left + Vector3.up * 0.3f;
         }
     }
+    
+    [PunRPC]
+    public void DealDamage(int id)
+    {
+        GameObject targetPlayer = PhotonView.Find(id).gameObject;
+        CardPlayer targetCardPlayer = targetPlayer.GetComponent<CardPlayer>();
+        targetCardPlayer.life--;
+    }
 }
