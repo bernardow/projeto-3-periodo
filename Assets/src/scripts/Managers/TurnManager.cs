@@ -39,8 +39,7 @@ namespace src.scripts.Managers
         public void SkipTurn()
         {
             playersInRoom.Add(playersInRoom[0]);
-            if(playersInRoom[0] == cardPlayer.GetComponent<PhotonView>().ViewID)
-                cardPlayer.DeactivatePlayer();
+            cardPlayer.DeactivatePlayer();
             playersInRoom.Remove(playersInRoom[0]);
             if (PhotonNetwork.IsMasterClient)
             {
