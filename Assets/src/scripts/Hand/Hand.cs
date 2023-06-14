@@ -38,7 +38,7 @@ namespace src.scripts.Hand
 
         //Classes Derivadas
         private Puller _puller;
-        public CardSelector _cardSelector;
+        [HideInInspector] public CardSelector _cardSelector;
         private Discard _discard;
         private Dropper _dropper;
 
@@ -54,7 +54,11 @@ namespace src.scripts.Hand
             _dropper = GetComponent<Dropper>();
 
             trash = GameObject.Find("Trash").GetComponent<Trash>();
-            turnManager = FindObjectOfType<TurnManager>();
+            foreach (TurnManager manager in FindObjectsOfType<TurnManager>())
+            {
+                if (manager.GetComponent<PhotonView>().IsMine)
+                    turnManager = manager;
+            }
         }
 
         private void OnDisable()

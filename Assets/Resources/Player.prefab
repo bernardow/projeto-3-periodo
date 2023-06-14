@@ -69,6 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd902c1a66fd09140ba7346b3cf4981c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  life: 10
   merge: {fileID: 7943818761813358113}
   puller: {fileID: 7720467860455531314}
   hand: {fileID: 7943818761813358115}
@@ -210,6 +211,11 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 6567161797986286077}
+    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
+        type: 3}
+      propertyPath: photonViewPlayer
+      value: 
+      objectReference: {fileID: 1424773479995254937}
     - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
         type: 3}
       propertyPath: mesaPlaces.Array.data[0]
