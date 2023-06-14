@@ -208,6 +208,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
         type: 3}
+      propertyPath: _cardPlayer
+      value: 
+      objectReference: {fileID: 654897869208654078}
+    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
+        type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 6567161797986286077}

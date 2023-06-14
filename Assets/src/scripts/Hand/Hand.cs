@@ -38,33 +38,38 @@ namespace src.scripts.Hand
 
         //Classes Derivadas
         private Puller _puller;
+        [SerializeField] private CardPlayer _cardPlayer;
         [HideInInspector] public CardSelector _cardSelector;
         private Discard _discard;
-        private Dropper _dropper;
+        
 
         [Header("Photon")] 
         public PhotonView photonViewPlayer;
-        
+                
 
         private void Start()
         {
             _puller = GetComponent<Puller>();
             _cardSelector = GetComponent<CardSelector>();
             _discard = GetComponent<Discard>();
-            _dropper = GetComponent<Dropper>();
 
             trash = GameObject.Find("Trash").GetComponent<Trash>();
             turnManager = FindObjectOfType<TurnManager>();
+            
+            _cardPlayer.DeactivatePlayer();
         }
 
         private void OnDisable()
         {
-            foreach (var card in _cardSelector.selectedCardsPlaye1)
+            if (_cardSelector.selectedCardsPlaye1.Count > 0)
             {
-                Renderer render = GetChildComponent<Renderer>(card);
-                render.material = defaultMaterial;
+                foreach (var card in _cardSelector.selectedCardsPlaye1)
+                {
+                    Renderer render = GetChildComponent<Renderer>(card);
+                    render.material = defaultMaterial;
+                }
+                _cardSelector.selectedCardsPlaye1.Clear();
             }
-            _cardSelector.selectedCardsPlaye1.Clear();
         }
 
         private void Update()

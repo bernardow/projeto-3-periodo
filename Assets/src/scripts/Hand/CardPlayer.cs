@@ -35,8 +35,6 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         
         if(_turnManager.cardPlayer == null)
             _turnManager.cardPlayer = this;
-
-        DeactivatePlayer();
     }
 
     public void ActivatePlayer()
