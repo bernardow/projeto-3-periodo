@@ -47,11 +47,10 @@ namespace src.scripts.Deck
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                photonView.RPC("Initialize", RpcTarget.AllBuffered);
+                Initialize();
             }
         }
-
-        [PunRPC]
+        
         private void Initialize()
         {
             _spawnPos = transform.position;
