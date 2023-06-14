@@ -33,7 +33,8 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         _turnManager = FindObjectOfType<TurnManager>();
         _turnManager.AddPlayerToQueue(photonView.ViewID);
         
-        _turnManager.cardPlayer = this;
+        if(_turnManager.cardPlayer == null)
+            _turnManager.cardPlayer = this;
 
         DeactivatePlayer();
     }
