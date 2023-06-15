@@ -12,13 +12,7 @@ namespace src.scripts.Hand
         {
             _player = GetComponent<Hand>();
         }
-
-        // Update is called once per frame
-        void Update()
-        {
         
-        }
-
         public void OnNotify(RaycastHit hit)
         {
             if (hit.collider.CompareTag("Player") && _player._cardSelector.selectedCardsPlaye1.Count is > 0 and < 2)
