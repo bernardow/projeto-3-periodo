@@ -1,5 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
+using src.scripts.Deck;
 using src.scripts.Hand;
 using src.scripts.Managers;
 using static src.scripts.Deck.Deck;
@@ -30,10 +31,10 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         
         if (!photonView.IsMine)
             gameObject.GetComponentInChildren<Camera>().gameObject.SetActive(false);
-
+        
         _turnManager = FindObjectOfType<TurnManager>();
         _turnManager.AddPlayerToQueue(photonView.ViewID);
-        
+
         if(_turnManager.cardPlayer == null)
             _turnManager.cardPlayer = this;
     }
