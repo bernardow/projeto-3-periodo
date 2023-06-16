@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using src.scripts.Hand;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -41,9 +43,6 @@ namespace src.scripts.Deck
         [SerializeField] private Card yellowCardObj;
         [SerializeField] private Card blueCardObj;
 
-        public Hand.Hand _masterPlayer;
-        public Merge _masterMerge;
-        
         private Vector3 _spawnPos;
     
         // Start is called before the first frame update
@@ -51,15 +50,13 @@ namespace src.scripts.Deck
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                foreach (CardPlayer cardPlayer in FindObjectsOfType<CardPlayer>())
-                {
-                    if (cardPlayer.GetComponent<PhotonView>().IsMine)
-                        photonView.RPC("SetMasterPlayer", RpcTarget.All, cardPlayer.GetComponent<PhotonView>().ViewID);
-                }
                 Initialize();
             }
+
+            SpawnSpecialColors();
         }
-        
+
+
         private void Initialize()
         {
             _spawnPos = transform.position;
@@ -68,6 +65,7 @@ namespace src.scripts.Deck
             AddCards(numOfYellowCards, yellowCardObj);
             ShuffleDeck(cards);
             SpawnCards(cards);
+            SpawnSpecialColors();
             photonView.RPC("NotifyPlayersHands", RpcTarget.All);
         }
         
@@ -119,12 +117,12 @@ namespace src.scripts.Deck
    
         public void SpawnSpecialColors()
         {
-            SpawnColor(greenCardPlace.position, greenCard, 8, _masterMerge.GreenCards);
-            SpawnColor(purpleCardPlace.position, purpleCard, 8, _masterMerge.PurpleCards);
-            SpawnColor(orangeCardPlace.position, orangeCard, 8, _masterMerge.OrangeCards);
-            SpawnColor(pinkCardPlace.position, pinkCard, 4, _masterMerge.PinkCards);
-            SpawnColor(cianCardPlace.position, cianCard, 4, _masterMerge.CianCards);
-            SpawnColor(brownCardPlace.position, brownCard, 4, _masterMerge.BrownCards);
+            SpawnColor(greenCardPlace.position, greenCard, 8, GreenCards);
+            SpawnColor(purpleCardPlace.position, purpleCard, 8, PurpleCards);
+            SpawnColor(orangeCardPlace.position, orangeCard, 8, OrangeCards);
+            SpawnColor(pinkCardPlace.position, pinkCard, 4, PinkCards);
+            SpawnColor(cianCardPlace.position, cianCard, 4, CianCards);
+            SpawnColor(brownCardPlace.position, brownCard, 4, BrownCards);
         }
 
         private void SpawnColor(Vector3 pos, GameObject prefab, int numberOfCards, Stack<GameObject> colorStack)
@@ -138,13 +136,6 @@ namespace src.scripts.Deck
         }
 
         [PunRPC]
-        private void SetMasterPlayer(int id)
-        {
-            _masterPlayer = PhotonView.Find(id).GetComponentInChildren<Hand.Hand>();
-            _masterMerge = _masterPlayer.GetComponent<Merge>();
-        }
-
-        [PunRPC]
         private void PairCardInfo(int id)
         {
             GameObject newCard = PhotonView.Find(id).gameObject;
@@ -152,24 +143,6 @@ namespace src.scripts.Deck
             _spawnPos += Vector3.up * 0.1f;
             newCard.tag = "Deck";
             gameDeck.Add(newCard);
-        }
-
-        [PunRPC]
-        private void SyncSpecialColorsStacks()
-        {
-            foreach (var cardPlayer in FindObjectsOfType<CardPlayer>())
-            {
-                if (cardPlayer.GetComponent<PhotonView>().IsMine)
-                {
-                    Merge myMerge = cardPlayer.GetComponentInChildren<Merge>();
-                    myMerge.BrownCards = _masterMerge.BrownCards;
-                    myMerge.BrownCards = _masterMerge.CianCards;
-                    myMerge.BrownCards = _masterMerge.GreenCards;
-                    myMerge.BrownCards = _masterMerge.OrangeCards;
-                    myMerge.BrownCards = _masterMerge.PinkCards;
-                    myMerge.BrownCards = _masterMerge.PurpleCards;
-                }
-            }
         }
 
         [PunRPC]

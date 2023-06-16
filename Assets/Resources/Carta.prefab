@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1815573376713129448}
   - component: {fileID: -6412273830874760217}
   - component: {fileID: -8484498675426535830}
-  - component: {fileID: 1996853325682952010}
+  - component: {fileID: -7864595363506245101}
   m_Layer: 0
   m_Name: Carta
   m_TagString: Untagged
@@ -133,11 +133,11 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 1996853325682952010}
+  - {fileID: -7864595363506245101}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1996853325682952010
+--- !u!114 &-7864595363506245101
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

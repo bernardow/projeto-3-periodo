@@ -13,12 +13,12 @@ namespace src.scripts.Hand
         [Header("Merge Datas")]
         [SerializeField] private List<MergeData> mergeDatas;
 
-        public Stack<GameObject> GreenCards = new Stack<GameObject>();
-        public Stack<GameObject> PurpleCards = new Stack<GameObject>();
-        public Stack<GameObject> OrangeCards = new Stack<GameObject>();
-        public Stack<GameObject> CianCards = new Stack<GameObject>();
-        public Stack<GameObject> PinkCards = new Stack<GameObject>();
-        public Stack<GameObject> BrownCards = new Stack<GameObject>();
+        public static Stack<GameObject> GreenCards = new Stack<GameObject>();
+        public static Stack<GameObject> PurpleCards = new Stack<GameObject>();
+        public static Stack<GameObject> OrangeCards = new Stack<GameObject>();
+        public static Stack<GameObject> CianCards = new Stack<GameObject>();
+        public static Stack<GameObject> PinkCards = new Stack<GameObject>();
+        public static Stack<GameObject> BrownCards = new Stack<GameObject>();
 
 
         public void CheckMergePossibilities(GameObject color1, GameObject color2, out CardsType mergedColor)
