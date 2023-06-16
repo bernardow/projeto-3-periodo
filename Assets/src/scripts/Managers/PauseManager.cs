@@ -29,7 +29,6 @@ public class PauseManager : MonoBehaviour
             if(cardPlayer.GetComponent<PhotonView>().IsMine)
                 _turnManager.playersInRoom.Remove(cardPlayer.GetComponent<PhotonView>().ViewID);
         }
-        _turnManager.InitializeSetup();
         PhotonNetwork.LoadLevel("Lobby");
         PhotonNetwork.LeaveRoom();
     }

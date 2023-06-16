@@ -12,6 +12,8 @@ public class CardPlayer : MonoBehaviourPunCallbacks
     private Transform _unitParent;
     private TurnManager _turnManager;
 
+    private GameManager _gameManager;
+
     private Vector3 _initalHandPos;
     
     [SerializeField] private Merge merge;
@@ -37,6 +39,8 @@ public class CardPlayer : MonoBehaviourPunCallbacks
 
         if(_turnManager.cardPlayer == null)
             _turnManager.cardPlayer = this;
+
+        _gameManager = FindObjectOfType<GameManager>();
     }
 
     public void ActivatePlayer()
@@ -59,6 +63,23 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         discard.enabled = false;
         playerManager.enabled = false;
         raycastManager.enabled = false;
+    }
+
+    public void CheckLife()
+    {
+        if (life <= 0)
+        {
+            photonView.RPC("RemoveFromQueue", RpcTarget.All, photonView.ViewID);
+            
+            enabled = false;
+        }
+    }
+
+    [PunRPC]
+    private void RemoveFromQueue(int id)
+    {
+        _turnManager.playersInRoom.Remove(id);
+        _gameManager.CheckForWinners(_turnManager.playersInRoom);
     }
 
     
@@ -89,5 +110,6 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         GameObject targetPlayer = PhotonView.Find(id).gameObject;
         CardPlayer targetCardPlayer = targetPlayer.GetComponent<CardPlayer>();
         targetCardPlayer.life--;
+        targetCardPlayer.CheckLife();
     }
 }
