@@ -53,7 +53,6 @@ namespace src.scripts.Managers
         [PunRPC]
         public void ActivateTopPlayer(int id)
         {
-            Debug.Log(cardPlayer.GetComponent<PhotonView>().ViewID);
             if (id == cardPlayer.GetComponent<PhotonView>().ViewID)
             {
                 cardPlayer.ActivatePlayer();
