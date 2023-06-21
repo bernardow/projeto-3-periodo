@@ -33,14 +33,19 @@ namespace src.scripts.Hand
             _player.playerManager.playerCardsNum = handDeck.Count;
         }
 
+        public void PullCard(Hand hand)
+        {
+            hand.player1Hand.Add(InGameDeck.Peek());
+            hand.photonViewPlayer.RPC("PopCard", RpcTarget.All);
+            PlaceCard(hand.player1Hand, hand.cardsPos.position);
+            NotifyPlayerManager(_player.player1Hand);
+        }
+
         public void OnNotify(RaycastHit hitTag)
         {
             if (_player.playerManager.canPull && hitTag.collider.CompareTag("Deck"))
             {
-                _player.player1Hand.Add(InGameDeck.Peek());
-                _player.photonViewPlayer.RPC("PopCard", RpcTarget.All);
-                PlaceCard(_player.player1Hand, _player.cardsPos.position);
-                NotifyPlayerManager(_player.player1Hand);
+                PullCard(_player);
             }
         }
     }

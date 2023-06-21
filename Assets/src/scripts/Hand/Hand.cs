@@ -37,7 +37,7 @@ namespace src.scripts.Hand
         
 
         //Classes Derivadas
-        private Puller _puller;
+        public Puller puller { get; private set; }
         public CardPlayer cardPlayer;
         [HideInInspector] public CardSelector _cardSelector;
         public Attack attack;
@@ -50,7 +50,7 @@ namespace src.scripts.Hand
 
         private void Start()
         {
-            _puller = GetComponent<Puller>();
+            puller = GetComponent<Puller>();
             _cardSelector = GetComponent<CardSelector>();
             _discard = GetComponent<Discard>();
             attack = GetComponent<Attack>();
@@ -74,6 +74,6 @@ namespace src.scripts.Hand
             }
         }
 
-        public void RearrangeCards() => _puller.PlaceCard(player1Hand, cardsPos.position);
+        public void RearrangeCards() => puller.PlaceCard(player1Hand, cardsPos.position);
     }
 }

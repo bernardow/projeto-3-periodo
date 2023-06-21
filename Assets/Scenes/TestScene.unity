@@ -2868,6 +2868,7 @@ MonoBehaviour:
   numOfYellowCards: 12
   numOfBlueCards: 16
   numOfDoubleDmgCards: 8
+  numOfDrawCardsCards: 8
   gameDeck: []
   redCard: {fileID: 3628532476830465239, guid: f9dae43ed62d0a446bb871b4f0025264, type: 3}
   yellowCard: {fileID: 528950954344807957, guid: 19f667db1231a5e478c75e414db2f51c,
@@ -2888,6 +2889,8 @@ MonoBehaviour:
     type: 3}
   doubleDmgCard: {fileID: 3248996423549168625, guid: 8af091cd3ce7c8c48ab8c52ded1d2a78,
     type: 3}
+  drawCardsCard: {fileID: 6786912841035330441, guid: 22666beb3c9a4a743b93781a608277e5,
+    type: 3}
   greenCardPlace: {fileID: 1601362265}
   purpleCardPlace: {fileID: 1013446747}
   orangeCardPlace: {fileID: 469246421}
@@ -2898,6 +2901,7 @@ MonoBehaviour:
   yellowCardObj: {fileID: 11400000, guid: eb8fce96e6a0e97419ab35edf10b8609, type: 2}
   blueCardObj: {fileID: 11400000, guid: 729fddd775fa5a34daee9867406b8aff, type: 2}
   doubleDmgCardObj: {fileID: 11400000, guid: 24988c06cbe81794d98f9fb097f69c4d, type: 2}
+  drawCardsCardObj: {fileID: 11400000, guid: 8891d7c4d0476624aadfd445f0921668, type: 2}
 --- !u!4 &845593329
 Transform:
   m_ObjectHideFlags: 0
