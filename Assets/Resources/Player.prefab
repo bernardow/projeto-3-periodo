@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 1
+  bonus: 1
   merge: {fileID: 7943818761813358113}
   puller: {fileID: 7720467860455531314}
   hand: {fileID: 7943818761813358115}
@@ -213,6 +214,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
+        type: 3}
+      propertyPath: cardPlayer
+      value: 
+      objectReference: {fileID: 654897869208654078}
     - target: {fileID: 3827254631997662770, guid: aed02993ece1da64c94c29bb22487218,
         type: 3}
       propertyPath: _cardPlayer

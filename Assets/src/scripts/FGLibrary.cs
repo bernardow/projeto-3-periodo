@@ -17,7 +17,8 @@ namespace src.scripts
             Cian,
             Green,
             Orange,
-            Joker
+            Joker,
+            DoubleDamage
         }
 
         public static Stack<GameObject> ConvertToStack(List<GameObject> list)

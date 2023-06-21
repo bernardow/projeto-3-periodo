@@ -19,7 +19,8 @@ namespace src.scripts.Hand
                 _player._cardSelector.selectedCardsPlaye1[0].AddComponent<Rigidbody>();
                 _player._cardSelector.selectedCardsPlaye1[0].GetComponent<Rigidbody>().AddForce((target.transform.GetChild(2).position
                     - _player._cardSelector.selectedCardsPlaye1[0].transform.position + Vector3.up * 3) * force, ForceMode.Impulse);
-                _player.photonViewPlayer.RPC("DealDamage", RpcTarget.All, target.GetComponent<PhotonView>().ViewID);
+                _player.photonViewPlayer.RPC("DealDamage", RpcTarget.All, target.GetComponent<PhotonView>().ViewID, 1);
+                _player.cardPlayer.bonus = 1;
                 _player.player1Hand.Remove(_player._cardSelector.selectedCardsPlaye1[0]);
                 _player._cardSelector.selectedCardsPlaye1.Remove(_player._cardSelector.selectedCardsPlaye1[0]);
             }

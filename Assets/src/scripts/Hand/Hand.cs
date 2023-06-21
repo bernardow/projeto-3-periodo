@@ -38,7 +38,7 @@ namespace src.scripts.Hand
 
         //Classes Derivadas
         private Puller _puller;
-        [SerializeField] private CardPlayer _cardPlayer;
+        public CardPlayer cardPlayer;
         [HideInInspector] public CardSelector _cardSelector;
         public Attack attack;
         private Discard _discard;
@@ -58,7 +58,7 @@ namespace src.scripts.Hand
             trash = GameObject.Find("Trash").GetComponent<Trash>();
             turnManager = FindObjectOfType<TurnManager>();
             
-            _cardPlayer.DeactivatePlayer();
+            cardPlayer.DeactivatePlayer();
         }
 
         private void OnDisable()

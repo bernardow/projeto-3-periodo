@@ -16,6 +16,7 @@ namespace src.scripts.Deck
         [SerializeField] private int numOfRedCards = 20;
         [SerializeField] private int numOfYellowCards = 12;
         [SerializeField] private int numOfBlueCards = 16;
+        [SerializeField] private int numOfDoubleDmgCards = 8;
         public List<GameObject> gameDeck;
         public static Stack<GameObject> InGameDeck;
 
@@ -29,6 +30,7 @@ namespace src.scripts.Deck
         [SerializeField] private GameObject pinkCard;
         [SerializeField] private GameObject cianCard;
         [SerializeField] private GameObject brownCard;
+        [SerializeField] private GameObject doubleDmgCard;
         
         [Header("Lugares das Cartas")]
         [SerializeField] private Transform greenCardPlace;
@@ -42,6 +44,7 @@ namespace src.scripts.Deck
         [SerializeField] private Card redCardObj;
         [SerializeField] private Card yellowCardObj;
         [SerializeField] private Card blueCardObj;
+        [SerializeField] private Card doubleDmgCardObj;
 
         private Vector3 _spawnPos;
     
@@ -63,6 +66,7 @@ namespace src.scripts.Deck
             AddCards(numOfRedCards, redCardObj);
             AddCards(numOfBlueCards, blueCardObj);
             AddCards(numOfYellowCards, yellowCardObj);
+            AddCards(numOfDoubleDmgCards, doubleDmgCardObj);
             ShuffleDeck(cards);
             SpawnCards(cards);
             SpawnSpecialColors();
@@ -104,6 +108,8 @@ namespace src.scripts.Deck
                     case CardsType.Yellow: cardPrefab = yellowCard;
                         break;
                     case CardsType.Blue: cardPrefab = blueCard;
+                        break;
+                    case CardsType.DoubleDamage: cardPrefab = doubleDmgCard;
                         break;
                     default:  Debug.LogError("Erro na tentativa de encontrar o tipo da carta");
                         break;

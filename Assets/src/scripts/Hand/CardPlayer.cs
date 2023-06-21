@@ -8,7 +8,8 @@ using static src.scripts.Deck.Deck;
 public class CardPlayer : MonoBehaviourPunCallbacks
 {
     public int life = 10;
-    
+    public int bonus = 1;
+
     private Transform _unitParent;
     private TurnManager _turnManager;
 
@@ -105,11 +106,11 @@ public class CardPlayer : MonoBehaviourPunCallbacks
     }
     
     [PunRPC]
-    public void DealDamage(int id)
+    public void DealDamage(int id, int damage)
     {
         GameObject targetPlayer = PhotonView.Find(id).gameObject;
         CardPlayer targetCardPlayer = targetPlayer.GetComponent<CardPlayer>();
-        targetCardPlayer.life--;
+        targetCardPlayer.life -= damage * bonus;
         targetCardPlayer.CheckLife();
     }
 }

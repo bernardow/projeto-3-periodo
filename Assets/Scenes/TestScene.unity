@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 01456dd88cb34cb43b4bdb178b1975f0,
+    type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -259,6 +260,7 @@ Transform:
   - {fileID: 782373502}
   - {fileID: 1842351939}
   - {fileID: 1129335562}
+  - {fileID: 250191002}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -876,6 +878,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 214979296}
   m_CullTransparentMesh: 1
+--- !u!1 &250191001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 250191002}
+  - component: {fileID: 250191003}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &250191002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250191001}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 134401669}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &250191003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250191001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 249540f1474f8e64586f06060ae3d23e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: MenuMusic
+    clip: {fileID: 8300000, guid: 689f2111d34de2640a025d8ee0ec81aa, type: 3}
+    volume: 5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: GameOver
+    clip: {fileID: 8300000, guid: dc13687bfe4187e4ea532fc668b805d5, type: 3}
+    volume: 5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: MainTheme
+    clip: {fileID: 8300000, guid: 5a063c0628ed929429163637376dcb11, type: 3}
+    volume: 5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
 --- !u!1 &260731700
 GameObject:
   m_ObjectHideFlags: 0
@@ -2802,6 +2867,7 @@ MonoBehaviour:
   numOfRedCards: 20
   numOfYellowCards: 12
   numOfBlueCards: 16
+  numOfDoubleDmgCards: 8
   gameDeck: []
   redCard: {fileID: 3628532476830465239, guid: f9dae43ed62d0a446bb871b4f0025264, type: 3}
   yellowCard: {fileID: 528950954344807957, guid: 19f667db1231a5e478c75e414db2f51c,
@@ -2820,6 +2886,8 @@ MonoBehaviour:
     type: 3}
   brownCard: {fileID: 3738738366096057291, guid: cddbe08f42b82bd4fbd1c9b22c0873fe,
     type: 3}
+  doubleDmgCard: {fileID: 3248996423549168625, guid: 8af091cd3ce7c8c48ab8c52ded1d2a78,
+    type: 3}
   greenCardPlace: {fileID: 1601362265}
   purpleCardPlace: {fileID: 1013446747}
   orangeCardPlace: {fileID: 469246421}
@@ -2829,6 +2897,7 @@ MonoBehaviour:
   redCardObj: {fileID: 11400000, guid: 619f0c371ad9bb84ea3703685974f61b, type: 2}
   yellowCardObj: {fileID: 11400000, guid: eb8fce96e6a0e97419ab35edf10b8609, type: 2}
   blueCardObj: {fileID: 11400000, guid: 729fddd775fa5a34daee9867406b8aff, type: 2}
+  doubleDmgCardObj: {fileID: 11400000, guid: 24988c06cbe81794d98f9fb097f69c4d, type: 2}
 --- !u!4 &845593329
 Transform:
   m_ObjectHideFlags: 0

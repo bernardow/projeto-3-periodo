@@ -14,8 +14,15 @@ namespace src.scripts.Hand
         {
             if (hitInfo.collider.CompareTag("Trash") && _player._cardSelector.selectedCardsPlaye1.Count is > 0 and < 2)
             {
-                _player.trash.MoveToTrash(_player._cardSelector.selectedCardsPlaye1[0], _player.player1Hand, _player._cardSelector.selectedCardsPlaye1, _player.playerManager, _player.defaultMaterial);
-                _player.turnManager.GetComponent<PhotonView>().RPC("SkipTurn", RpcTarget.All);
+                GameObject card = _player._cardSelector.selectedCardsPlaye1[0];
+                IObserverCard observer = card.GetComponent<IObserverCard>();
+                
+                _player.trash.MoveToTrash(card, _player.player1Hand, _player._cardSelector.selectedCardsPlaye1, _player.playerManager, _player.defaultMaterial);
+                                
+                if(observer != null)
+                    observer.OnNotify(_player.cardPlayer);
+                else
+                    _player.turnManager.GetComponent<PhotonView>().RPC("SkipTurn", RpcTarget.All);
             }
             else if (hitInfo.collider.CompareTag("Trash") && _player._cardSelector.selectedCardsPlaye1.Count > 1)
             {
