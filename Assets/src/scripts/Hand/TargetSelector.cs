@@ -21,7 +21,8 @@ namespace src.scripts.Hand
             {
                 selectedPlayer = hit.transform.parent.gameObject;
                 GameObject card = _player._cardSelector.selectedCardsPlaye1[0];
-                FgLibrary.CardsType cardType = card.GetComponent<CardUnit>().cardsType;
+                CardUnit cardUnit = card.GetComponent<CardUnit>();
+                FgLibrary.CardsType cardType = cardUnit.cardsType;
                 if (cardType == FgLibrary.CardsType.ForceDiscard)
                 {
                     PhotonView targetPhotonView = selectedPlayer.GetComponent<PhotonView>();
@@ -36,7 +37,7 @@ namespace src.scripts.Hand
                     return;
                 }
                     
-                _player.attack.ThrowCard(selectedPlayer, /*DEV*/1);
+                _player.attack.ThrowCard(selectedPlayer, cardUnit.card.damage);
             }
                 
         }

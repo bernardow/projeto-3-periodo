@@ -6,6 +6,6 @@ namespace src.scripts.Deck
     public class Card : ScriptableObject
     {
         public FgLibrary.CardsType cardType;
-        public Mesh cardMesh;
+        public int damage;
     }
 }

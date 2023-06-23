@@ -9,6 +9,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -6412273830874760217, guid: aec2c4ce883d2544aabbe8609393d2a9,
         type: 3}
+      propertyPath: card
+      value: 
+      objectReference: {fileID: 11400000, guid: 0bdc11aa8f6391a4f9c2411672a4d5e1,
+        type: 2}
+    - target: {fileID: -6412273830874760217, guid: aec2c4ce883d2544aabbe8609393d2a9,
+        type: 3}
       propertyPath: cardsType
       value: 6
       objectReference: {fileID: 0}

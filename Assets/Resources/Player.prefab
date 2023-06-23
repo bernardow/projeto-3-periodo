@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd902c1a66fd09140ba7346b3cf4981c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 20
+  life: 50
   bonus: 1
   merge: {fileID: 7943818761813358113}
   puller: {fileID: 7720467860455531314}

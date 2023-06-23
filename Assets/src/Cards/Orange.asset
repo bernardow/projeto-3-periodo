@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Orange
   m_EditorClassIdentifier: 
   cardType: 8
-  cardMesh: {fileID: 0}
+  damage: 5
