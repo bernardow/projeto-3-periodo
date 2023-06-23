@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using Photon.Pun;
-using Photon.Realtime;
-using src.scripts.Hand;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using static src.scripts.FgLibrary;
@@ -18,6 +15,8 @@ namespace src.scripts.Deck
         [SerializeField] private int numOfBlueCards = 16;
         [SerializeField] private int numOfDoubleDmgCards = 8;
         [SerializeField] private int numOfDrawCardsCards = 8;
+        [SerializeField] private int numOfForceDiscardCards = 8;
+        [SerializeField] private int numOfRainbowDamageCards = 4;
         public List<GameObject> gameDeck;
         public static Stack<GameObject> InGameDeck;
 
@@ -33,6 +32,8 @@ namespace src.scripts.Deck
         [SerializeField] private GameObject brownCard;
         [SerializeField] private GameObject doubleDmgCard;
         [SerializeField] private GameObject drawCardsCard;
+        [SerializeField] private GameObject forceDiscardCard;
+        [SerializeField] private GameObject rainbowDamageCard;
         
         [Header("Lugares das Cartas")]
         [SerializeField] private Transform greenCardPlace;
@@ -48,6 +49,8 @@ namespace src.scripts.Deck
         [SerializeField] private Card blueCardObj;
         [SerializeField] private Card doubleDmgCardObj;
         [SerializeField] private Card drawCardsCardObj;
+        [SerializeField] private Card forceDiscardCardObj;
+        [SerializeField] private Card rainbowDamageCardObj;
 
         private Vector3 _spawnPos;
     
@@ -71,6 +74,8 @@ namespace src.scripts.Deck
             AddCards(numOfYellowCards, yellowCardObj);
             AddCards(numOfDoubleDmgCards, doubleDmgCardObj);
             AddCards(numOfDrawCardsCards, drawCardsCardObj);
+            AddCards(numOfForceDiscardCards, forceDiscardCardObj);
+            AddCards(numOfRainbowDamageCards, rainbowDamageCardObj);
             ShuffleDeck(cards);
             SpawnCards(cards);
             SpawnSpecialColors();
@@ -116,6 +121,10 @@ namespace src.scripts.Deck
                     case CardsType.DoubleDamage: cardPrefab = doubleDmgCard;
                         break;
                     case CardsType.DrawCards: cardPrefab = drawCardsCard;
+                        break;
+                    case CardsType.ForceDiscard: cardPrefab = forceDiscardCard;
+                        break;
+                    case CardsType.RainbowDamage: cardPrefab = rainbowDamageCard;
                         break;
                     default:  Debug.LogError("Erro na tentativa de encontrar o tipo da carta");
                         break;

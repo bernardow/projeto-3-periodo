@@ -113,4 +113,16 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         targetCardPlayer.life -= damage * bonus;
         targetCardPlayer.CheckLife();
     }
+    
+    [PunRPC]
+    public void DiscardTwo(int id)
+    {
+        GameObject player = PhotonView.Find(id).gameObject;
+        Hand playerHand = player.GetComponentInChildren<Hand>();
+        if (player.GetComponent<PhotonView>().ViewID == id)
+        {
+            playerHand.trash.MoveToTrash(playerHand.player1Hand[Random.Range(0, playerHand.player1Hand.Count)], playerHand.player1Hand, playerHand._cardSelector.selectedCardsPlaye1, playerHand.playerManager, playerHand.defaultMaterial);
+            playerHand.trash.MoveToTrash(playerHand.player1Hand[Random.Range(0, playerHand.player1Hand.Count)], playerHand.player1Hand, playerHand._cardSelector.selectedCardsPlaye1, playerHand.playerManager, playerHand.defaultMaterial);
+        }
+    }
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6855183464903753603
+--- !u!1001 &3507062924094806607
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,24 +9,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8484498675426535830, guid: aec2c4ce883d2544aabbe8609393d2a9,
         type: 3}
-      propertyPath: ObservedComponents.Array.size
-      value: 1
+      propertyPath: sceneViewId
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8484498675426535830, guid: aec2c4ce883d2544aabbe8609393d2a9,
-        type: 3}
-      propertyPath: ObservedComponents.Array.data[0]
-      value: 
-      objectReference: {fileID: 5618760763322568080}
     - target: {fileID: -6412273830874760217, guid: aec2c4ce883d2544aabbe8609393d2a9,
         type: 3}
       propertyPath: cardsType
-      value: 3
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1815573376713129449, guid: aec2c4ce883d2544aabbe8609393d2a9,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7f0c39972ccc26a4bb5377ff46b22770, type: 2}
+      objectReference: {fileID: 2100000, guid: 6ac6c21d2311f0e40a50f5d6dd5923f3, type: 2}
     - target: {fileID: 1815573376713129451, guid: aec2c4ce883d2544aabbe8609393d2a9,
         type: 3}
       propertyPath: m_RootOrder
@@ -35,17 +30,17 @@ PrefabInstance:
     - target: {fileID: 1815573376713129451, guid: aec2c4ce883d2544aabbe8609393d2a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.57
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1815573376713129451, guid: aec2c4ce883d2544aabbe8609393d2a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1815573376713129451, guid: aec2c4ce883d2544aabbe8609393d2a9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.59
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1815573376713129451, guid: aec2c4ce883d2544aabbe8609393d2a9,
         type: 3}
@@ -85,19 +80,7 @@ PrefabInstance:
     - target: {fileID: 1815573376713129463, guid: aec2c4ce883d2544aabbe8609393d2a9,
         type: 3}
       propertyPath: m_Name
-      value: Pink Variant
+      value: RainbowDamage Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aec2c4ce883d2544aabbe8609393d2a9, type: 3}
---- !u!114 &5618760763322568080 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -7864595363506245101, guid: aec2c4ce883d2544aabbe8609393d2a9,
-    type: 3}
-  m_PrefabInstance: {fileID: 6855183464903753603}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

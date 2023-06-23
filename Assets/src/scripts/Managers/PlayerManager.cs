@@ -30,7 +30,7 @@ namespace src.scripts.Managers
 
         public bool CanSelect() => !canPull;
 
-        public bool CanMerge() => mergedCards < 1;
+        public bool CanMerge() => true;
 
         public bool CanDrop(List<Transform> places)
         {   if (droppedCards < 1 && places.Count > 0)

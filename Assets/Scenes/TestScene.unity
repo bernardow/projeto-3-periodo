@@ -2869,6 +2869,8 @@ MonoBehaviour:
   numOfBlueCards: 16
   numOfDoubleDmgCards: 8
   numOfDrawCardsCards: 8
+  numOfForceDiscardCards: 8
+  numOfRainbowDamageCards: 4
   gameDeck: []
   redCard: {fileID: 3628532476830465239, guid: f9dae43ed62d0a446bb871b4f0025264, type: 3}
   yellowCard: {fileID: 528950954344807957, guid: 19f667db1231a5e478c75e414db2f51c,
@@ -2891,6 +2893,10 @@ MonoBehaviour:
     type: 3}
   drawCardsCard: {fileID: 6786912841035330441, guid: 22666beb3c9a4a743b93781a608277e5,
     type: 3}
+  forceDiscardCard: {fileID: 3646150415412204459, guid: 4282cbc2c9307f94a890817f0af481b4,
+    type: 3}
+  rainbowDamageCard: {fileID: 2997604564116006840, guid: cd46bf88545590a48928b6feaae02a30,
+    type: 3}
   greenCardPlace: {fileID: 1601362265}
   purpleCardPlace: {fileID: 1013446747}
   orangeCardPlace: {fileID: 469246421}
@@ -2902,6 +2908,10 @@ MonoBehaviour:
   blueCardObj: {fileID: 11400000, guid: 729fddd775fa5a34daee9867406b8aff, type: 2}
   doubleDmgCardObj: {fileID: 11400000, guid: 24988c06cbe81794d98f9fb097f69c4d, type: 2}
   drawCardsCardObj: {fileID: 11400000, guid: 8891d7c4d0476624aadfd445f0921668, type: 2}
+  forceDiscardCardObj: {fileID: 11400000, guid: a42d8a46298d4e5478d3f6c9f47eb8f7,
+    type: 2}
+  rainbowDamageCardObj: {fileID: 11400000, guid: 42c50cbd48efca94c971f4ac668227ef,
+    type: 2}
 --- !u!4 &845593329
 Transform:
   m_ObjectHideFlags: 0

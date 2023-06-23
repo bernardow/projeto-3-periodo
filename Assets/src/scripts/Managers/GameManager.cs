@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,13 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject looseScreen;
-    
+
+    private void Start()
+    {
+        AudioManager.Instance.Stop("MenuTheme");
+        AudioManager.Instance.Play("MainTheme");
+    }
+
     public void CheckForWinners(List<int> queue)
     {
         if (queue.Count < 2)

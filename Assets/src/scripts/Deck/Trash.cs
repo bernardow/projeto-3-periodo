@@ -19,7 +19,10 @@ namespace src.scripts.Deck
         {
             photonView.RPC("UpdateTrashCards", RpcTarget.All, card.GetComponent<PhotonView>().ViewID);
             handDeck.Remove(card);
-            selected.Remove(card);
+            
+            if(selected.Count > 0)
+                selected.Remove(card);
+            
             playerManager.playerCardsNum--;
             card.GetComponent<Transform>().SetParent(transform);
         }

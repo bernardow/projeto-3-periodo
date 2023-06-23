@@ -39,6 +39,7 @@ namespace src.scripts.Hand
         //Classes Derivadas
         public Puller puller { get; private set; }
         public CardPlayer cardPlayer;
+        public TargetSelector targetSelector;
         [HideInInspector] public CardSelector _cardSelector;
         public Attack attack;
         private Discard _discard;
@@ -54,6 +55,7 @@ namespace src.scripts.Hand
             _cardSelector = GetComponent<CardSelector>();
             _discard = GetComponent<Discard>();
             attack = GetComponent<Attack>();
+            targetSelector = GetComponent<TargetSelector>();
             
             trash = GameObject.Find("Trash").GetComponent<Trash>();
             turnManager = FindObjectOfType<TurnManager>();

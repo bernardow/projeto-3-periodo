@@ -19,7 +19,9 @@ namespace src.scripts
             Orange,
             Joker,
             DoubleDamage,
-            DrawCards
+            DrawCards,
+            ForceDiscard,
+            RainbowDamage
         }
 
         public static Stack<GameObject> ConvertToStack(List<GameObject> list)

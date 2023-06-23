@@ -291,9 +291,21 @@ MonoBehaviour:
   sounds:
   - name: MenuTheme
     clip: {fileID: 8300000, guid: 689f2111d34de2640a025d8ee0ec81aa, type: 3}
-    volume: 5
+    volume: 1
     pitch: 1
     loop: 1
+    source: {fileID: 0}
+  - name: MainTheme
+    clip: {fileID: 8300000, guid: 5a063c0628ed929429163637376dcb11, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: GameOverTheme
+    clip: {fileID: 8300000, guid: dc13687bfe4187e4ea532fc668b805d5, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
     source: {fileID: 0}
 --- !u!4 &640892770
 Transform:

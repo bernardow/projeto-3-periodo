@@ -17,7 +17,7 @@ public class AudioManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this);
 
         foreach (var sound in sounds)
         {
@@ -39,5 +39,16 @@ public class AudioManager : MonoBehaviour
             return;
         }
         s.source.Play(); 
+    }
+    
+    public void Stop(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " +  name + " not found");
+            return;
+        }
+        s.source.Stop(); 
     }
 }
