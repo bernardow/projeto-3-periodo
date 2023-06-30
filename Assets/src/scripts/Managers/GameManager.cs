@@ -19,13 +19,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (queue.Count < 2)
         {
+            AudioManager.Instance.Stop("MainTheme");
             GameObject winner = PhotonView.Find(queue[0]).gameObject;
             PhotonView winnerPhotonVier = winner.GetComponent<PhotonView>();
             if (winnerPhotonVier.IsMine)
             {
                 ActivateWinScreen();
+                AudioManager.Instance.Play("GameOver");
+
                 return;
             }
+            AudioManager.Instance.Play("GameOverTheme");
             ActivateDefeatScreen();
         }
     }

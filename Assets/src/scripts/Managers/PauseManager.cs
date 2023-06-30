@@ -29,6 +29,7 @@ public class PauseManager : MonoBehaviour
             if(cardPlayer.GetComponent<PhotonView>().IsMine)
                 _turnManager.playersInRoom.Remove(cardPlayer.GetComponent<PhotonView>().ViewID);
         }
+        AudioManager.Instance.Stop("MainTheme");
         PhotonNetwork.LoadLevel("Lobby");
         PhotonNetwork.LeaveRoom();
     }

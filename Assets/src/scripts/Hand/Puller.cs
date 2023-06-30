@@ -45,6 +45,7 @@ namespace src.scripts.Hand
         {
             if (_player.playerManager.canPull && hitTag.collider.CompareTag("Deck"))
             {
+                AudioManager.Instance.Play("DrawCardEffect");
                 PullCard(_player);
             }
         }
