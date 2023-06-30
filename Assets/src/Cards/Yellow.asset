@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Yellow
   m_EditorClassIdentifier: 
   cardType: 1
-  cardMesh: {fileID: 0}
+  damage: 3

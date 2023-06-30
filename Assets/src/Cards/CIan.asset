@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CIan
   m_EditorClassIdentifier: 
   cardType: 6
-  cardMesh: {fileID: 0}
+  damage: 7
