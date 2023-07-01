@@ -23,6 +23,8 @@ namespace src.scripts.Hand
                 _player.cardPlayer.bonus = 1;
                 _player.player1Hand.Remove(_player._cardSelector.selectedCardsPlaye1[0]);
                 _player._cardSelector.selectedCardsPlaye1.Remove(_player._cardSelector.selectedCardsPlaye1[0]);
+
+                AudioManager.Instance.Play("AttackEffect");
             }
         }
     }

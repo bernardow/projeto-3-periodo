@@ -23,6 +23,8 @@ namespace src.scripts.Hand
                 IObserverCard observer = card.GetComponent<IObserverCard>();
                 
                 DiscardCard(card);
+
+                AudioManager.Instance.Play("DrawCardEffect");
                                 
                 if(observer != null)
                     observer.OnNotify(_player.cardPlayer);
@@ -43,6 +45,9 @@ namespace src.scripts.Hand
                     _player.merge.GetMergedColor(mergedColor, _player.player1Hand, _player);
                     _player.playerManager.mergedCards++;
                 }
+            }else
+            {
+                AudioManager.Instance.Play("DeniedBtnEffect");
             }
         }
     }

@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void ActivateWinScreen()
     {
         winScreen.SetActive(true);
+        AudioManager.Instance.Play("VictoryEffect");
     }
 
     private void ActivateDefeatScreen()

@@ -269,6 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 640892770}
   - component: {fileID: 640892769}
+  - component: {fileID: 640892771}
   m_Layer: 0
   m_Name: Audio Manager
   m_TagString: Untagged
@@ -313,6 +314,36 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: VictoryEffect
+    clip: {fileID: 8300000, guid: 77af6dbe5bdb9e54e8bfb761cfc8b2ae, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DiscardEffect
+    clip: {fileID: 8300000, guid: d77ff7d61cf2bd340820fd409cff1d77, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: AttackEffect
+    clip: {fileID: 8300000, guid: eea0d5566b0aa1a488f61ea756106480, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ConfirmBtnEffect
+    clip: {fileID: 8300000, guid: 0b5d499592df65e4f82a23f1c961cdd6, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DeniedBtnEffect
+    clip: {fileID: 8300000, guid: 8109b53c48dc54f47ae9fd3d747522af, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!4 &640892770
 Transform:
   m_ObjectHideFlags: 0
@@ -328,6 +359,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &640892771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640892768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 285c5ce1ea0a1514580bfc67ecd2adfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &687936970
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,6 +738,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 640892771}
+        m_TargetAssemblyTypeName: BtnAudios, Assembly-CSharp
+        m_MethodName: SendConfirmBtnAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &949592573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,6 +902,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 640892771}
+        m_TargetAssemblyTypeName: BtnAudios, Assembly-CSharp
+        m_MethodName: SendConfirmBtnAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1397,6 +1464,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 640892771}
+        m_TargetAssemblyTypeName: BtnAudios, Assembly-CSharp
+        m_MethodName: SendConfirmBtnAudio
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
