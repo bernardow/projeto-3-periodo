@@ -5,7 +5,7 @@ using src.scripts.Hand;
 using src.scripts.Managers;
 using static src.scripts.Deck.Deck;
 
-public class CardPlayer : MonoBehaviourPunCallbacks
+public class CardPlayer : MonoBehaviourPunCallbacks, ICardPosObserver
 {
     public int life = 10;
     public int bonus = 1;
@@ -25,11 +25,16 @@ public class CardPlayer : MonoBehaviourPunCallbacks
     [SerializeField] private Discard discard;
     [SerializeField] private RaycastManager raycastManager;
 
+    [SerializeField] private float forwardOffset;
+    [SerializeField] private float downOffset;
+    [SerializeField] private float rightOffset;
+
     public void Start()
     {
         _unitParent = GameObject.Find("Units").transform;
         transform.SetParent(_unitParent);
 
+        hand.cardsPos.position = hand.playerCamera.transform.position + (hand.playerCamera.transform.forward * forwardOffset) - (hand.playerCamera.transform.up * downOffset) - (hand.playerCamera.transform.right * rightOffset);
         _initalHandPos = hand.cardsPos.position;
         
         if (!photonView.IsMine)
@@ -97,11 +102,11 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         foreach (var card in hand.player1Hand)
         {
             card.transform.position = hand.cardsPos.position;
-            card.transform.LookAt(hand.playerCamera!.transform.position);
+            card.transform.LookAt(-hand.playerCamera!.transform.position);
             //card.transform.rotation = Quaternion.Euler(0, 90, 0);
             card.tag = "MyCards";
             card.GetComponent<Transform>().SetParent(hand.handTransform);
-            hand.cardsPos.position += Vector3.left + Vector3.up * 0.3f;
+            hand.cardsPos.position += -hand.cardsPos.right * 5f;
         }
     }
     
@@ -121,8 +126,21 @@ public class CardPlayer : MonoBehaviourPunCallbacks
         Hand playerHand = player.GetComponentInChildren<Hand>();
         if (player.GetComponent<PhotonView>().ViewID == id)
         {
-            playerHand.trash.MoveToTrash(playerHand.player1Hand[Random.Range(0, playerHand.player1Hand.Count)], playerHand.player1Hand, playerHand._cardSelector.selectedCardsPlaye1, playerHand.playerManager, playerHand.defaultMaterial);
-            playerHand.trash.MoveToTrash(playerHand.player1Hand[Random.Range(0, playerHand.player1Hand.Count)], playerHand.player1Hand, playerHand._cardSelector.selectedCardsPlaye1, playerHand.playerManager, playerHand.defaultMaterial);
+            playerHand.trash.MoveToTrash(playerHand.player1Hand[Random.Range(0, playerHand.player1Hand.Count)], playerHand.player1Hand, playerHand._cardSelector.selectedCardsPlaye1, playerHand.playerManager);
+            playerHand.trash.MoveToTrash(playerHand.player1Hand[Random.Range(0, playerHand.player1Hand.Count)], playerHand.player1Hand, playerHand._cardSelector.selectedCardsPlaye1, playerHand.playerManager);
         }
+    }
+
+    [PunRPC]
+    public void SyncCardPos(float x, float y, float z, float xRotation, float yRotation, float zRotation, float wRotation, int  id)
+    {
+        GameObject card = PhotonView.Find(id).gameObject;
+        card.transform.position = new Vector3(x, y, z);
+        card.transform.rotation = new Quaternion(xRotation, yRotation, zRotation, wRotation);
+    }
+
+    public void OnNotify(float x, float y, float z, float xRotation, float yRotation, float zRotation, float wRotation, int  id)
+    {
+        photonView.RPC("SyncCardPos", RpcTarget.All, x, y, z, xRotation, yRotation, zRotation, wRotation, id);
     }
 }

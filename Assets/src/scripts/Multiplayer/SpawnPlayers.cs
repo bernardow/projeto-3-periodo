@@ -18,8 +18,12 @@ public class SpawnPlayers : MonoBehaviourPunCallbacks
         if (newPlayer.GetComponent<PhotonView>().IsMine)
         {
             GameObject model = newPlayer.transform.GetChild(2).gameObject;
+            GameObject canvas = newPlayer.transform.GetChild(3).gameObject;
             model.layer = 3;
             model.GetComponent<Collider>().enabled = false;
+
+            canvas.layer = 3;
+            canvas.transform.GetChild(0).gameObject.layer = 3;
         }
     }
 }

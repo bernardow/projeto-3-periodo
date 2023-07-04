@@ -130,7 +130,7 @@ namespace src.scripts.Deck
                         break;
                 }
             
-                GameObject newCard = PhotonNetwork.Instantiate(cardPrefab.name, _spawnPos, Quaternion.Euler(new Vector3(90, 0,0))).gameObject;
+                GameObject newCard = PhotonNetwork.Instantiate(cardPrefab.name, _spawnPos, Quaternion.Euler(new Vector3(270, 0,0))).gameObject;
                 photonView.RPC("PairCardInfo", RpcTarget.All, newCard.GetComponent<PhotonView>().ViewID);
             }
         }

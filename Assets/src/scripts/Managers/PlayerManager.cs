@@ -24,7 +24,11 @@ namespace src.scripts.Managers
             CanSkipTurn(true);
         }
 
-        private void OnDisable() => CanSkipTurn(false);
+        private void OnDisable()
+        {
+            if(_skipTurnBtn!)
+                CanSkipTurn(false);
+        }
 
         private void Update()
         {
@@ -45,11 +49,5 @@ namespace src.scripts.Managers
         public bool CanSelect() => !canPull;
 
         public bool CanMerge() => true;
-
-        public bool CanDrop(List<Transform> places)
-        {   if (droppedCards < 1 && places.Count > 0)
-                return true;
-            else return false;
-        }
     }
 }

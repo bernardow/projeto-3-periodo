@@ -14,29 +14,24 @@ namespace src.scripts.Hand
         /// <summary>
         /// Muda o material externo da carta
         /// </summary>
-        /// <param name="material">Material desejado</param>
+        /// <param name="selected">Material desejado</param>
         /// <param name="hitInfo">A carta que deve ser mudada</param>
-        private void ChangeMaterial(Material material, RaycastHit hitInfo)
+        private void ChangeMaterial(bool selected, RaycastHit hitInfo)
         {
-            Renderer outLineRenderer = null;
-            Renderer[] renderers = hitInfo.collider.GetComponentsInChildren<Renderer>();
-            foreach (var render in renderers)
-            {
-                if (render.name != hitInfo.collider.name)
-                    outLineRenderer = render;
-            }
-            outLineRenderer!.material = material;
+            GameObject card = hitInfo.collider.gameObject;
+            GameObject outline = card.transform.GetChild(0).GetChild(0).gameObject;
+            outline.SetActive(selected);
         }
 
         public void OnNotify(RaycastHit hitTag)
         {
             if (hitTag.collider.CompareTag("MyCards") && !selectedCardsPlaye1.Contains(hitTag.collider.gameObject) && selectedCardsPlaye1.Count < 2)
             {
-                ChangeMaterial(_player.selectedMaterial, hitTag);
+                ChangeMaterial(true, hitTag);
                 selectedCardsPlaye1.Add(hitTag.collider.gameObject);
             }else if (hitTag.collider.CompareTag("MyCards") && selectedCardsPlaye1.Contains(hitTag.collider.gameObject))
             {
-                ChangeMaterial(_player.defaultMaterial, hitTag);
+                ChangeMaterial(false, hitTag);
                 selectedCardsPlaye1.Remove(hitTag.collider.gameObject);
             }
         }

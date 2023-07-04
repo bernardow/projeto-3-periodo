@@ -15,7 +15,7 @@ namespace src.scripts.Deck
 
         private void Start() => _trashPos = transform.position + Vector3.up * 0.1f;
     
-        public void MoveToTrash(GameObject card, List<GameObject> handDeck, List<GameObject> selected, PlayerManager playerManager, Material defaulMaterial)
+        public void MoveToTrash(GameObject card, List<GameObject> handDeck, List<GameObject> selected, PlayerManager playerManager)
         {
             photonView.RPC("UpdateTrashCards", RpcTarget.All, card.GetComponent<PhotonView>().ViewID);
             handDeck.Remove(card);
@@ -27,15 +27,8 @@ namespace src.scripts.Deck
             card.GetComponent<Transform>().SetParent(transform);
         }
 
-        public void MoveMergedCardsToTrahs(List<GameObject> cards, List<GameObject> handDeck, List<GameObject> selected, PlayerManager playerManager, Material defaulMaterial)
+        public void MoveMergedCardsToTrahs(List<GameObject> cards, List<GameObject> handDeck, List<GameObject> selected, PlayerManager playerManager)
         {
-            List<Renderer> render = new List<Renderer>();
-            foreach (var card in cards)
-                render.Add(GetChildComponent<Renderer>(card));
-
-            foreach (var ren in render)
-                ren.material = defaulMaterial;
-            
             foreach (var card in cards)
             {
                 photonView.RPC("UpdateTrashCards", RpcTarget.All, card.GetComponent<PhotonView>().ViewID);
@@ -49,13 +42,20 @@ namespace src.scripts.Deck
         private void UpdateTrashCards(int id)
         {
             GameObject card = PhotonView.Find(id).gameObject;
-            Renderer render = GetChildComponent<Renderer>(card);
-            render.material = defaultMaterial;
+            GameObject outline = card.transform.GetChild(0).GetChild(0).gameObject;
+            outline.SetActive(false);
+            
             card.transform.position = _trashPos;
             card.transform.rotation = Quaternion.Euler( transform.rotation.x - 90, transform.rotation.y - 90, 90);
             card.tag = "Trash";
             trashCards.Add(card);
             _trashPos += Vector3.up * 0.1f;
+
+            foreach (GameObject trashCard in trashCards)
+            {
+                CardUnit cardUnit = trashCard.GetComponent<CardUnit>();
+                cardUnit.NotifyPlayers();
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Photon.Pun;
+using src.scripts.Deck;
 using src.scripts.Managers;
 using UnityEngine;
 using static src.scripts.Deck.Deck;
@@ -36,8 +37,14 @@ namespace src.scripts.Hand
         public void PullCard(Hand hand)
         {
             hand.player1Hand.Add(InGameDeck.Peek());
-            hand.photonViewPlayer.RPC("PopCard", RpcTarget.All);
             PlaceCard(hand.player1Hand, hand.cardsPos.position);
+            foreach (GameObject card in hand.player1Hand)
+            {
+                CardUnit cardUnit = card.GetComponent<CardUnit>();
+                cardUnit.NotifyPlayers();
+            }
+            
+            hand.photonViewPlayer.RPC("PopCard", RpcTarget.All);
             NotifyPlayerManager(_player.player1Hand);
         }
 

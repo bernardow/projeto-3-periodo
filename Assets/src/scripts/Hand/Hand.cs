@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Photon.Pun;
@@ -67,10 +68,10 @@ namespace src.scripts.Hand
         {
             if (_cardSelector.selectedCardsPlaye1.Count > 0)
             {
-                foreach (var card in _cardSelector.selectedCardsPlaye1)
+                foreach (GameObject card in _cardSelector.selectedCardsPlaye1)
                 {
-                    Renderer render = GetChildComponent<Renderer>(card);
-                    render.material = defaultMaterial;
+                    GameObject outline = card.transform.GetChild(0).GetChild(0).gameObject;
+                    outline.SetActive(false);
                 }
                 _cardSelector.selectedCardsPlaye1.Clear();
             }

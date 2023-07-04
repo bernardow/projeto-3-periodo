@@ -12,7 +12,7 @@ namespace src.scripts.Hand
         
         private void DiscardCard(GameObject card)
         {
-            _player.trash.MoveToTrash(card, _player.player1Hand, _player._cardSelector.selectedCardsPlaye1, _player.playerManager, _player.defaultMaterial);
+            _player.trash.MoveToTrash(card, _player.player1Hand, _player._cardSelector.selectedCardsPlaye1, _player.playerManager);
         }
         
         public void OnNotify(RaycastHit hitInfo)
@@ -41,7 +41,7 @@ namespace src.scripts.Hand
                 _player.merge.CheckMergePossibilities(_player._cardSelector.selectedCardsPlaye1[0], _player._cardSelector.selectedCardsPlaye1[1], out mergedColor);
                 if (mergedColor != FgLibrary.CardsType.Joker)
                 {
-                    _player.trash.MoveMergedCardsToTrahs(selectedCardsArray, _player.player1Hand, _player._cardSelector.selectedCardsPlaye1, _player.playerManager, _player.defaultMaterial);
+                    _player.trash.MoveMergedCardsToTrahs(selectedCardsArray, _player.player1Hand, _player._cardSelector.selectedCardsPlaye1, _player.playerManager);
                     _player.merge.GetMergedColor(mergedColor, _player.player1Hand, _player);
                     _player.playerManager.mergedCards++;
                 }

@@ -27,7 +27,7 @@ namespace src.scripts.Hand
                 {
                     PhotonView targetPhotonView = selectedPlayer.GetComponent<PhotonView>();
                     _player.photonViewPlayer.RPC("DiscardTwo", RpcTarget.Others, targetPhotonView.ViewID);
-                    _player.trash.MoveToTrash(card, _player.player1Hand, _player._cardSelector.selectedCardsPlaye1, _player.playerManager, _player.defaultMaterial);
+                    _player.trash.MoveToTrash(card, _player.player1Hand, _player._cardSelector.selectedCardsPlaye1, _player.playerManager);
                     _player.turnManager.GetComponent<PhotonView>().RPC("SkipTurn", RpcTarget.All);
                     return;
                 }else if (cardType == FgLibrary.CardsType.RainbowDamage)

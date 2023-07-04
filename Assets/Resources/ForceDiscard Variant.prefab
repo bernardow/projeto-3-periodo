@@ -17,6 +17,11 @@ PrefabInstance:
       propertyPath: cardsType
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 173585991574496037, guid: aec2c4ce883d2544aabbe8609393d2a9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5ff0b22db2adb1a4c837cb6484773459, type: 2}
     - target: {fileID: 1815573376713129449, guid: aec2c4ce883d2544aabbe8609393d2a9,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
