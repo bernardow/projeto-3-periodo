@@ -13,6 +13,8 @@ public class RaycastManager : MonoBehaviour
     [SerializeField] private Puller puller;
     [SerializeField] private TargetSelector targetSelector;
 
+    [SerializeField] private LayerMask layers;
+
         private void Start()
     {
         _observableObject = new ObservableObject();
@@ -27,7 +29,7 @@ public class RaycastManager : MonoBehaviour
     private void ShootRay()
     {
         Ray ray = _playerCamera!.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity) && Input.GetMouseButtonDown(0))
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, layers) && Input.GetMouseButtonDown(0))
         {
             _observableObject.NotifyObservers(hitInfo);
         }
