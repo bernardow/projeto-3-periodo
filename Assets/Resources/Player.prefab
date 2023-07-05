@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 6567161797986286077}
   - component: {fileID: 6567161797986286076}
   - component: {fileID: 6567161797986286079}
+  - component: {fileID: 4446568926557744429}
   m_Layer: 0
   m_Name: Player Camera
   m_TagString: Untagged
@@ -302,6 +303,26 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!95 &4446568926557744429
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6567161797986286073}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 47da1aed783949645977944d7b720354, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7244453285491820973
 GameObject:
   m_ObjectHideFlags: 0

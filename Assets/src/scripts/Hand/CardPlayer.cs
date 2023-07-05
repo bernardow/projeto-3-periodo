@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Photon.Pun;
 using src.scripts.Deck;
@@ -123,6 +124,9 @@ public class CardPlayer : MonoBehaviourPunCallbacks, ICardPosObserver
         CardPlayer targetCardPlayer = targetPlayer.GetComponent<CardPlayer>();
         targetCardPlayer.life -= damage * bonus;
         targetCardPlayer.CheckLife();
+
+        StartCoroutine(ShakeCamera(targetPlayer));
+
     }
     
     [PunRPC]
@@ -148,5 +152,12 @@ public class CardPlayer : MonoBehaviourPunCallbacks, ICardPosObserver
     public void OnNotify(float x, float y, float z, float xRotation, float yRotation, float zRotation, float wRotation, int  id)
     {
         photonView.RPC("SyncCardPos", RpcTarget.All, x, y, z, xRotation, yRotation, zRotation, wRotation, id);
+    }
+
+    public IEnumerator ShakeCamera(GameObject player)
+    {
+        player.transform.GetChild(1).GetComponent<Animator>().SetBool("Shake", true);
+        yield return new WaitForSeconds(0.25f);
+        player.transform.GetChild(1).GetComponent<Animator>().SetBool("Shake", false);
     }
 }

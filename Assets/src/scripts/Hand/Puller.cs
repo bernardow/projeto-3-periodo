@@ -17,6 +17,7 @@ namespace src.scripts.Hand
             _player = GetComponent<Hand>();
             PullCard(_player);
             PullCard(_player);
+            _player.playerManager.cardsPulled = 0;
         }
 
         /// <summary>
