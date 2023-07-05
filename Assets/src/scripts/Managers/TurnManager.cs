@@ -58,7 +58,7 @@ namespace src.scripts.Managers
                 cardPlayer.ActivatePlayer();
             }
             playerNameDisplay.transform.parent.gameObject.SetActive(true);
-            playerNameDisplay.text = PhotonView.Find(playersInRoom[0]).Owner.NickName + "'s " + "turn";
+            playerNameDisplay.text = PhotonView.Find(id).Owner.NickName + "'s " + "turn";
         }
 
         public void AddPlayerToQueue(int id)

@@ -13,8 +13,15 @@ namespace src.scripts.Deck
         private Vector3 _trashPos;
         public List<GameObject> trashCards = new List<GameObject>();
 
-        private void Start() => _trashPos = transform.position + Vector3.up * 0.1f;
-    
+        public PhotonView trashPhotonView;
+
+        private void Start()
+        {
+            trashPhotonView = photonView;
+            
+            _trashPos = transform.position + Vector3.up * 0.1f;
+        }
+
         public void MoveToTrash(GameObject card, List<GameObject> handDeck, List<GameObject> selected, PlayerManager playerManager)
         {
             photonView.RPC("UpdateTrashCards", RpcTarget.All, card.GetComponent<PhotonView>().ViewID);

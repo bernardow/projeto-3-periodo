@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
@@ -53,10 +54,14 @@ namespace src.scripts.Deck
         [SerializeField] private Card rainbowDamageCardObj;
 
         private Vector3 _spawnPos;
+
+        public PhotonView deckPhotonView;
     
         // Start is called before the first frame update
         private void Awake()
         {
+            deckPhotonView = photonView;
+            
             if (PhotonNetwork.IsMasterClient)
             {
                 Initialize();
@@ -64,7 +69,6 @@ namespace src.scripts.Deck
 
             SpawnSpecialColors();
         }
-
 
         private void Initialize()
         {
@@ -170,6 +174,12 @@ namespace src.scripts.Deck
         private void NotifyPlayersHands()
         {
             InGameDeck = ConvertToStack(gameDeck);
+        }
+
+        [PunRPC]
+        public void NotifyDeck()
+        {
+            Initialize();
         }
     }
 }
