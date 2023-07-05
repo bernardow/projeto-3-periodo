@@ -12,8 +12,13 @@ namespace src.scripts.Hand
     {
         private Hand _player;
 
-        private void Start() => _player = GetComponent<Hand>();
-        
+        private void Start()
+        {
+            _player = GetComponent<Hand>();
+            PullCard(_player);
+            PullCard(_player);
+        }
+
         /// <summary>
         /// Coloca a carta na mao do jogador
         /// </summary>
