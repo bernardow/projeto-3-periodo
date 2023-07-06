@@ -11,6 +11,7 @@ public class PauseManager : MonoBehaviour
 {
     [SerializeField] private GameObject pauseScreeen;
     [SerializeField] private GameObject tutorialScreen;
+    [SerializeField] private GameObject optionsScreen;
     private TurnManager _turnManager;
 
     private void Start() => _turnManager = FindObjectOfType<TurnManager>();
@@ -23,6 +24,18 @@ public class PauseManager : MonoBehaviour
     public void ResumeGame()
     {
         pauseScreeen.SetActive(false);
+    }
+
+    public void Options()
+    {
+        pauseScreeen.SetActive(false);
+        optionsScreen.SetActive(true);
+    }
+
+    public void Return()
+    {
+        optionsScreen.SetActive(false);
+        pauseScreeen.SetActive(true);
     }
 
     public void QuitGame()

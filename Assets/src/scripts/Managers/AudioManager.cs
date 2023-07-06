@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
-    
+    public List<AudioSource> effects = new List<AudioSource>();
+    public List<AudioSource> musics = new List<AudioSource>();
+
     public static AudioManager Instance;
     
     private void Awake()
@@ -29,6 +32,11 @@ public class AudioManager : MonoBehaviour
             sound.source.loop = sound.loop;
             sound.source.volume = sound.volume;
             sound.source.pitch = sound.pitch;
+            
+            string[] soundName = Regex.Split(sound.name, @"(?<!^)(?=[A-Z])");
+            if(soundName[^1] == "Effect")
+                effects.Add(sound.source);
+            else musics.Add(sound.source);
         }
     }
 
