@@ -53,7 +53,7 @@ namespace src.scripts.Deck
             outline.SetActive(false);
             
             card.transform.position = _trashPos;
-            card.transform.rotation = Quaternion.Euler( transform.rotation.x - 90, transform.rotation.y - 90, 90);
+            card.transform.rotation = Quaternion.Euler( transform.rotation.x - 270, transform.rotation.y - 90, 90);
             card.tag = "Trash";
             trashCards.Add(card);
             _trashPos += Vector3.up * 0.1f;
