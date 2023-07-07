@@ -94,7 +94,7 @@ public class CardPlayer : MonoBehaviourPunCallbacks, ICardPosObserver
     private void PopCard()
     {
         InGameDeck.Pop();
-        if (InGameDeck.Count == 0)
+        if (InGameDeck.Count == 0 && PhotonNetwork.IsMasterClient)
         {
             Deck deck = FindObjectOfType<Deck>();
             deck.deckPhotonView.RPC("NotifyDeck", RpcTarget.MasterClient);
