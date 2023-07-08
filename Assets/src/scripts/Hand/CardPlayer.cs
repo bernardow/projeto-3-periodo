@@ -122,7 +122,7 @@ public class CardPlayer : MonoBehaviourPunCallbacks, ICardPosObserver
     {
         GameObject targetPlayer = PhotonView.Find(id).gameObject;
         CardPlayer targetCardPlayer = targetPlayer.GetComponent<CardPlayer>();
-        targetCardPlayer.life -= damage * bonus;
+        targetCardPlayer.life -= damage;
         targetCardPlayer.CheckLife();
 
         StartCoroutine(ShakeCamera(targetPlayer));

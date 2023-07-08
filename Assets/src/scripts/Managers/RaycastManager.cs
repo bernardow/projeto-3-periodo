@@ -15,6 +15,8 @@ public class RaycastManager : MonoBehaviour
 
     [SerializeField] private LayerMask layers;
 
+    [SerializeField] private bool isMobile;
+
         private void Start()
     {
         _observableObject = new ObservableObject();
@@ -29,6 +31,8 @@ public class RaycastManager : MonoBehaviour
     private void ShootRay()
     {
         Ray ray = _playerCamera!.ScreenPointToRay(Input.mousePosition);
+        //Touch touch = Input.GetTouch(0);
+        //Ray phoneRay = _playerCamera!.ScreenPointToRay(touch.position);
         if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, layers) && Input.GetMouseButtonDown(0))
         {
             _observableObject.NotifyObservers(hitInfo);

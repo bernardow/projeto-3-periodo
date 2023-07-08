@@ -33,11 +33,12 @@ namespace src.scripts.Hand
                 }else if (cardType == FgLibrary.CardsType.RainbowDamage)
                 {
                     int damage = Mathf.FloorToInt(selectedPlayer.GetComponent<CardPlayer>().life / 4);
+                    _player.playerManager.playerCardsNum--;
                     _player.attack.ThrowCard(selectedPlayer, damage);
                     return;
                 }
                     
-                _player.attack.ThrowCard(selectedPlayer, cardUnit.card.damage);
+                _player.attack.ThrowCard(selectedPlayer, cardUnit.card.damage * _player.cardPlayer.bonus);
             }
                 
         }

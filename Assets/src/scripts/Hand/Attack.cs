@@ -15,7 +15,6 @@ namespace src.scripts.Hand
         {
             if (_player._cardSelector.selectedCardsPlaye1.Count is > 0 and < 2)
             {
-                Debug.Log(target.transform.GetChild(2).name);
                 _player._cardSelector.selectedCardsPlaye1[0].AddComponent<Rigidbody>();
                 _player._cardSelector.selectedCardsPlaye1[0].GetComponent<Rigidbody>().AddForce((target.transform.GetChild(2).position
                     - _player._cardSelector.selectedCardsPlaye1[0].transform.position + Vector3.up * 3) * force, ForceMode.Impulse);

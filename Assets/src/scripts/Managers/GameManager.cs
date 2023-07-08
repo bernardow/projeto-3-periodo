@@ -25,11 +25,11 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (winnerPhotonVier.IsMine)
             {
                 ActivateWinScreen();
-                AudioManager.Instance.Play("GameOver");
+                AudioManager.Instance.Play("GameOverEffect");
 
                 return;
             }
-            AudioManager.Instance.Play("GameOverTheme");
+            AudioManager.Instance.Play("GameOverEffect");
             ActivateDefeatScreen();
         }
     }
