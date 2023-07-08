@@ -714,7 +714,7 @@ MonoBehaviour:
   layers:
     serializedVersion: 2
     m_Bits: 51
-  isMobile: 0
+  isMobile: 1
 --- !u!114 &4363948032085754855
 MonoBehaviour:
   m_ObjectHideFlags: 0

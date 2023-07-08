@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using src.scripts.Hand;
 using UnityEngine;
 
@@ -31,9 +32,14 @@ public class RaycastManager : MonoBehaviour
     private void ShootRay()
     {
         Ray ray = _playerCamera!.ScreenPointToRay(Input.mousePosition);
-        //Touch touch = Input.GetTouch(0);
-        //Ray phoneRay = _playerCamera!.ScreenPointToRay(touch.position);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, layers) && Input.GetMouseButtonDown(0))
+        Ray phoneRay = new Ray();
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            phoneRay = _playerCamera!.ScreenPointToRay(touch.position);
+        }
+
+        if (Physics.Raycast(isMobile? phoneRay : ray, out RaycastHit hitInfo, Mathf.Infinity, layers) && Input.GetMouseButtonDown(0))
         {
             _observableObject.NotifyObservers(hitInfo);
         }
