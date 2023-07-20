@@ -1,15 +1,15 @@
-using System;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
-using Random = UnityEngine.Random;
-using static src.scripts.FgLibrary;
+using static src.scripts.Extensions;
 using static src.scripts.Hand.Merge;
 
 namespace src.scripts.Deck
 {
     public class Deck : MonoBehaviourPunCallbacks
     {
+        #region Proprieties
+        
         [SerializeField] private List<Card> cards = new List<Card>();
         [SerializeField] private int numOfRedCards = 20;
         [SerializeField] private int numOfYellowCards = 12;
@@ -21,7 +21,7 @@ namespace src.scripts.Deck
         public List<GameObject> gameDeck;
         public static Stack<GameObject> InGameDeck;
 
-        [Header("Cartas")] 
+        [Header("Cartas")] //Prefabs 
         [SerializeField] private GameObject redCard;
         [SerializeField] private GameObject yellowCard;
         [SerializeField] private GameObject blueCard;
@@ -44,7 +44,7 @@ namespace src.scripts.Deck
         [SerializeField] private Transform cianCardPlace;
         [SerializeField] private Transform brownCardPlace;
 
-        [Header("Card Object")] 
+        [Header("Card Object")] //ScriptableObjects
         [SerializeField] private Card redCardObj;
         [SerializeField] private Card yellowCardObj;
         [SerializeField] private Card blueCardObj;
@@ -55,64 +55,72 @@ namespace src.scripts.Deck
 
         private Vector3 _spawnPos;
 
-        public PhotonView deckPhotonView;
+        public PhotonView DeckPhotonView { get; private set; }
+        
+        #endregion
     
-        // Start is called before the first frame update
+        // Initialize the Deck
         private void Awake()
         {
-            deckPhotonView = photonView;
+            DeckPhotonView = photonView;
             
+            //MasterClient initializes all the cards in the deck
             if (PhotonNetwork.IsMasterClient)
-            {
                 Initialize();
-            }
 
+            //Each one of the players spawn special colors todo Make only the MasterClient initialize the Special Cards
             SpawnSpecialColors();
         }
 
         private void Initialize()
         {
+            // Set the Spawn point to it`s origin
             _spawnPos = transform.position;
-            AddCards(numOfRedCards, redCardObj);
+            
+            //Add all the base cards in deck list
+            AddCards(numOfRedCards, redCardObj);    
             AddCards(numOfBlueCards, blueCardObj);
             AddCards(numOfYellowCards, yellowCardObj);
             AddCards(numOfDoubleDmgCards, doubleDmgCardObj);
             AddCards(numOfDrawCardsCards, drawCardsCardObj);
             AddCards(numOfForceDiscardCards, forceDiscardCardObj);
             AddCards(numOfRainbowDamageCards, rainbowDamageCardObj);
-            ShuffleDeck(cards);
+            
+            //Shuffle the list
+            cards.Shuffle();
+            
+            //Spawn the cards in deck and special colors
             SpawnCards(cards);
             SpawnSpecialColors();
+            
+            //Notify Player Hands to convert the list to a Stack
             photonView.RPC("NotifyPlayersHands", RpcTarget.All);
         }
-        
+
+        #region Internal Methods
+
+        /// <summary>
+        /// Add cards to the list of the deck
+        /// </summary>
+        /// <param name="numOfCards">Number of that Card</param>
+        /// <param name="cardObj">ScriptableObject of the Card</param>
         private void AddCards(int numOfCards, Card cardObj)
         {
             for (int i = 0; i < numOfCards; i++)
                 cards.Add(cardObj);
         }
 
-
-        private void ShuffleDeck(List<Card> deck)
-        {
-            // Embaralha o deck usando o algoritmo Fisher-Yates
-
-            int deckSize = deck.Count;
-
-            for (int i = deckSize - 1; i > 0; i--)
-            {
-                int j = Random.Range(0, i + 1); // Gera um índice aleatório
-
-                // Troca a posição das cartas no índice i e j
-                (deck[i], deck[j]) = (deck[j], deck[i]);
-            }
-        }
-
+        /// <summary>
+        /// Spawn the Cards in the Deck List of Card
+        /// </summary>
+        /// <param name="deck">List of Card</param>
         private void SpawnCards(List<Card> deck)
         {
-            GameObject cardPrefab = redCard;
+            //Initializes the cardPrefab
+            GameObject cardPrefab = new GameObject();
 
-            foreach (var card in deck)
+            //Iterates trough all the Card in deck and spawn the correct card for the specific CardsType propriety 
+            foreach (Card card in deck)
             {
                 switch (card.cardType)
                 {
@@ -134,13 +142,16 @@ namespace src.scripts.Deck
                         break;
                 }
             
+                //Photon instantiate and pair their info to everybody in the room
                 GameObject newCard = PhotonNetwork.Instantiate(cardPrefab.name, _spawnPos, Quaternion.Euler(new Vector3(270, 0,0))).gameObject;
                 photonView.RPC("PairCardInfo", RpcTarget.All, newCard.GetComponent<PhotonView>().ViewID);
             }
         }
         
-   
-        public void SpawnSpecialColors()
+        /// <summary>
+        /// Spawn all of the SpecialColors in game (Kind of auto explain)
+        /// </summary>
+        private void SpawnSpecialColors()
         {
             SpawnColor(greenCardPlace.position, greenCard, 8, GreenCards);
             SpawnColor(purpleCardPlace.position, purpleCard, 8, PurpleCards);
@@ -150,6 +161,13 @@ namespace src.scripts.Deck
             SpawnColor(brownCardPlace.position, brownCard, 4, BrownCards);
         }
 
+        /// <summary>
+        /// Spawn a Color
+        /// </summary>
+        /// <param name="pos">Position of the new Card</param>
+        /// <param name="prefab">Prefab of the new Card</param>
+        /// <param name="numberOfCards">Number of Colors that must be spawn</param>
+        /// <param name="colorStack">The Special Color Stack</param>
         private void SpawnColor(Vector3 pos, GameObject prefab, int numberOfCards, Stack<GameObject> colorStack)
         {
             for (int i = 0; i < numberOfCards; i++)
@@ -159,27 +177,38 @@ namespace src.scripts.Deck
                 colorStack.Push(newColor);
             }
         }
+        
+        #endregion
 
+        #region RPCs
+        
+        /// <summary>
+        /// Pair the Card info to everybody in the room
+        /// </summary>
+        /// <param name="id">ID of the new Card</param>
         [PunRPC]
         private void PairCardInfo(int id)
         {
             GameObject newCard = PhotonView.Find(id).gameObject;
+            
+            //Set parent to Deck GameObject
             newCard.transform.SetParent(transform);
+            
+            //Move the Spawn position a little upwards to make space for new cards
             _spawnPos += Vector3.up * 0.1f;
+            
+            //Set tag to "Deck" to make it interactable with the player
             newCard.tag = "Deck";
+            
             gameDeck.Add(newCard);
         }
-
+        
         [PunRPC]
-        private void NotifyPlayersHands()
-        {
-            InGameDeck = ConvertToStack(gameDeck);
-        }
-
+        private void NotifyPlayersHands() => InGameDeck = gameDeck.ConvertToStack();
+        
         [PunRPC]
-        public void NotifyDeck()
-        {
-            Initialize();
-        }
+        public void NotifyDeck() => Initialize();
+        
+        #endregion
     }
 }

@@ -1,25 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObservableObject
+namespace src.scripts
 {
-    private List<IObservable> _observables = new List<IObservable>();
-
-    public void AddObserver(IObservable obj)
+    public class ObservableObject
     {
-        _observables.Add(obj);
-    }
+        private List<IObservable> _observables = new List<IObservable>();
 
-    public void RemoveObserver(IObservable obj)
-    {
-        _observables.Remove(obj);
-    }
-
-    public void NotifyObservers(RaycastHit hitInfo)
-    {
-        foreach (var observer in _observables)
+        public void AddObserver(IObservable obj)
         {
-            observer.OnNotify(hitInfo);
+            _observables.Add(obj);
+        }
+
+        public void RemoveObserver(IObservable obj)
+        {
+            _observables.Remove(obj);
+        }
+
+        public void NotifyObservers(RaycastHit hitInfo)
+        {
+            foreach (var observer in _observables)
+            {
+                observer.OnNotify(hitInfo);
+            }
         }
     }
 }

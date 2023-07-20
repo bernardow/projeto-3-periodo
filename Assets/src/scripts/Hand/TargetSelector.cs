@@ -9,36 +9,58 @@ namespace src.scripts.Hand
         private Hand _player;
         public GameObject selectedPlayer;
         
-        // Start is called before the first frame update
-        void Start()
+        void Start() => _player = GetComponent<Hand>();
+
+        /// <summary>
+        /// Take care of rainbow damage special card action
+        /// </summary>
+        private void RainbowDamage()
         {
-            _player = GetComponent<Hand>();
+            int damage = Mathf.FloorToInt(selectedPlayer.GetComponent<CardPlayer>().life / 4);
+            _player.PlayerManager.playerCardsNum--;
+            _player.Attack.ThrowCard(selectedPlayer, damage);   
+        }
+
+        /// <summary>
+        /// Takes care of the Discard two Special card
+        /// </summary>
+        /// <param name="card">Card that`s casting it</param>
+        private void ForceDiscard(GameObject card)
+        {
+            PhotonView targetPhotonView = selectedPlayer.GetComponent<PhotonView>();
+            _player.photonViewPlayer.RPC("DiscardTwo", RpcTarget.Others, targetPhotonView.ViewID);
+            _player.trash.MoveToTrash(card, _player);
+            _player.turnManager.GetComponent<PhotonView>().RPC("SkipTurn", RpcTarget.All);   
         }
         
+        /// <summary>
+        /// Responsible for throwing the card and make the actions corresponding to it`s type
+        /// </summary>
+        /// <param name="hit">Check if it`s "Player"</param>
         public void OnNotify(RaycastHit hit)
         {
-            if (hit.collider.CompareTag("Player") && _player._cardSelector.selectedCardsPlaye1.Count is > 0 and < 2)
+            if (hit.collider.CompareTag("Player") && _player.CardSelector.selectedCardsPlaye1.Count is > 0 and < 2)
             {
                 selectedPlayer = hit.transform.parent.gameObject;
-                GameObject card = _player._cardSelector.selectedCardsPlaye1[0];
+                GameObject card = _player.CardSelector.selectedCardsPlaye1[0];
                 CardUnit cardUnit = card.GetComponent<CardUnit>();
-                FgLibrary.CardsType cardType = cardUnit.cardsType;
-                if (cardType == FgLibrary.CardsType.ForceDiscard)
+                Extensions.CardsType cardType = cardUnit.cardsType;
+                
+                //Force discard case
+                if (cardType == Extensions.CardsType.ForceDiscard)
                 {
-                    PhotonView targetPhotonView = selectedPlayer.GetComponent<PhotonView>();
-                    _player.photonViewPlayer.RPC("DiscardTwo", RpcTarget.Others, targetPhotonView.ViewID);
-                    _player.trash.MoveToTrash(card, _player.player1Hand, _player._cardSelector.selectedCardsPlaye1, _player.playerManager);
-                    _player.turnManager.GetComponent<PhotonView>().RPC("SkipTurn", RpcTarget.All);
+                    ForceDiscard(card);
                     return;
-                }else if (cardType == FgLibrary.CardsType.RainbowDamage)
+                }
+
+                //Rainbow Damage case
+                if (cardType == Extensions.CardsType.RainbowDamage)
                 {
-                    int damage = Mathf.FloorToInt(selectedPlayer.GetComponent<CardPlayer>().life / 4);
-                    _player.playerManager.playerCardsNum--;
-                    _player.attack.ThrowCard(selectedPlayer, damage);
+                    RainbowDamage();
                     return;
                 }
                     
-                _player.attack.ThrowCard(selectedPlayer, cardUnit.card.damage * _player.cardPlayer.bonus);
+                _player.Attack.ThrowCard(selectedPlayer, cardUnit.card.damage * _player.CardPlayer.bonus);
             }
                 
         }

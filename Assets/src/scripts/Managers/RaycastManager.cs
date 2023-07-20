@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using src.scripts;
 using src.scripts.Hand;
 using UnityEngine;
 

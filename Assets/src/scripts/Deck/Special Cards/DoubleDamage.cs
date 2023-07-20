@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DoubleDamage : MonoBehaviour, IObserverCard
+namespace src.scripts.Deck.Special_Cards
 {
-    private void CheckBonus(CardPlayer cardPlayer)
+    public class DoubleDamage : MonoBehaviour, IObserverCard
     {
-        cardPlayer.bonus++;
-    }
-
-    public void OnNotify(CardPlayer player)
-    {
-        CheckBonus(player);
+        private void CheckBonus(CardPlayer cardPlayer) => cardPlayer.bonus++;
+    
+        /// <summary>
+        /// Add bonus to the CardPlayers of choice
+        /// </summary>
+        /// <param name="player">CardPlayer of choice</param>
+        public void OnNotify(CardPlayer player) => CheckBonus(player);
+    
     }
 }

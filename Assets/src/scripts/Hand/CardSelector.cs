@@ -5,17 +5,17 @@ namespace src.scripts.Hand
 {
     public class CardSelector : MonoBehaviour, IObservable
     {
-        public List<GameObject> selectedCardsPlaye1 = new List<GameObject>();    //Lista de cartas selececionadas
-        private Hand _player;   //Referencia do Player base
+        public List<GameObject> selectedCardsPlaye1 = new List<GameObject>();    //Listt of the selected cards
+        private Hand _player;   //Player reference
 
-        private void Start() => _player = GetComponent<Hand>();     //Atribuicao
+        private void Start() => _player = GetComponent<Hand>();     //Assignments
 
 
         /// <summary>
-        /// Muda o material externo da carta
+        /// Set the outline
         /// </summary>
-        /// <param name="selected">Material desejado</param>
-        /// <param name="hitInfo">A carta que deve ser mudada</param>
+        /// <param name="selected">It`s currentle selected</param>
+        /// <param name="hitInfo">Card that it`s selected</param>
         private void ChangeMaterial(bool selected, RaycastHit hitInfo)
         {
             GameObject card = hitInfo.collider.gameObject;
@@ -23,6 +23,10 @@ namespace src.scripts.Hand
             outline.SetActive(selected);
         }
 
+        /// <summary>
+        /// Verifies if the card selected it`s already selected and does the action of adding and removing form the list
+        /// </summary>
+        /// <param name="hitTag">Card that`s being slected</param>
         public void OnNotify(RaycastHit hitTag)
         {
             if (hitTag.collider.CompareTag("MyCards") && !selectedCardsPlaye1.Contains(hitTag.collider.gameObject) && selectedCardsPlaye1.Count < 2)

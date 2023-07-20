@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IObserverCard
+namespace src.scripts.Deck.Special_Cards
 {
-    void OnNotify(CardPlayer player);
+    public interface IObserverCard
+    {
+        void OnNotify(CardPlayer player);
+    }
 }
