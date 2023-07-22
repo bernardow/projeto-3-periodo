@@ -1,47 +1,59 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Photon.Pun;
+using UnityEngine;
 
-public class GameManager : MonoBehaviourPunCallbacks
+namespace src.scripts.Managers
 {
-    [SerializeField] private GameObject winScreen;
-    [SerializeField] private GameObject looseScreen;
-
-    private void Start()
+    public class GameManager : MonoBehaviourPunCallbacks
     {
-        AudioManager.Instance.Stop("MenuTheme");
-        AudioManager.Instance.Play("MainTheme");
-    }
-
-    public void CheckForWinners(List<int> queue)
-    {
-        if (queue.Count < 2)
+        [SerializeField] private GameObject winScreen;
+        [SerializeField] private GameObject looseScreen;
+        
+        //Audio maagement between scenes
+        private void Start()
         {
-            AudioManager.Instance.Stop("MainTheme");
-            GameObject winner = PhotonView.Find(queue[0]).gameObject;
-            PhotonView winnerPhotonVier = winner.GetComponent<PhotonView>();
-            if (winnerPhotonVier.IsMine)
-            {
-                ActivateWinScreen();
-                AudioManager.Instance.Play("GameOverEffect");
-
-                return;
-            }
-            AudioManager.Instance.Play("GameOverEffect");
-            ActivateDefeatScreen();
+            AudioManager.Instance.Stop("MenuTheme");
+            AudioManager.Instance.Play("MainTheme");
         }
-    }
 
-    private void ActivateWinScreen()
-    {
-        winScreen.SetActive(true);
-        AudioManager.Instance.Play("VictoryEffect");
-    }
+        /// <summary>
+        /// Verifies if there is another player in queue
+        /// </summary>
+        /// <param name="queue">Queue of the players</param>
+        public void CheckForWinners(List<int> queue)
+        {
+            if (queue.Count < 2)
+            {
+                AudioManager.Instance.Stop("MainTheme");
+                GameObject winner = PhotonView.Find(queue[0]).gameObject;
+                PhotonView winnerPhotonVier = winner.GetComponent<PhotonView>();
+                if (winnerPhotonVier.IsMine)
+                {
+                    ActivateWinScreen();
+                    AudioManager.Instance.Play("GameOverEffect");
 
-    private void ActivateDefeatScreen()
-    {
-        looseScreen.SetActive(true);
+                    return;
+                }
+                AudioManager.Instance.Play("GameOverEffect");
+                ActivateDefeatScreen();
+            }
+        }
+
+        /// <summary>
+        /// Activates Win Screen
+        /// </summary>
+        private void ActivateWinScreen()
+        {
+            winScreen.SetActive(true);
+            AudioManager.Instance.Play("VictoryEffect");
+        }
+
+        /// <summary>
+        /// Activates Defeat Screen
+        /// </summary>
+        private void ActivateDefeatScreen()
+        {
+            looseScreen.SetActive(true);
+        }
     }
 }

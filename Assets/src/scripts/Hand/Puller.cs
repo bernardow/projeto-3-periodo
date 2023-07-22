@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Photon.Pun;
 using src.scripts.Deck;
+using src.scripts.Managers;
 using UnityEngine;
 using static src.scripts.Deck.Deck;
 
@@ -58,7 +59,7 @@ namespace src.scripts.Hand
         /// <param name="hitTag">Check if it`s "Deck"</param>
         public void OnNotify(RaycastHit hitTag)
         {
-            if (_player.PlayerManager.canPull && hitTag.collider.CompareTag("Deck"))
+            if (_player.PlayerManager.CanPull && hitTag.collider.CompareTag("Deck"))
             {
                 AudioManager.Instance.Play("DrawCardEffect");
                 PullCard(_player);

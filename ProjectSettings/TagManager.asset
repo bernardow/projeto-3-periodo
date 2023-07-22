@@ -10,6 +10,7 @@ TagManager:
   - MyCards
   - Trash
   - Mesa 1
+  - CardPlayer
   layers:
   - Default
   - TransparentFX

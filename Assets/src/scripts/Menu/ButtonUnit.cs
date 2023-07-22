@@ -1,11 +1,18 @@
+using src.scripts.Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonUnit : MonoBehaviour, IPointerEnterHandler
+namespace src.scripts.Menu
 {
-    private AudioManager _audioManager;
+    /// <summary>
+    /// Used to play hover audio
+    /// </summary>
+    public class ButtonUnit : MonoBehaviour, IPointerEnterHandler
+    {
+        private AudioManager _audioManager;
 
-    private void Start() => _audioManager = FindObjectOfType<AudioManager>();
+        private void Start() => _audioManager = FindObjectOfType<AudioManager>();
 
-    public void OnPointerEnter(PointerEventData eventData) => _audioManager.Play("HoverEffect");
+        public void OnPointerEnter(PointerEventData eventData) => _audioManager.Play("HoverEffect");
+    }
 }

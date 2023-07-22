@@ -1,42 +1,51 @@
+using src.scripts.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AudioOptions : MonoBehaviour
+namespace src.scripts.Menu
 {
-    [SerializeField] private AudioManagerLists audioManagerList;
-    private AudioManager _audioManager;
-    private Slider _slider;
-
-    private void Start()
+    public class AudioOptions : MonoBehaviour
     {
-        _audioManager = FindObjectOfType<AudioManager>();
-        _slider = GetComponent<Slider>();
-    }
+        [SerializeField] private AudioManagerLists audioManagerList;
+        private AudioManager _audioManager;
+        private Slider _slider;
 
-    private void Update() => PairAudio(audioManagerList);
-
-    private void PairAudio(AudioManagerLists listName)
-    {
-        switch (listName)
+        private void Start()
         {
-            case AudioManagerLists.Effects:
-                foreach (AudioSource sound in _audioManager.effects)
-                {
-                    sound.volume = _slider.value;
-                }
-                break;
-            case AudioManagerLists.Musics:
-                foreach (AudioSource sound in _audioManager.musics)
-                {
-                    sound.volume = _slider.value;
-                }
-                break;
+            _audioManager = FindObjectOfType<AudioManager>();
+            _slider = GetComponent<Slider>();
         }
-    }
 
-    private enum AudioManagerLists
-    {
-        Effects,
-        Musics
+        private void Update() => PairAudio(audioManagerList);
+
+        /// <summary>
+        /// Pair the audios by category with the volume slider
+        /// </summary>
+        /// <param name="listName">Category</param>
+        private void PairAudio(AudioManagerLists listName)
+        {
+            switch (listName)
+            {
+                case AudioManagerLists.Effects:
+                    foreach (AudioSource sound in _audioManager.effects)
+                        sound.volume = _slider.value;
+                    
+                    break;
+                case AudioManagerLists.Musics:
+                    foreach (AudioSource sound in _audioManager.musics)
+                        sound.volume = _slider.value;
+                    
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Categories of the audios
+        /// </summary>
+        private enum AudioManagerLists
+        {
+            Effects,
+            Musics
+        }
     }
 }

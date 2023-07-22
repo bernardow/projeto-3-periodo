@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 using TMPro;
 
 namespace src.scripts.Managers
@@ -25,10 +23,9 @@ namespace src.scripts.Managers
                 InitializeSetup();
                 _initialized = true;
             }
-            
         }
 
-        public void InitializeSetup()
+        private void InitializeSetup()
         {
             photonView.RPC("ActivateTopPlayer", RpcTarget.All, playersInRoom[0]);
         }

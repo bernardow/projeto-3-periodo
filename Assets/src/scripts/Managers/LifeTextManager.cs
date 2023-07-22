@@ -1,13 +1,18 @@
-using System;
 using TMPro;
 using UnityEngine;
 
-public class LifeTextManager : MonoBehaviour
+namespace src.scripts.Managers
 {
-    [SerializeField] private CardPlayer cardPlayer;
-    private TextMeshProUGUI _textMeshProUGUI;
+    /// <summary>
+    /// Updates Life text from the players
+    /// </summary>
+    public class LifeTextManager : MonoBehaviour
+    {
+        [SerializeField] private CardPlayer cardPlayer;
+        private TextMeshProUGUI _textMeshProUGUI;
 
-    private void Start() => _textMeshProUGUI = GetComponent<TextMeshProUGUI>();
+        private void Start() => _textMeshProUGUI = GetComponent<TextMeshProUGUI>();
 
-    void Update() => _textMeshProUGUI.text = cardPlayer.life.ToString();
+        void Update() => _textMeshProUGUI.text = cardPlayer.life.ToString();
+    }
 }

@@ -1,6 +1,12 @@
 using UnityEngine;
 
-public class PlayerNameDisplay : MonoBehaviour
+namespace src.scripts.Turns
 {
-    public void Deactivate() => gameObject.SetActive(false);
+    /// <summary>
+    /// Used to show player name each turn
+    /// </summary>
+    public class PlayerNameDisplay : MonoBehaviour
+    {
+        public void Deactivate() => gameObject.SetActive(false);
+    }
 }

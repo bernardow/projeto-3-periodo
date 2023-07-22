@@ -1,86 +1,107 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
-public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
+namespace src.scripts.Multiplayer
 {
-    public TMP_InputField roomNameInput;
-    [SerializeField] private TMP_InputField nicknameField;
-    [SerializeField] private Button startGameBtn;
-    [SerializeField] private List<TextMeshProUGUI> nicknameTexts = new List<TextMeshProUGUI>();
+    public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
+    {
+        public TMP_InputField roomNameInput;
+        [SerializeField] private TMP_InputField nicknameField;
+        [SerializeField] private Button startGameBtn;
+        [SerializeField] private List<TextMeshProUGUI> nicknameTexts = new List<TextMeshProUGUI>();
 
-    [SerializeField] private GameObject lobbyUI;
-    [SerializeField] private GameObject roomUI;
+        [Header("Screens References")]
+        [SerializeField] private GameObject lobbyUI;
+        [SerializeField] private GameObject roomUI;
     
-    public void CreateRoom()
-    {
-        PhotonNetwork.CreateRoom(roomNameInput.text);
-    }
+        /// <summary>
+        /// Creates a room
+        /// </summary>
+        public void CreateRoom() => PhotonNetwork.CreateRoom(roomNameInput.text);
 
-    public void JoinRoom()
-    {
-        PhotonNetwork.JoinRoom(roomNameInput.text);
-    }
-
-    public override void OnJoinedRoom()
-    {
-        ChangeUI(roomUI);
-        photonView.RPC("UpdatePlayerList", RpcTarget.AllBuffered);
-        startGameBtn.interactable = PhotonNetwork.IsMasterClient;
-    }
-
-    [PunRPC]
-    private void UpdatePlayerList()
-    {
-        foreach (var field in nicknameTexts)
+        /// <summary>
+        /// Joins Room
+        /// </summary>
+        public void JoinRoom() => PhotonNetwork.JoinRoom(roomNameInput.text);
+        
+        /// <summary>
+        /// Updates player list
+        /// </summary>
+        public override void OnJoinedRoom()
         {
-            field.text = String.Empty;
+            ChangeUI(roomUI);
+            photonView.RPC("UpdatePlayerList", RpcTarget.AllBuffered);
+            startGameBtn.interactable = PhotonNetwork.IsMasterClient;
+        }
+
+        /// <summary>
+        /// Leaves Room
+        /// </summary>
+        public void LeaveRoom() => PhotonNetwork.LeaveRoom();
+
+        /// <summary>
+        /// Updates the texts of the display
+        /// </summary>
+        /// <param name="otherPlayer"></param>
+        public override void OnPlayerLeftRoom(Player otherPlayer)
+        {
+            UpdatePlayerList();
+            startGameBtn.interactable = PhotonNetwork.IsMasterClient;
+        }
+    
+        /// <summary>
+        /// Start the game
+        /// </summary>
+        public void StartGame()
+        {
+            if(PhotonNetwork.IsMasterClient)
+                photonView.RPC("LoadLevel", RpcTarget.AllBuffered, "TestScene");
         }
         
-        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        /// <summary>
+        /// Changes the UI based on param
+        /// </summary>
+        /// <param name="currentUI">Target UI</param>
+        private void ChangeUI(GameObject currentUI)
         {
-            nicknameTexts[i].text = PhotonNetwork.PlayerList[i].NickName;
-        }
-    }
-
-    public void LeaveRoom()
-    {
-        PhotonNetwork.LeaveRoom();
-    }
-
-    public override void OnPlayerLeftRoom(Player otherPlayer)
-    {
-        UpdatePlayerList();
-        startGameBtn.interactable = PhotonNetwork.IsMasterClient;
-    }
-    
-
-    public void StartGame()
-    {
-        if(PhotonNetwork.IsMasterClient)
-            photonView.RPC("LoadLevel", RpcTarget.AllBuffered, "TestScene");
-    }
-
-    [PunRPC]
-    public void LoadLevel(string levelName)
-    {
-        PhotonNetwork.LoadLevel("TestScene");
-    }
-
-    private void ChangeUI(GameObject currentUI)
-    {
-        roomUI.SetActive(false);
-        lobbyUI.SetActive(false);
+            roomUI.SetActive(false);
+            lobbyUI.SetActive(false);
         
-        currentUI.SetActive(true);
-    }
+            currentUI.SetActive(true);
+        }
 
-    public void SetNickName()
-    {
-        PhotonNetwork.NickName = nicknameField.text;
+        /// <summary>
+        /// Sets nickname
+        /// </summary>
+        public void SetNickName() => PhotonNetwork.NickName = nicknameField.text;
+        
+        #region RPCs
+        
+        /// <summary>
+        /// Used to display witch player is playing
+        /// </summary>
+        [PunRPC]
+        private void UpdatePlayerList()
+        {
+            foreach (var field in nicknameTexts)
+                field.text = String.Empty;
+
+            for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+                nicknameTexts[i].text = PhotonNetwork.PlayerList[i].NickName;
+        }
+        
+        /// <summary>
+        /// Load the level by name
+        /// </summary>
+        /// <param name="levelName">Level name</param>
+        [PunRPC]
+        public void LoadLevel(string levelName) => PhotonNetwork.LoadLevel("TestScene");
+        
+        #endregion
     }
 }

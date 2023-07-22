@@ -1,9 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LocalSceneManager : MonoBehaviour
+namespace src.scripts.Managers
 {
-    public void ChangeScene(int index) => SceneManager.LoadScene(index);
+    public class LocalSceneManager : MonoBehaviour
+    {
+        /// <summary>
+        /// Changes the scene to the indicated by the index
+        /// </summary>
+        /// <param name="index">Index of the new scene</param>
+        public void ChangeScene(int index) => SceneManager.LoadScene(index);
+    }
 }

@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public interface IObservable
+namespace src.scripts
 {
-    void OnNotify(RaycastHit hit);
+    public interface IObservable
+    {
+        void OnNotify(RaycastHit hit);
+    }
 }

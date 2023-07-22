@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Photon.Pun;
 using src.scripts.Deck.Special_Cards;
+using src.scripts.Managers;
 using UnityEngine;
 
 namespace src.scripts.Hand
@@ -46,7 +47,6 @@ namespace src.scripts.Hand
             {
                 _player.trash.MoveMergedCardsToTrash(selectedCardsArray, _player);
                 _player.merge.GetMergedColor(mergedColor, _player);
-                _player.PlayerManager.mergedCards++;
             }   
         }
         

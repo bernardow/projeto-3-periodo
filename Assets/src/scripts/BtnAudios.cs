@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using src.scripts.Managers;
 using UnityEngine;
 
-public class BtnAudios : MonoBehaviour
+namespace src.scripts
 {
-    public void SendConfirmBtnAudio() => AudioManager.Instance.Play("ConfirmBtnEffect");
+    public class BtnAudios : MonoBehaviour
+    {
+        public void SendConfirmBtnAudio() => AudioManager.Instance.Play("ConfirmBtnEffect");
 
-    public void SendDeniedBtnAudio() => AudioManager.Instance.Play("DeniedBtnEffect");
-
+        public void SendDeniedBtnAudio() => AudioManager.Instance.Play("DeniedBtnEffect");
+    }
 }

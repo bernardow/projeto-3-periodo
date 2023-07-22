@@ -26,17 +26,20 @@ namespace src.scripts.Hand
         /// <summary>
         /// Verifies if the card selected it`s already selected and does the action of adding and removing form the list
         /// </summary>
-        /// <param name="hitTag">Card that`s being slected</param>
+        /// <param name="hitTag">Card that`s being selected</param>
         public void OnNotify(RaycastHit hitTag)
         {
-            if (hitTag.collider.CompareTag("MyCards") && !selectedCardsPlaye1.Contains(hitTag.collider.gameObject) && selectedCardsPlaye1.Count < 2)
+            if (hitTag.collider.CompareTag("MyCards") && _player.PlayerManager.CanSelect())
             {
-                ChangeMaterial(true, hitTag);
-                selectedCardsPlaye1.Add(hitTag.collider.gameObject);
-            }else if (hitTag.collider.CompareTag("MyCards") && selectedCardsPlaye1.Contains(hitTag.collider.gameObject))
-            {
-                ChangeMaterial(false, hitTag);
-                selectedCardsPlaye1.Remove(hitTag.collider.gameObject);
+                if (!selectedCardsPlaye1.Contains(hitTag.collider.gameObject) && selectedCardsPlaye1.Count < 2)
+                {
+                    ChangeMaterial(true, hitTag);
+                    selectedCardsPlaye1.Add(hitTag.collider.gameObject);
+                }else if (selectedCardsPlaye1.Contains(hitTag.collider.gameObject))
+                {
+                    ChangeMaterial(false, hitTag);
+                    selectedCardsPlaye1.Remove(hitTag.collider.gameObject);
+                }
             }
         }
     }

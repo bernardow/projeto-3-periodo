@@ -1,61 +1,72 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Photon.Pun;
-using Photon.Realtime;
-using src.scripts.Deck;
-using src.scripts.Managers;
 using UnityEngine;
 
-public class PauseManager : MonoBehaviour
+namespace src.scripts.Managers
 {
-    [SerializeField] private GameObject pauseScreeen;
-    [SerializeField] private GameObject tutorialScreen;
-    [SerializeField] private GameObject optionsScreen;
-    private TurnManager _turnManager;
-
-    private void Start() => _turnManager = FindObjectOfType<TurnManager>();
-
-    public void Pause()
+    public class PauseManager : MonoBehaviour
     {
-        pauseScreeen.SetActive(!pauseScreeen.activeSelf);
-    }
-    
-    public void ResumeGame()
-    {
-        pauseScreeen.SetActive(false);
-    }
+        //Screens
+        [SerializeField] private GameObject pauseScreen;
+        [SerializeField] private GameObject tutorialScreen;
+        [SerializeField] private GameObject optionsScreen;
+        
+        //References
+        private TurnManager _turnManager;
 
-    public void Options()
-    {
-        pauseScreeen.SetActive(false);
-        optionsScreen.SetActive(true);
-    }
+        //Assignments
+        private void Start() => _turnManager = FindObjectOfType<TurnManager>();
 
-    public void Return()
-    {
-        optionsScreen.SetActive(false);
-        pauseScreeen.SetActive(true);
-    }
-
-    public void QuitGame()
-    {
-        PhotonView photonView = null;
-        foreach (var cardPlayer in FindObjectsOfType<CardPlayer>())
+        /// <summary>
+        /// Activates Pause screen todo make impossible for player to play while is with the game paused
+        /// </summary>
+        public void Pause() => pauseScreen.SetActive(!pauseScreen.activeSelf);
+        
+        /// <summary>
+        /// Resumes Game
+        /// </summary>
+        public void ResumeGame() => pauseScreen.SetActive(false);
+        
+        /// <summary>
+        /// Set active options scene
+        /// </summary>
+        public void Options()
         {
-            if (cardPlayer.GetComponent<PhotonView>().IsMine)
-            {
-                photonView = cardPlayer.GetComponent<PhotonView>();
-                _turnManager.playersInRoom.Remove(photonView.ViewID);
-            }
+            pauseScreen.SetActive(false);
+            optionsScreen.SetActive(true);
         }
-        
-        
-        AudioManager.Instance.Stop("MainTheme");
-        PhotonNetwork.LoadLevel("Lobby");
-        PhotonNetwork.LeaveRoom();
-    }
 
-    public void ShowTutorial() => tutorialScreen.SetActive(!tutorialScreen.activeSelf);
+        /// <summary>
+        /// Returns to pause scene
+        /// </summary>
+        public void Return()
+        {
+            optionsScreen.SetActive(false);
+            pauseScreen.SetActive(true);
+        }
+
+        /// <summary>
+        /// Quit game to main menu
+        /// </summary>
+        public void QuitGame()
+        {
+            foreach (var cardPlayer in FindObjectsOfType<CardPlayer>())
+            {
+                if (cardPlayer.GetComponent<PhotonView>().IsMine)
+                {
+                    PhotonView photonView = cardPlayer.GetComponent<PhotonView>();
+                    _turnManager.playersInRoom.Remove(photonView.ViewID);
+                }
+            }
+            
+            AudioManager.Instance.Stop("MainTheme");
+            PhotonNetwork.LoadLevel("Lobby");
+            PhotonNetwork.LeaveRoom();
+        }
+
+        /// <summary>
+        /// Show tutorial screen
+        /// </summary>
+        public void ShowTutorial() => tutorialScreen.SetActive(!tutorialScreen.activeSelf);
     
+    }
 }

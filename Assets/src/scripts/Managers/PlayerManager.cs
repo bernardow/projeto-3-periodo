@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using System.Collections.Generic;
 using UnityEngine.UI;
 
 namespace src.scripts.Managers
@@ -9,45 +7,47 @@ namespace src.scripts.Managers
     {
         private Button _skipTurnBtn;
         public int cardsPulled;
-        public bool canPull;
         public int playerCardsNum;
-        public int mergedCards;
-        public int droppedCards;
+        public bool CanPull { get; private set; }
 
+        //Gets button
         private void Awake() => _skipTurnBtn = GameObject.Find("Turn Btn").GetComponent<Button>();
 
+        //Reset the number of cards that the player pulled this round
         private void OnEnable()
         {
             cardsPulled = 0;
-            mergedCards = 0;
-            droppedCards = 0;
             CanSkipTurn(true);
         }
 
+        //Disables skip turn button when the round is over
         private void OnDisable()
         {
             if(_skipTurnBtn!)
                 CanSkipTurn(false);
         }
 
-        private void Update()
-        {
-            CanPull();
-        }
-
+        //Checks if can pull
+        private void Update() => CanPullCard();
+        
+        //Change the interaction with the skip turn button
         private void CanSkipTurn(bool state) => _skipTurnBtn.interactable = state;
         
-        
-        private void CanPull()
+        /// <summary>
+        /// Checks if Player can pull card
+        /// </summary>
+        private void CanPullCard()
         {
             if (cardsPulled < 1 && playerCardsNum < 4)
-                canPull = true;
+                CanPull = true;
             else
-                canPull = false;
+                CanPull = false;
         }
 
-        public bool CanSelect() => !canPull;
-
-        public bool CanMerge() => true;
+        /// <summary>
+        /// Checks if player can select a card
+        /// </summary>
+        /// <returns></returns>
+        public bool CanSelect() => !CanPull;
     }
 }

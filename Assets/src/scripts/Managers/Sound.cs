@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Sound
+namespace src.scripts.Managers
 {
-    public string name;
+    [System.Serializable]
+    public class Sound
+    {
+        public string name;
 
-    public AudioClip clip;
+        public AudioClip clip;
     
-    public float volume;
-    public float pitch;
+        public float volume;
+        public float pitch;
 
-    public bool loop;
+        public bool loop;
 
-    public AudioSource source;
+        public AudioSource source;
+    }
 }

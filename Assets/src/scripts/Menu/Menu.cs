@@ -1,30 +1,38 @@
-using System;
+using src.scripts.Managers;
 using UnityEngine;
 
-public class Menu : MonoBehaviour
+namespace src.scripts.Menu
 {
-    [SerializeField] private GameObject menuScreen;
-    [SerializeField] private GameObject optionsScreen;
+    public class Menu : MonoBehaviour
+    {
+        [SerializeField] private GameObject menuScreen;
+        [SerializeField] private GameObject optionsScreen;
     
-    public void Quit()
-    {
-        Application.Quit();
-    }
+        /// <summary>
+        /// Quit aplication
+        /// </summary>
+        public void Quit() => Application.Quit();
 
-    public void Options()
-    {
-        menuScreen.SetActive(false);
-        optionsScreen.SetActive(true);
-    }
+        /// <summary>
+        /// Turns on the options screen
+        /// </summary>
+        public void Options()
+        {
+            menuScreen.SetActive(false);
+            optionsScreen.SetActive(true);
+        }
 
-    public void Return()
-    {
-        optionsScreen.SetActive(false);
-        menuScreen.SetActive(true);
-    }
+        /// <summary>
+        /// Return to main menu screen
+        /// </summary>
+        public void Return()
+        {
+            optionsScreen.SetActive(false);
+            menuScreen.SetActive(true);
+        }
 
-    private void Start()
-    {
-        AudioManager.Instance.Play("MenuTheme");
+        //Play menu theme
+        private void Start() => AudioManager.Instance.Play("MenuTheme");
+        
     }
 }

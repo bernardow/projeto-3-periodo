@@ -1,64 +1,79 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+namespace src.scripts.Managers
 {
-    public Sound[] sounds;
-    public List<AudioSource> effects = new List<AudioSource>();
-    public List<AudioSource> musics = new List<AudioSource>();
-
-    public static AudioManager Instance;
-    
-    private void Awake()
+    public class AudioManager : MonoBehaviour
     {
-        if (Instance == null)
-            Instance = this;
-        else
+        public Sound[] sounds;
+        public List<AudioSource> effects = new List<AudioSource>();
+        public List<AudioSource> musics = new List<AudioSource>();
+
+        public static AudioManager Instance;
+    
+        //Sets singleton
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
-        }
+            if (Instance == null)
+                Instance = this;
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
         
-        DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
 
-        foreach (var sound in sounds)
-        {
-            sound.source = gameObject.AddComponent<AudioSource>();
-            sound.source.clip = sound.clip;
+            //Assignments
+            foreach (var sound in sounds)
+            {
+                sound.source = gameObject.AddComponent<AudioSource>();
+                sound.source.clip = sound.clip;
 
-            sound.source.loop = sound.loop;
-            sound.source.volume = sound.volume;
-            sound.source.pitch = sound.pitch;
+                sound.source.loop = sound.loop;
+                sound.source.volume = sound.volume;
+                sound.source.pitch = sound.pitch;
             
-            string[] soundName = Regex.Split(sound.name, @"(?<!^)(?=[A-Z])");
-            if(soundName[^1] == "Effect")
-                effects.Add(sound.source);
-            else musics.Add(sound.source);
+                string[] soundName = Regex.Split(sound.name, @"(?<!^)(?=[A-Z])");
+                if(soundName[^1] == "Effect")
+                    effects.Add(sound.source);
+                else musics.Add(sound.source);
+            }
         }
-    }
 
-    public void Play(string name)
-    {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        #region Public Methods
+
+        /// <summary>
+        /// Search an audio by name and play it
+        /// </summary>
+        /// <param name="audioName">Name of the audio</param>
+        public void Play(string audioName)
         {
-            Debug.LogWarning("Sound: " +  name + " not found");
-            return;
+            Sound s = Array.Find(sounds, sound => sound.name == audioName);
+            if (s == null)
+            {
+                Debug.LogWarning("Sound: " +  audioName + " not found");
+                return;
+            }
+            s.source.Play(); 
         }
-        s.source.Play(); 
-    }
     
-    public void Stop(string name)
-    {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        /// <summary>
+        /// Search an audio by name and stops it
+        /// </summary>
+        /// <param name="audioName"></param>
+        public void Stop(string audioName)
         {
-            Debug.LogWarning("Sound: " +  name + " not found");
-            return;
+            Sound s = Array.Find(sounds, sound => sound.name == audioName);
+            if (s == null)
+            {
+                Debug.LogWarning("Sound: " +  audioName + " not found");
+                return;
+            }
+            s.source.Stop(); 
         }
-        s.source.Stop(); 
+        #endregion
     }
 }
