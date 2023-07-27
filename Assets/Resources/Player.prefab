@@ -174,12 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 50
   bonus: 1
-  merge: {fileID: 7943818761813358113}
-  puller: {fileID: 7720467860455531314}
   hand: {fileID: 7943818761813358115}
-  cardSelector: {fileID: 4931446104775527913}
-  playerManager: {fileID: 7943818761813358114}
-  discard: {fileID: 8974347708535276280}
   raycastManager: {fileID: 362618843005621877}
   forwardOffset: 20
   downOffset: 10
@@ -654,31 +649,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d3e8280d3f39b46b1a3e8cb0732b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesaPlaces:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   cardsPos: {fileID: 7943818761233886531}
-  playerManager: {fileID: 7943818761813358114}
   trash: {fileID: 0}
   merge: {fileID: 7943818761813358113}
   turnManager: {fileID: 0}
-  selectedMaterial: {fileID: 2100000, guid: f7469b43e26511042a0030ca8cd0e138, type: 2}
-  defaultMaterial: {fileID: 2100000, guid: 1f7cc7666f46aca43ae0d1c57f532219, type: 2}
   player1Hand: []
   handTransform: {fileID: 7943818761133346107}
   playerCamera: {fileID: 6567161797986286077}
-  cardPlayer: {fileID: 654897869208654078}
-  targetSelector: {fileID: 0}
-  _cardSelector: {fileID: 0}
-  attack: {fileID: 0}
   photonViewPlayer: {fileID: 1424773479995254937}
 --- !u!114 &7943818761813358114
 MonoBehaviour:
@@ -693,10 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardsPulled: 0
-  canPull: 0
   playerCardsNum: 0
-  mergedCards: 0
-  droppedCards: 0
 --- !u!114 &7943818761813358113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,7 +746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f97c26ae4edd44419dbb5258bd190b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerCamera: {fileID: 6567161797986286077}
+  playerCamera: {fileID: 6567161797986286077}
   cardSelector: {fileID: 4931446104775527913}
   discard: {fileID: 8974347708535276280}
   puller: {fileID: 7720467860455531314}

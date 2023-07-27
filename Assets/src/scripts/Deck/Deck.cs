@@ -143,7 +143,7 @@ namespace src.scripts.Deck
                 }
             
                 //Photon instantiate and pair their info to everybody in the room
-                GameObject newCard = PhotonNetwork.Instantiate(cardPrefab.name, _spawnPos, Quaternion.Euler(new Vector3(270, 0,0))).gameObject;
+                GameObject newCard = PhotonNetwork.InstantiateRoomObject(cardPrefab.name, _spawnPos, Quaternion.Euler(new Vector3(270, 0,0))).gameObject;
                 photonView.RPC("PairCardInfo", RpcTarget.All, newCard.GetComponent<PhotonView>().ViewID);
             }
         }
@@ -172,7 +172,7 @@ namespace src.scripts.Deck
         {
             for (int i = 0; i < numberOfCards; i++)
             {
-                GameObject newColor = PhotonNetwork.Instantiate(prefab.name, pos, Quaternion.Euler(90,0, 0));
+                GameObject newColor = PhotonNetwork.InstantiateRoomObject(prefab.name, pos, Quaternion.Euler(90,0, 0));
                 pos += Vector3.up * 0.1f;
                 colorStack.Push(newColor);
             }
