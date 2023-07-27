@@ -22,7 +22,14 @@ namespace src.scripts.Multiplayer
         /// <summary>
         /// Creates a room
         /// </summary>
-        public void CreateRoom() => PhotonNetwork.CreateRoom(roomNameInput.text);
+        public void CreateRoom()
+        {
+            RoomOptions roomOptions = new RoomOptions
+            {
+                MaxPlayers = 4
+            };
+            PhotonNetwork.CreateRoom(roomNameInput.text, roomOptions);
+        }
 
         /// <summary>
         /// Joins Room
